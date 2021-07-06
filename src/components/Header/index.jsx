@@ -1,5 +1,5 @@
 import { ButtonsWrapper, HeaderContainer } from "./styles";
-import Logo from "../../assets/svg/a.svg";
+import Logo from "../../assets/svg/logo.svg";
 import { useHistory, useLocation } from "react-router";
 import Button from "../Button";
 import { Link } from "react-router-dom";

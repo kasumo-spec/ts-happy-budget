@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
   width: 100%;
-  background-color: var(--white);
+  background-color: #fff;
   padding: 18px 8px;
   display: ${(props) =>
     props.location === "/" ||

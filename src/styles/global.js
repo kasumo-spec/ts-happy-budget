@@ -64,6 +64,7 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
         padding-top: 90px;
+        background-color: var(--white)
     }
 
  
