@@ -22,7 +22,7 @@ export const BudgetProvider = ({children}) => {
                 setBudgets(res.data)
             })
         }
-    },[])
+    },[setBudgetCreateSuccess,setBudgetDeleteSuccess])
 
     const createBudget = (data) => {
         let budgetInfos = {
@@ -34,7 +34,6 @@ export const BudgetProvider = ({children}) => {
             then((res) => {
                 if (res.status === 201){
                     setBudgetCreateSuccess(true)
-                    setBudgets(...budgets,budgetInfos)
                 }
         })
     }
@@ -42,7 +41,7 @@ export const BudgetProvider = ({children}) => {
     const deleteBudget = (data) => {
         api.delete(`budget/${data}`, {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("@HappyBudget:token")}`
+                'Authorization': `Bearer ${token}`
             }
         }).then((res) => {
             if (res.status === 200) {

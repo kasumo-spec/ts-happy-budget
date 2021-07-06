@@ -1,12 +1,15 @@
 import {UserProvider} from "./users";
 import {BudgetProvider} from "./budget";
+import {IncomeProvider} from "./income";
 
 
 const Providers = ({children}) => {
     return (
         <BudgetProvider>
             <UserProvider>
-                {children}
+                <IncomeProvider>
+                    {children}
+                </IncomeProvider>
             </UserProvider>
         </BudgetProvider>
     )
