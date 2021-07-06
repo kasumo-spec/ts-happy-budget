@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
-import api from "../../services/api";
+import api from "../../services";
 
 export const UserContext = createContext([])
 
@@ -25,7 +25,7 @@ export const UserProvider = ({children}) => {
             })
                 .then((res) => setUserName(res.data.name))
         }
-    })
+    },[token])
 
     const createUser = (data) => {
         api.post("register", data).
