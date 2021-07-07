@@ -29,6 +29,17 @@ const colors = [
 ];
 
 export const ComposedChartComponent = () => {
+  // const [data, setData] = useState([
+  //   { category: "Moradia", Orçamento: 1000, Gasto: 800 },
+  //   { category: "Alimentação", Orçamento: 500, Gasto: 400 },
+  //   { category: "Transporte", Orçamento: 300, Gasto: 250 },
+  //   { category: "Saúde", Orçamento: 200, Gasto: 200 },
+  //   { category: "Educação", Orçamento: 400, Gasto: 400 },
+  //   { category: "Lazer", Orçamento: 200, Gasto: 350 },
+  //   { category: "Pets", Orçamento: 150, Gasto: 50 },
+  //   { category: "Outros", Orçamento: 200, Gasto: 100 },
+  // ]);
+
   const [data, setData] = useState([
     { category: "Moradia" },
     { category: "Alimentação" },
@@ -49,32 +60,35 @@ export const ComposedChartComponent = () => {
       data.forEach((d) => {
         for (let i = 0; i < data.length; i++) {
           const partial = debts[i];
+          let deb = "Gasto";
           if (partial !== undefined) {
             if (d.category === partial.category) {
-              let deb = "Gasto";
+              console.log(d, partial);
               d[deb] = partial.value;
-              if (budgets.length > 0) {
-                budgets.forEach((b) => {
-                  if (b.category === partial.category) {
-                    let budg = "Orçamento";
-                    d[budg] = b.value;
-                  }
-                });
-              } else {
-                let budg = "Orçamento";
-                d[budg] = 0;
-              }
             }
-          } else {
-            let deb = "Gasto";
+          }
+          if (partial === undefined) {
             d[deb] = 0;
           }
         }
+        for (let j = 0; j < data.length; j++) {
+          const partial = budgets[j];
+          let budg = "Orçamento";
+          if (partial !== undefined) {
+            if (d.category === partial.category) {
+              d[budg] = partial.value;
+            }
+          } else {
+            let budg = "Orçamento";
+            d[budg] = 0;
+          }
+        }
       });
+      setData([...data]);
     }
     console.log(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [debts, budgets]);
 
   return (
     <ChartContainer>

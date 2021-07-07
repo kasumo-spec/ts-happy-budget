@@ -96,7 +96,7 @@ export const PieChartComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const { debts } = useDebts();
-
+  console.log(debts);
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
   };
@@ -114,15 +114,18 @@ export const PieChartComponent = () => {
 
   useEffect(() => {
     if (debts.length > 0) {
-      for (let debt = 0; debt < debts.length; debt++) {
-        const partial = debts[debt];
-        data.forEach((d) => {
-          if (d.category === partial.category) {
-            d.value += partial.value;
-            setData([...data]);
+      for (let i = 0; i < data.length; i++) {
+        const partial = data[i];
+        partial.value = 0;
+
+        for (let j = 0; j < debts.length; j++) {
+          const partialDebts = debts[j];
+          if (partial.category === partialDebts.category) {
+            partial.value += partialDebts.value;
           }
-        });
+        }
       }
+      setData([...data]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debts]);
@@ -139,7 +142,6 @@ export const PieChartComponent = () => {
             cy="50%"
             innerRadius={50}
             outerRadius={80}
-            // fill="#8884d8"
             dataKey="value"
             onMouseEnter={onPieEnter}
             isAnimationActive

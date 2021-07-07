@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
       let decoderId = jwtDecode(token);
       setUserId(decoderId.sub);
       api
-        .get(`users/${userId}`, {
+        .get(`users/${decoderId.sub}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
