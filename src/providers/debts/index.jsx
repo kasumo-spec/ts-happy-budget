@@ -2,68 +2,68 @@ import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import {useUser} from "../users";
 
-export const DebtContext = createContext([])
+export const DebitContext = createContext([])
 
-export const DebtProvider = ({children}) => {
+export const DebitProvider = ({children}) => {
     const {token} = useUser()
-    const [debtCreateSuccess, setDebtCreateSuccess] = useState(Boolean)
-    const [debtEditSuccess, setDebtEditSuccess] = useState(Boolean)
-    const [debtDeleteSuccess, setDebtDeleteSuccess] = useState(Boolean)
-    const [debts,setDebts] = useState([])
+    const [debitCreateSuccess, setDebitCreateSuccess] = useState(Boolean)
+    const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean)
+    const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean)
+    const [debits,setDebits] = useState([])
 
     useEffect(() => {
         if(token !== "") {
-            api.get("debt", {
+            api.get("debit", {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             }).then((res) => {
-                setDebts(res.data)
+                setDebits(res.data)
             })
         }
-    }, [debtCreateSuccess,debtEditSuccess,debtDeleteSuccess])
+    }, [debitCreateSuccess,debitEditSuccess,debitDeleteSuccess])
 
-    const createDebt = (data) => {
-        api.post("debt", data, {
+    const createDebit = (data) => {
+        api.post("debit", data, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then((res) => {
             if(res.status === 201) {
-                setDebtCreateSuccess(true)
+                setDebitCreateSuccess(true)
             }
-        }).catch((_) => setDebtCreateSuccess(false))
+        }).catch((_) => setDebitCreateSuccess(false))
     }
 
-    const editDebt = (data,id) => {
-        api.patch(`debt/${id}`, data, {
+    const editDebit = (data,id) => {
+        api.patch(`debit/${id}`, data, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then((_) => {
-            setDebtEditSuccess(true)
-        }).catch((_) => setDebtEditSuccess(false))
+            setDebitEditSuccess(true)
+        }).catch((_) => setDebitEditSuccess(false))
     }
 
-    const deleteDebt = (data) => {
-        api.delete(`debt/${data}`, {
+    const deleteDebit = (data) => {
+        api.delete(`debit/${data}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then((_) => {
-            setDebtDeleteSuccess(true)
-        }).catch((_) => setDebtDeleteSuccess(false))
+            setDebitDeleteSuccess(true)
+        }).catch((_) => setDebitDeleteSuccess(false))
     }
 
     return (
-        <DebtContext.Provider
-            value={{createDebt, editDebt, deleteDebt,
-                    debts, debtCreateSuccess, debtEditSuccess, debtDeleteSuccess}}
+        <DebitContext.Provider
+            value={{createDebit, editDebit, deleteDebit,
+                    debits, debitCreateSuccess, debitEditSuccess, debitDeleteSuccess}}
         >
             {children}
-        </DebtContext.Provider>
+        </DebitContext.Provider>
     )
 
 }
 
-export const useDebts = () => useContext(DebtContext)
+export const useDebits = () => useContext(DebitContext)
