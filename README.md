@@ -1,4 +1,4 @@
-#APP Financeiro (Happy Budget/Finance)
+# APP Financeiro (Happy Budget/Finance)
 
 Projeto de entrega em grupo, feito no curso de Desenvolvedor Web Full Stack na Kenzie Academy Brasil.
 
