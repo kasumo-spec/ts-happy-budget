@@ -51,6 +51,7 @@ export const GlobalStyles = createGlobalStyle`
 
     a {
         text-decoration: none;
+        color: blue;
     }
 
     button {
