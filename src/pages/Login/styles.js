@@ -1,3 +1,5 @@
+import { TextField } from "@material-ui/core";
+import Button from "../../components/Button";
 import styled from "styled-components";
 
 export const ContainerLogin = styled.div`
@@ -32,6 +34,26 @@ export const ContainerLogin = styled.div`
 
         h1 {
             padding-top: 25px;
+            font-size: 2.5em;
         }
+    }
+`;
+
+export const  FormInput = styled(TextField)`
+
+    input {
+        border: 2px solid #341e48;
+        border-radius: 5px;
+        height: 10px;
+    }
+    
+`;
+
+export const ButtonForm = styled(Button)`
+
+    @media(max-width: 1000px){
+        width: 80px;
+        padding: 8px;
+        font-size: 1em;
     }
 `;

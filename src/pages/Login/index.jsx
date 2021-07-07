@@ -1,10 +1,9 @@
-import { ContainerLogin } from "./styles";
+import { ContainerLogin, FormInput, ButtonForm } from "./styles";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
-import { TextField } from "@material-ui/core";
 import { useUser } from "../../providers/users";
 
 const Login = () => {
@@ -30,10 +29,10 @@ const Login = () => {
     <ContainerLogin>
       <h1>Login</h1>
       <form onSubmit={handleSubmit(handleForm)}>
-        <TextField 
-          margin="normal"
+        <FormInput 
+          margin="dense"
           variant="outlined"
-          label="Digite seu e-mail."
+          placeholder="Digite seu e-mail."
           size="small"
           color="primary"
           {...register("email")}
@@ -41,11 +40,11 @@ const Login = () => {
           helperText={errors.email?.message}
         />
 
-        <TextField 
+        <FormInput 
           type="password"
-          margin="normal"
+          margin="dense"
           variant="outlined"
-          label="Digite sua senha."
+          placeholder="Digite seu e-mail."
           size="small"
           color="primary"
           {...register("password")}
@@ -58,7 +57,7 @@ const Login = () => {
         <a href="/signup"> aqui.</a>
       </p>
 
-      <Button type="submit">Login</Button>
+      <ButtonForm type="submit">Login</ButtonForm>
 
       </form>
 

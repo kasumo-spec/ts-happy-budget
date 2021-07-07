@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../../components/Button";
 
 export const ContainerSignup = styled.div`
     background-color: #edfcf9;
@@ -32,6 +33,16 @@ export const ContainerSignup = styled.div`
 
         h1 {
             padding-top: 25px;
+            font-size: 2.5em;
         }
+    }
+`;
+
+export const ButtonForm = styled(Button)`
+
+    @media(max-width: 1000px){
+        width: 100px;
+        padding: 8px;
+        font-size: 1em;
     }
 `;

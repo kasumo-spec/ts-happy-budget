@@ -1,11 +1,11 @@
-import { ContainerSignup } from "./styles";
-import { TextField } from "@material-ui/core";
+import { ContainerSignup, ButtonForm } from "./styles";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../components/Button";
 import { useHistory } from "react-router-dom";
 import { useUser } from "../../providers/users";
+import { FormInput } from "../Login/styles";
 
 
 const SignUp = () => {
@@ -34,10 +34,10 @@ const SignUp = () => {
       <h1>Cadastro</h1>
 
       <form onSubmit={handleSubmit(handleForm)}>
-        <TextField 
-          margin="normal"
+        <FormInput 
+          margin="dense"
           variant="outlined"
-          label="Digite seu nome de usuário"
+          placeholder="Digite o nome de usuário"
           size="small"
           color="primary"
           {...register("name")}
@@ -45,10 +45,10 @@ const SignUp = () => {
           helperText={errors.name?.message}
         />
 
-        <TextField 
-          margin="normal"
+        <FormInput 
+          margin="dense"
           variant="outlined"
-          label="Digite seu e-mail"
+          placeholder="Digite seu e-mail"
           size="small"
           color="primary"
           {...register("email")}
@@ -56,11 +56,11 @@ const SignUp = () => {
           helperText={errors.email?.message}
         />
 
-        <TextField 
+        <FormInput 
           type="password"
-          margin="normal"
+          margin="dense"
           variant="outlined"
-          label="Digite sua senha"
+          placeholder="Digite sua senha"
           size="small"
           color="primary"
           {...register("password")}
@@ -68,11 +68,11 @@ const SignUp = () => {
           helperText={errors.password?.message}
         />
 
-        <TextField 
+        <FormInput 
           type="password"
-          margin="normal"
+          margin="dense"
           variant="outlined"
-          label="Confirme sua senha"
+          placeholder="Confirme sua senha"
           size="small"
           color="primary"
           {...register("passwordChecked")}
@@ -84,7 +84,7 @@ const SignUp = () => {
           <a href="/login"> aqui.</a>
         </p>
 
-        <Button type="submit">Cadastrar</Button>
+        <ButtonForm type="submit">Cadastrar</ButtonForm>
       </form>
 
     </ContainerSignup>
