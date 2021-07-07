@@ -2,7 +2,8 @@ import Routes from "./routes";
 // import Aside from "./components/Aside";
 import { GlobalStyles } from "./styles/global";
 import Header from "./components/Header";
-import { BarChartComponent, PieChartComponent } from "./components/Chart";
+import { PieChartComponent } from "./components/Chart";
+import { ComposedChartComponent } from "./components/Chart/areaChart";
 
 const App = () => {
   return (
@@ -11,7 +12,7 @@ const App = () => {
       {/* <Aside /> */}
       <Routes />
       <PieChartComponent />
-      <BarChartComponent />
+      <ComposedChartComponent />
       <GlobalStyles />
     </div>
   );

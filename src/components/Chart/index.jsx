@@ -1,18 +1,7 @@
-import { useState } from "react";
-import {
-  PieChart,
-  Pie,
-  Sector,
-  ResponsiveContainer,
-  Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+import { useEffect, useState } from "react";
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import { useDebts } from "../../providers/debts";
+import { ChartContainer } from "./styles";
 
 const colors = [
   "#0088FE",
@@ -29,7 +18,6 @@ const colors = [
 const RADIAN = Math.PI / 180;
 
 const StructurePieChart = (props) => {
-  console.log(props);
   const {
     cx,
     cy,
@@ -41,7 +29,7 @@ const StructurePieChart = (props) => {
     fill,
     payload,
     percent,
-    amount,
+    value,
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
@@ -87,7 +75,10 @@ const StructurePieChart = (props) => {
         y={ey}
         textAnchor={textAnchor}
         fill="#333"
-      >{`${amount}`}</text>
+      >{`${value.toLocaleString("pt-br", {
+        style: "currency",
+        currency: "BRL",
+      })}`}</text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
@@ -104,84 +95,64 @@ const StructurePieChart = (props) => {
 export const PieChartComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const { debts } = useDebts();
+
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
   };
 
-  const data = [
-    { category: "Moradia", value: 400, amount: "R$400,00" },
-    { category: "Alimentação", value: 300, amount: "R$300,00" },
-    { category: "Transporte", value: 300, amount: "R$300,00" },
-    { category: "Saúde", value: 200, amount: "R$200,00" },
-    { category: "Educação", value: 200, amount: "R$200,00" },
-    { category: "Lazer", value: 200, amount: "R$200,00" },
-    { category: "Pets", value: 200, amount: "R$200,00" },
-    { category: "Outros", value: 200, amount: "R$200,00" },
-  ];
+  const [data, setData] = useState([
+    { category: "Moradia", value: 0 },
+    { category: "Alimentação", value: 0 },
+    { category: "Transporte", value: 0 },
+    { category: "Saúde", value: 0 },
+    { category: "Educação", value: 0 },
+    { category: "Lazer", value: 0 },
+    { category: "Pets", value: 0 },
+    { category: "Outros", value: 0 },
+  ]);
+
+  useEffect(() => {
+    if (debts.length > 0) {
+      for (let debt = 0; debt < debts.length; debt++) {
+        const partial = debts[debt];
+        data.forEach((d) => {
+          if (d.category === partial.category) {
+            d.value += partial.value;
+            setData([...data]);
+          }
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debts]);
 
   return (
-    // <ResponsiveContainer width="100%" height="100%">
-    <PieChart width={500} height={500}>
-      <Pie
-        activeIndex={activeIndex}
-        activeShape={StructurePieChart}
-        data={data}
-        cx="50%"
-        cy="50%"
-        innerRadius={50}
-        outerRadius={80}
-        fill="#8884d8"
-        dataKey="value"
-        onMouseEnter={onPieEnter}
-        isAnimationActive
-      >
-        {data.map((_, index) => (
-          <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-        ))}
-      </Pie>
-    </PieChart>
-    // </ResponsiveContainer>
-  );
-};
-
-export const BarChartComponent = () => {
-  const data = [
-    { name: "Moradia", value: 400, amount: "R$400,00" },
-    { name: "Alimentação", value: 300, amount: "R$300,00" },
-    { name: "Transporte", value: 300, amount: "R$300,00" },
-    { name: "Saúde", value: 200, amount: "R$200,00" },
-    { name: "Educação", value: 200, amount: "R$200,00" },
-    { name: "Lazer", value: 200, amount: "R$200,00" },
-    { name: "Pets", value: 200, amount: "R$200,00" },
-    { name: "Outros", value: 200, amount: "R$200,00" },
-  ];
-
-  return (
-    // <ResponsiveContainer width="100%" height="100%">
-    <BarChart
-      width={500}
-      height={300}
-      data={data}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis />
-      <YAxis dataKey="name" />
-      <Tooltip />
-      <Legend />
-      {data.map((element, index) => (
-        <Bar
-          key={`cell-${index}`}
-          dataKey={element.category}
-          fill={colors[index % colors.length]}
-        />
-      ))}
-    </BarChart>
-    // </ResponsiveContainer>
+    <ChartContainer>
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart width={500} height={500}>
+          <Pie
+            activeIndex={activeIndex}
+            activeShape={StructurePieChart}
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={50}
+            outerRadius={80}
+            // fill="#8884d8"
+            dataKey="value"
+            onMouseEnter={onPieEnter}
+            isAnimationActive
+          >
+            {data.map((_, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={colors[index % colors.length]}
+              />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartContainer>
   );
 };
