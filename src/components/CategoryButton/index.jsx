@@ -1,18 +1,50 @@
-import { CategoryButtons } from "./styles";
-// import salary from "../../assets/svg";
-// --gift: #a33e57;
-// --investment: #3e517a;
-// --food: #a1867f;
-// --health: #ff686b;
-// --pet: #6c91c2;
-// --home: #654a3e;
-// --fun: #f5d329;
-// --education: #00c49a;
-// --transport: #495383;
-// --otherIncome: #057ef0;
-// --otherDebt: #edfcf9;
+import { CategoryButtons } from "./style";
+import salary from "../../assets/categorys/money.png";
+import gift from "../../assets/categorys/gift.png";
+import investment from "../../assets/categorys/investment.png";
+import food from "../../assets/categorys/food.png";
+import health from "../../assets/categorys/health.png";
+import pet from "../../assets/categorys/pet.png";
+import home from "../../assets/categorys/home.svg";
+import hobby from "../../assets/categorys/hobby.png";
+import study from "../../assets/categorys/study.png";
+import transport from "../../assets/categorys/transport.png";
+import otherIncome from "../../assets/categorys/otherIncome.png";
+import otherDebt from "../../assets/categorys/otherDebt.png";
 
 const CategoryButton = ({ onClickFunc, children, category, ...rest }) => {
+  const categorys = [
+    "salary",
+    "gift",
+    "investment",
+    "food",
+    "health",
+    "pet",
+    "home",
+    "hobby",
+    "study",
+    "transport",
+    "otherIncome",
+    "otherDebt",
+  ];
+
+  const icons = [
+    salary,
+    gift,
+    investment,
+    food,
+    health,
+    pet,
+    home,
+    hobby,
+    study,
+    transport,
+    otherIncome,
+    otherDebt,
+  ];
+
+  let image = icons[categorys.indexOf(category)];
+
   return (
     <CategoryButtons
       type="button"
@@ -21,7 +53,7 @@ const CategoryButton = ({ onClickFunc, children, category, ...rest }) => {
       {...rest}
     >
       {children}
-      <img src="" alt="" />
+      <img src={image} alt={category} />
     </CategoryButtons>
   );
 };

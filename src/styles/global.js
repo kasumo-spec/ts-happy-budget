@@ -11,9 +11,21 @@ export const GlobalStyles = createGlobalStyle`
         --orange: #F06543;
         --green: #04B43B;
         --button-hover:#584077;
-        
-
+        //buttonsprimary's colors:
+        --salary: #3cb1b9;
+        --gift: #a33e57;
+        --investment: #3e517a;
+        --food: #a1867f;
+        --health: #ff686b;
+        --pet: #6c91c2;
+        --home: #654a3e;
+        --hobby: #f5d329;
+        --study: #00c49a;
+        --transport: #495383;
+        --otherIncome: #057ef0;
+        --otherDebt: #edfcf9;
     }
+        
 
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,

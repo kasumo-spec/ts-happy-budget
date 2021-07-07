@@ -1,22 +1,6 @@
 import styled from "styled-components";
 
 export const CategoryButtons = styled.button`
-  :root {
-    //primary's colors:
-    --salary: #3cb1b9;
-    --gift: #a33e57;
-    --investment: #3e517a;
-    --food: #a1867f;
-    --health: #ff686b;
-    --pet: #6c91c2;
-    --home: #654a3e;
-    --fun: #f5d329;
-    --education: #00c49a;
-    --transport: #495383;
-    --otherIncome: #057ef0;
-    --otherDebt: #edfcf9;
-  }
-
   border-radius: 5px;
   background-color: ${(props) =>
     props.category ? `var(--${props.category})` : "var(--violet)"};
@@ -36,8 +20,10 @@ export const CategoryButtons = styled.button`
   position: relative;
   z-index: 1;
   img {
-    width: 20px;
-    height: 20px;
+    margin-left: 25px;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 2px;
   }
 
   :hover {
@@ -45,16 +31,14 @@ export const CategoryButtons = styled.button`
   }
 
   @media (min-width: 310px) {
-    padding: 6px 8px;
+    padding: 6px 5px;
   }
 
   @media (min-width: 500px) {
     font-size: 14px;
-    padding: 6px 20px;
   }
 
   @media (min-width: 800px) {
     font-size: 20px;
-    padding: 6px 28px;
   }
 `;
