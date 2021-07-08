@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import {useUser} from "../users";
+import jwtDecode from "jwt-decode";
 
 export const DebitContext = createContext([])
 
@@ -10,21 +11,25 @@ export const DebitProvider = ({children}) => {
     const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean)
     const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean)
     const [debits,setDebits] = useState([])
+    const reqDay = new Date().toLocaleString("en-US", { day: "numeric"})
 
     useEffect(() => {
         if(token !== "") {
             api.get("debit", {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${localStorage.getItem("@HappyBudget:token")}`
                 }
             }).then((res) => {
-                setDebits(res.data)
+                let decoderId = jwtDecode(localStorage.getItem("@HappyBudget:token"))
+                let userForEffect = parseInt(decoderId.sub)
+                let userDebits = res.data.filter(item => item.userId === userForEffect)
+                setDebits(userDebits)
             })
         }
     }, [debitCreateSuccess,debitEditSuccess,debitDeleteSuccess])
 
     const createDebit = (data) => {
-        api.post("debit", data, {
+        api.post("debit", {...data, reqDay}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
