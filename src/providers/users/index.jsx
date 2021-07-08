@@ -12,16 +12,16 @@ export const UserProvider = ({ children }) => {
   const [loginSuccess, setLoginSuccess] = useState(Boolean);
 
   useEffect(() => {
-    if (localStorage.getItem("@HappyBudget:token")) {
-      setToken(JSON.parse(localStorage.getItem("@HappyBudget:token")));
-    }
-    if (token !== "") {
-      let decoderId = jwtDecode(token);
-      setUserId(decoderId.sub);
+    if (token === "") {
+      let decoderId = jwtDecode(localStorage.getItem("@HappyBudget:token"));
+      let userForEffect = parseInt(decoderId.sub);
+      setUserId(userForEffect);
       api
-        .get(`users/${decoderId.sub}`, {
+        .get(`users/${userForEffect}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem(
+              "@HappyBudget:token"
+            )}`,
           },
         })
         .then((res) => setUserName(res.data.name));
@@ -43,10 +43,7 @@ export const UserProvider = ({ children }) => {
     api
       .post("login", data)
       .then((res) => {
-        localStorage.setItem(
-          "@HappyBudget:token",
-          JSON.stringify(res.data.accessToken)
-        );
+        localStorage.setItem("@HappyBudget:token", res.data.accessToken);
         setToken(res.data.accessToken);
         setLoginSuccess(true);
       })
