@@ -1,5 +1,4 @@
 import { ContainerLogin, FormInput, ButtonForm } from "./styles";
-import Button from "../../components/Button";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -57,7 +56,7 @@ const Login = () => {
         <a href="/signup"> aqui.</a>
       </p>
 
-      <ButtonForm type="submit">Login</ButtonForm>
+      <ButtonForm type="submit" data-testid="login">Login</ButtonForm>
 
       </form>
 

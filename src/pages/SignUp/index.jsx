@@ -2,7 +2,6 @@ import { ContainerSignup, ButtonForm } from "./styles";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Button from "../../components/Button";
 import { useHistory } from "react-router-dom";
 import { useUser } from "../../providers/users";
 import { FormInput } from "../Login/styles";
