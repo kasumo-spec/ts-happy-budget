@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-      <Aside />
+      {loginSucess && <Aside />}
       <Routes />
       <GlobalStyles />
     </div>
