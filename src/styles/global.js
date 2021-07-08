@@ -4,7 +4,7 @@ export const GlobalStyles = createGlobalStyle`
     :root {
         //primary's colors:
         --white: #fff9ff;
-        --white-green: #EDFCF9;
+        --white-green: #DCF9F6;
         --black: #18251D;
         --violet: #341E48;
         --blue-green: #053E61;
@@ -51,6 +51,8 @@ export const GlobalStyles = createGlobalStyle`
 
     a {
         text-decoration: none;
+        color: #0049A3;
+        font-weight: 500;
     }
 
     button {
@@ -63,8 +65,9 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        padding-top: 90px;
-        background-color: var(--white)
+        margin-top: 95px;
+        background-color: var(--white-green);
+        
     }
 
  

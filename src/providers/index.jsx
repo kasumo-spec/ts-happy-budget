@@ -1,7 +1,7 @@
 import {UserProvider} from "./users";
 import {BudgetProvider} from "./budget";
 import {IncomeProvider} from "./income";
-import {DebtProvider} from "./debts";
+import {DebitProvider} from "./debts";
 
 
 const Providers = ({children}) => {
@@ -9,9 +9,9 @@ const Providers = ({children}) => {
         <BudgetProvider>
             <UserProvider>
                 <IncomeProvider>
-                    <DebtProvider>
+                    <DebitProvider>
                         {children}
-                    </DebtProvider>
+                    </DebitProvider>
                 </IncomeProvider>
             </UserProvider>
         </BudgetProvider>

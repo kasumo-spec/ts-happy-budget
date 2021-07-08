@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
   width: 100%;
-  background-color: #fff;
+  background-color: white;
   padding: 18px 8px;
   display: ${(props) =>
     props.location === "/" ||
@@ -16,7 +16,7 @@ export const HeaderContainer = styled.header`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 3;
 
   img {
     width: 150px;
@@ -32,7 +32,7 @@ export const HeaderContainer = styled.header`
     width: 100%;
 
     padding: 10px 25px 5px 5px;
-
+    margin: 0;
     position: fixed;
     top: 0;
     left: 0;
@@ -40,8 +40,9 @@ export const HeaderContainer = styled.header`
     display: flex;
 
     img {
-      width: 330px;
-      height: 110px;
+      width: 300px;
+      height: 77px;
+      margin-left: 20px;
     }
   }
 `;
