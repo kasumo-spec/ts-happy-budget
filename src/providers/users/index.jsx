@@ -12,16 +12,16 @@ export const UserProvider = ({ children }) => {
   const [loginSuccess, setLoginSuccess] = useState(Boolean);
 
   useEffect(() => {
-    if (token === "") {
-      let decoderId = jwtDecode(localStorage.getItem("@HappyBudget:token"));
-      let userForEffect = parseInt(decoderId.sub);
-      setUserId(userForEffect);
+    let storagedToken = localStorage.getItem("@HappyBudget:token") || "";
+    if (storagedToken !== "") {
+      setToken(storagedToken);
+      let decoderId = jwtDecode(storagedToken);
+      let idFromToken = parseInt(decoderId.sub);
+      setUserId(idFromToken);
       api
-        .get(`users/${userForEffect}`, {
+        .get(`users/${idFromToken}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              "@HappyBudget:token"
-            )}`,
+            Authorization: `Bearer ${storagedToken}`,
           },
         })
         .then((res) => setUserName(res.data.name));
