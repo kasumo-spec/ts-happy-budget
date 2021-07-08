@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "../../components/Button";
-
+import { TextField } from "@material-ui/core";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,10 +66,23 @@ export const ImageContainer = styled.div`
 
   @media screen and (min-width: 700px) {
     div {
-      height: 100% !important;
+      height: 90% !important;
       max-height: 360px;
       max-width: 1250px;
-      width: 60% !important;
+      width: 59% !important;
     }
+  }
+
+  @media screen and (min-height: 600px) and (max-height: 800px) and (min-width: 1000px) {
+    div {
+      width: 34% !important;
+    }
+  }
+`;
+export const FormInput = styled(TextField)`
+  input {
+    border: 2px solid #341e48;
+    border-radius: 5px;
+    padding: 8.5px 5px;
   }
 `;

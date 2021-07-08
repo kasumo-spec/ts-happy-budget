@@ -11,7 +11,7 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-      <Aside />
+      {loginSucess && <Aside />}
       <Routes />
       <PieChartComponent />
       <ComposedChartComponent />

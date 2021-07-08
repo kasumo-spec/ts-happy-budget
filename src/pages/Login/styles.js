@@ -64,7 +64,7 @@ export const FormInput = styled(TextField)`
   input {
     border: 2px solid #341e48;
     border-radius: 5px;
-    padding: 12px 5px;
+    padding: 8.5px 5px;
   }
 `;
 
@@ -87,7 +87,13 @@ export const ImageContainer = styled.div`
       height: 100% !important;
       max-height: 360px;
       max-width: 1250px;
-      width: 60% !important;
+      width: 59% !important;
+    }
+  }
+
+  @media screen and (min-height: 600px) and (max-height: 800px) and (min-width: 1000px) {
+    div {
+      width: 40% !important;
     }
   }
 `;
