@@ -3,10 +3,12 @@ import Logo from "../../assets/svg/logo-clean.png";
 import { useHistory, useLocation } from "react-router";
 import Button from "../Button";
 import { Link } from "react-router-dom";
+import { useUser } from "../../providers/users";
 
 const Header = () => {
   const { pathname } = useLocation();
   const history = useHistory();
+  const { token, setToken } = useUser();
 
   const handleLocation = (location) => {
     if (location === "login") {
@@ -17,6 +19,8 @@ const Header = () => {
   };
 
   const logOff = () => {
+    localStorage.clear();
+    setToken("");
     history.push("/");
   };
 
@@ -26,7 +30,7 @@ const Header = () => {
         <img src={Logo} alt="happybudget" />
       </Link>
       <ButtonsWrapper location={pathname}>
-        {!false ? (
+        {!token ? (
           <>
             <Button
               whiteSchema={pathname === "/login" ? true : false}

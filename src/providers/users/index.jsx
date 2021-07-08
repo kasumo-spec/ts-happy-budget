@@ -60,6 +60,7 @@ export const UserProvider = ({ children }) => {
         token,
         userName,
         userId,
+        setToken,
       }}
     >
       {children}
