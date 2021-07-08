@@ -2,15 +2,14 @@ import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
 
-<<<<<<< HEAD
-export const DebtContext = createContext([]);
+export const DebitContext = createContext([]);
 
-export const DebtProvider = ({ children }) => {
+export const DebitProvider = ({ children }) => {
   const { token, userId } = useUser();
-  const [debtCreateSuccess, setDebtCreateSuccess] = useState(false);
-  const [debtEditSuccess, setDebtEditSuccess] = useState(false);
-  const [debtDeleteSuccess, setDebtDeleteSuccess] = useState(false);
-  const [debts, setDebts] = useState([]);
+  const [debitCreateSuccess, setDebitCreateSuccess] = useState(Boolean);
+  const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean);
+  const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean);
+  const [debits, setDebits] = useState([]);
 
   useEffect(() => {
     if (token !== "") {
@@ -21,46 +20,12 @@ export const DebtProvider = ({ children }) => {
           },
         })
         .then((res) => {
-          setDebts(res.data);
+          setDebits(res.data);
         });
-=======
-export const DebitContext = createContext([])
-
-export const DebitProvider = ({children}) => {
-    const {token} = useUser()
-    const [debitCreateSuccess, setDebitCreateSuccess] = useState(Boolean)
-    const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean)
-    const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean)
-    const [debits,setDebits] = useState([])
-
-    useEffect(() => {
-        if(token !== "") {
-            api.get("debit", {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            }).then((res) => {
-                setDebits(res.data)
-            })
-        }
-    }, [debitCreateSuccess,debitEditSuccess,debitDeleteSuccess])
-
-    const createDebit = (data) => {
-        api.post("debit", data, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then((res) => {
-            if(res.status === 201) {
-                setDebitCreateSuccess(true)
-            }
-        }).catch((_) => setDebitCreateSuccess(false))
->>>>>>> develop
     }
-  }, [debtCreateSuccess, debtEditSuccess, debtDeleteSuccess, token]);
+  }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess]);
 
-<<<<<<< HEAD
-  const createDebt = (data) => {
+  const createDebit = (data) => {
     api
       .post("debit", data, {
         headers: {
@@ -69,13 +34,13 @@ export const DebitProvider = ({children}) => {
       })
       .then((res) => {
         if (res.status === 201) {
-          setDebtCreateSuccess(true);
+          setDebitCreateSuccess(true);
         }
       })
-      .catch((_) => setDebtCreateSuccess(false));
+      .catch((_) => setDebitCreateSuccess(false));
   };
 
-  const editDebt = (data, id) => {
+  const editDebit = (data, id) => {
     api
       .patch(`debit/${id}`, data, {
         headers: {
@@ -83,12 +48,12 @@ export const DebitProvider = ({children}) => {
         },
       })
       .then((_) => {
-        setDebtEditSuccess(true);
+        setDebitEditSuccess(true);
       })
-      .catch((_) => setDebtEditSuccess(false));
+      .catch((_) => setDebitEditSuccess(false));
   };
 
-  const deleteDebt = (data) => {
+  const deleteDebit = (data) => {
     api
       .delete(`debit/${data}`, {
         headers: {
@@ -96,60 +61,26 @@ export const DebitProvider = ({children}) => {
         },
       })
       .then((_) => {
-        setDebtDeleteSuccess(true);
+        setDebitDeleteSuccess(true);
       })
-      .catch((_) => setDebtDeleteSuccess(false));
+      .catch((_) => setDebitDeleteSuccess(false));
   };
-=======
-    const editDebit = (data,id) => {
-        api.patch(`debit/${id}`, data, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then((_) => {
-            setDebitEditSuccess(true)
-        }).catch((_) => setDebitEditSuccess(false))
-    }
-
-    const deleteDebit = (data) => {
-        api.delete(`debit/${data}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then((_) => {
-            setDebitDeleteSuccess(true)
-        }).catch((_) => setDebitDeleteSuccess(false))
-    }
-
-    return (
-        <DebitContext.Provider
-            value={{createDebit, editDebit, deleteDebit,
-                    debits, debitCreateSuccess, debitEditSuccess, debitDeleteSuccess}}
-        >
-            {children}
-        </DebitContext.Provider>
-    )
->>>>>>> develop
 
   return (
-    <DebtContext.Provider
+    <DebitContext.Provider
       value={{
-        createDebt,
-        editDebt,
-        deleteDebt,
-        debts,
-        debtCreateSuccess,
-        debtEditSuccess,
-        debtDeleteSuccess,
+        createDebit,
+        editDebit,
+        deleteDebit,
+        debits,
+        debitCreateSuccess,
+        debitEditSuccess,
+        debitDeleteSuccess,
       }}
     >
       {children}
-    </DebtContext.Provider>
+    </DebitContext.Provider>
   );
 };
 
-<<<<<<< HEAD
-export const useDebts = () => useContext(DebtContext);
-=======
-export const useDebits = () => useContext(DebitContext)
->>>>>>> develop
+export const useDebits = () => useContext(DebitContext);

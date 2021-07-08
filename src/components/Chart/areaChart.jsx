@@ -13,7 +13,7 @@ import {
   Cell,
 } from "recharts";
 import { useBudget } from "../../providers/budget";
-import { useDebts } from "../../providers/debts";
+import { useDebits } from "../../providers/debts";
 import { ChartContainer } from "./styles";
 
 const colors = [
@@ -51,15 +51,15 @@ export const ComposedChartComponent = () => {
     { category: "Outros" },
   ]);
 
-  const { debts } = useDebts();
+  const { debits } = useDebits();
 
   const { budgets } = useBudget();
 
   useEffect(() => {
-    if (debts.length !== 0) {
+    if (debits.length !== 0) {
       data.forEach((d) => {
         for (let i = 0; i < data.length; i++) {
-          const partial = debts[i];
+          const partial = debits[i];
           let deb = "Gasto";
           if (partial !== undefined) {
             if (d.category === partial.category) {
@@ -88,7 +88,7 @@ export const ComposedChartComponent = () => {
     }
     console.log(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debts, budgets]);
+  }, [debits, budgets]);
 
   return (
     <ChartContainer>
@@ -112,7 +112,7 @@ export const ComposedChartComponent = () => {
           <Legend />
           <Area dataKey="Orçamento" fill="#8884d8" stroke="#8884d8" />
           <Bar dataKey="Gasto" barSize={20} fill="#413ea0">
-            {debts.map((entry, index) => (
+            {debits.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={colors[index % 20]} />
             ))}
           </Bar>

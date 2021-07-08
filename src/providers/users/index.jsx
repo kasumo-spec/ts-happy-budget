@@ -52,11 +52,7 @@ export const UserProvider = ({ children }) => {
       })
       .catch((_) => setLoginSuccess(false));
   };
-  const user = {
-    email: "rapha@mail.com",
-    password: "123456",
-  };
-  loginUser(user);
+
   return (
     <UserContext.Provider
       value={{

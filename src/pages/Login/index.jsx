@@ -45,7 +45,7 @@ const Login = () => {
   const handleForm = (data) => {
     loginUser(data);
     reset();
-    token && history.push("/dashboard");
+    history.push("/dashboard");
   };
 
   return (

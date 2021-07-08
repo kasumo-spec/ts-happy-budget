@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
-import { useDebts } from "../../providers/debts";
+import { useDebits } from "../../providers/debts";
 import { ChartContainer } from "./styles";
 
 const colors = [
@@ -95,8 +95,8 @@ const StructurePieChart = (props) => {
 export const PieChartComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const { debts } = useDebts();
-  console.log(debts);
+  const { debits } = useDebits();
+  console.log(debits);
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
   };
@@ -113,13 +113,13 @@ export const PieChartComponent = () => {
   ]);
 
   useEffect(() => {
-    if (debts.length > 0) {
+    if (debits.length > 0) {
       for (let i = 0; i < data.length; i++) {
         const partial = data[i];
         partial.value = 0;
 
-        for (let j = 0; j < debts.length; j++) {
-          const partialDebts = debts[j];
+        for (let j = 0; j < debits.length; j++) {
+          const partialDebts = debits[j];
           if (partial.category === partialDebts.category) {
             partial.value += partialDebts.value;
           }
@@ -128,7 +128,7 @@ export const PieChartComponent = () => {
       setData([...data]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debts]);
+  }, [debits]);
 
   return (
     <ChartContainer>
