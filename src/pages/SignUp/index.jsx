@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useHistory } from "react-router-dom";
 import { useUser } from "../../providers/users";
-import { FormInput, ImageContainer, Container } from "../Login/styles";
+import { FormInput, ImageContainer, Container } from "./styles";
 import animationData from "../../assets/lotties/login.json";
 import Lottie from "react-lottie";
 const lottieOptions = {
