@@ -73,7 +73,7 @@ const Aside = () => {
             activeClassName="navlink--active"
           >
             <RiDashboardLine />
-            <span>Dashboard</span>
+            <span>Visão geral</span>
           </NavLink>
           <NavLink
             to="/budgets"
