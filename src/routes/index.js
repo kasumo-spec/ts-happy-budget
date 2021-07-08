@@ -24,15 +24,15 @@ const Routes = () => {
         <Dashboard />
       </Route>
 
-      <Route path="/budget">
+      <Route path="/budgets">
         <Budget />
       </Route>
 
-      <Route path="expenses">
+      <Route path="/expenses">
         <Expenses />
       </Route>
 
-      <Route path="incomes">
+      <Route path="/incomes">
         <Incomes />
       </Route>
     </Switch>

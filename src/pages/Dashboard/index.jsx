@@ -10,8 +10,8 @@ import {
 import income from "../../assets/lotties/income.json";
 import expense from "../../assets/lotties/expense.json";
 import budget from "../../assets/lotties/budget.json";
-import Lottie from "react-lottie";
 import Button from "../../components/Button";
+import Lottie from "react-lottie";
 const lottieOptions = {
   loop: true,
   autoplay: false,
