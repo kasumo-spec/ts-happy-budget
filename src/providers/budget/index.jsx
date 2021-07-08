@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import {useUser} from "../users";
+import jwtDecode from "jwt-decode";
 
 export const BudgetContext = createContext([])
 
 export const BudgetProvider = ({children}) => {
     const {userId, token} = useUser()
-    const reqMonth = new Date().toLocaleString("en-US", { month: "long" })
-    const monthString = reqMonth[0].toUpperCase() + reqMonth.slice(1).toLowerCase()
+    const reqMonth = new Date().toLocaleString("en-US", { month: "numeric" , year: "numeric"})
     const [budgetCreateSuccess, setBudgetCreateSuccess] = useState(Boolean)
     const [budgetDeleteSuccess, setBudgetDeleteSuccess] = useState(Boolean)
     const [budgets, setBudgets] = useState([])
@@ -16,18 +16,21 @@ export const BudgetProvider = ({children}) => {
         if (token !== ""){
             api.get("budget", {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${localStorage.getItem("@HappyBudget:token")}`
                 }
             }).then((res) => {
-                setBudgets(res.data)
+                let decoderId = jwtDecode(localStorage.getItem("@HappyBudget:token"))
+                let userForEffect = parseInt(decoderId.sub)
+                let userBudgets = res.data.filter(item => item.userId === userForEffect)
+                setBudgets(userBudgets)
             })
         }
-    },[setBudgetCreateSuccess,setBudgetDeleteSuccess])
+    },[userId,budgetCreateSuccess,budgetDeleteSuccess])
 
     const createBudget = (data) => {
         let budgetInfos = {
             "userId": userId,
-            "name": monthString,
+            "name": reqMonth,
             "data": {data}
         }
         api.post("budget", budgetInfos).
