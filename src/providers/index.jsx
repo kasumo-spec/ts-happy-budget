@@ -5,13 +5,13 @@ import { DebitProvider } from "./debts";
 
 const Providers = ({ children }) => {
   return (
-    <BudgetProvider>
-      <UserProvider>
+    <UserProvider>
+      <BudgetProvider>
         <IncomeProvider>
           <DebitProvider>{children}</DebitProvider>
         </IncomeProvider>
-      </UserProvider>
-    </BudgetProvider>
+      </BudgetProvider>
+    </UserProvider>
   );
 };
 

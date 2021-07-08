@@ -12,15 +12,13 @@ export const UserProvider = ({children}) => {
     const [loginSuccess, setLoginSuccess] = useState(Boolean)
 
     useEffect(() => {
-        if (localStorage.getItem("@HappyBudget:token")) {
-            setToken(localStorage.getItem("@HappyBudget:token"))
-        }
-        if (token !== "") {
-            let decoderId = jwtDecode(token)
-            setUserId(decoderId.sub)
-            api.get(`users/${userId}`, {
+        if (token === "") {
+            let decoderId = jwtDecode(localStorage.getItem("@HappyBudget:token"))
+            let userForEffect = parseInt(decoderId.sub)
+            setUserId(userForEffect)
+            api.get(`users/${userForEffect}`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${localStorage.getItem("@HappyBudget:token")}`
                 }
             })
                 .then((res) => setUserName(res.data.name))
@@ -28,8 +26,8 @@ export const UserProvider = ({children}) => {
     },[token])
 
     const createUser = (data) => {
-        api.post("register", data).
-            then((res) => {
+        api.post("register", data)
+            .then((res) => {
                 if (res.status === 201) {
                     setCreateSucess(true)
                 }
@@ -37,8 +35,8 @@ export const UserProvider = ({children}) => {
     }
 
     const loginUser = (data) => {
-        api.post("login", data).
-            then((res) => {
+        api.post("login", data)
+            .then((res) => {
                 localStorage.setItem("@HappyBudget:token",res.data.accessToken)
                 setToken(res.data.accessToken)
                 setLoginSuccess(true)
