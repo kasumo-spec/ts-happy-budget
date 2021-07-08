@@ -32,8 +32,9 @@ const SignUp = () => {
     <ContainerSignup>
       <h1>Cadastro</h1>
 
-      <form onSubmit={handleSubmit(handleForm)}>
+      <form onSubmit={handleSubmit(handleForm)} data-testid="form">
         <FormInput 
+          data-testid="name"
           margin="dense"
           variant="outlined"
           placeholder="Digite o nome de usuário"
@@ -45,6 +46,7 @@ const SignUp = () => {
         />
 
         <FormInput 
+          data-testid="email"
           margin="dense"
           variant="outlined"
           placeholder="Digite seu e-mail"
@@ -56,6 +58,7 @@ const SignUp = () => {
         />
 
         <FormInput 
+          data-testid="password"
           type="password"
           margin="dense"
           variant="outlined"
@@ -68,6 +71,7 @@ const SignUp = () => {
         />
 
         <FormInput 
+          data-testid="passwordChecked"
           type="password"
           margin="dense"
           variant="outlined"

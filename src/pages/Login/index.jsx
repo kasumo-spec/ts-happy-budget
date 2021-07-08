@@ -27,8 +27,9 @@ const Login = () => {
   return (
     <ContainerLogin>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit(handleForm)}>
+      <form onSubmit={handleSubmit(handleForm)} data-testid="form">
         <FormInput 
+          data-testid="email"
           margin="dense"
           variant="outlined"
           placeholder="Digite seu e-mail."
@@ -40,10 +41,11 @@ const Login = () => {
         />
 
         <FormInput 
+          data-testid="password"
           type="password"
           margin="dense"
           variant="outlined"
-          placeholder="Digite seu e-mail."
+          placeholder="Digite sua senha."
           size="small"
           color="primary"
           {...register("password")}
