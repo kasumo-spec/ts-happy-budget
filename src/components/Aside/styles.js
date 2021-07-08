@@ -6,7 +6,7 @@ export const AsideContainer = styled.aside`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   display: grid;
   grid-template-columns: 2fr 2fr;
   background-color: var(--violet);
@@ -145,7 +145,7 @@ export const MenuWrapper = styled.nav`
       top: 25px;
       background-color: var(--white);
       height: 50px;
-      width: 32px;
+      width: 38px;
       border-radius: 5px;
       z-index: 1;
       transition: left 400ms;

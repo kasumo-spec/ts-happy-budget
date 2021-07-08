@@ -4,16 +4,28 @@ export const GlobalStyles = createGlobalStyle`
     :root {
         //primary's colors:
         --white: #fff9ff;
-        --white-green: #EDFCF9;
+        --white-green: #DCF9F6;
         --black: #18251D;
         --violet: #341E48;
         --blue-green: #053E61;
         --orange: #F06543;
         --green: #04B43B;
         --button-hover:#584077;
-        
-
+        //buttonsprimary's colors:
+        --salary: #3cb1b9;
+        --gift: #a33e57;
+        --investment: #3e517a;
+        --food: #a1867f;
+        --health: #ff686b;
+        --pet: #6c91c2;
+        --home: #654a3e;
+        --hobby: #f5d329;
+        --study: #00c49a;
+        --transport: #495383;
+        --otherIncome: #057ef0;
+        --otherDebt: #edfcf9;
     }
+        
 
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -51,7 +63,8 @@ export const GlobalStyles = createGlobalStyle`
 
     a {
         text-decoration: none;
-        color: blue;
+        color: #0049A3;
+        font-weight: 500;
     }
 
     button {
@@ -64,8 +77,9 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        padding-top: 90px;
-        background-color: var(--white)
+        margin-top: 95px;
+        background-color: var(--white-green);
+        
     }
 
  

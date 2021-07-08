@@ -9,13 +9,13 @@ export const ButtonType = styled.button`
   font-weight: 600;
   transition: 300ms;
   padding: 6px 1px;
-  border: 3px solid
+  border: 2px solid
     ${(props) => (props.whiteSchema ? "var(--violet)" : "transparent")};
   display: flex;
   align-items: center;
   position: relative;
   z-index: 1;
-
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   :hover {
     background-color: ${(props) =>
       props.whiteSchema ? "#88ffff" : "var(--button-hover)"};
@@ -29,10 +29,5 @@ export const ButtonType = styled.button`
   @media (min-width: 500px) {
     font-size: 14px;
     padding: 6px 20px;
-  }
-
-  @media (min-width: 800px) {
-    font-size: 20px;
-    padding: 6px 28px;
   }
 `;

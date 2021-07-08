@@ -1,13 +1,15 @@
 import Routes from "./routes";
-// import Aside from "./components/Aside";
+import Aside from "./components/Aside";
 import { GlobalStyles } from "./styles/global";
 import Header from "./components/Header";
+import { useUser } from "./providers/users";
 
 const App = () => {
+  const { loginSucess } = useUser();
   return (
     <div className="App">
       <Header />
-      {/* <Aside /> */}
+      {loginSucess && <Aside />}
       <Routes />
       <GlobalStyles />
     </div>
