@@ -25,7 +25,7 @@ const Aside = () => {
 
   const indicator = useRef(0);
   const navLinks = useRef([]);
-  console.log(navLinks);
+
   const getDimensions = () => {
     navLinks.current.forEach((item) => {
       if (item?.className === "navlink--active") {
