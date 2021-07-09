@@ -12,6 +12,9 @@ import expense from "../../assets/lotties/expense.json";
 import budget from "../../assets/lotties/budget.json";
 import Button from "../../components/Button";
 import Lottie from "react-lottie";
+
+import NewIncomeModal from "../../components/NewIncomeModal";
+import NewExpenseModal from "../../components/NewExpenseModal";
 const lottieOptions = {
   loop: true,
   autoplay: false,
@@ -31,7 +34,7 @@ const Dashboard = () => {
             <div className="status">
               <h3>Total</h3>
               <h3>100.000,00R$</h3>
-              <Button>Adicionar</Button>
+              <NewIncomeModal />
             </div>
             <div className="wrapLottie">
               <Lottie options={{ ...lottieOptions, animationData: income }} />
@@ -44,7 +47,7 @@ const Dashboard = () => {
             <div className="status">
               <h3>Total</h3>
               <h3>100.000,00R$</h3>
-              <Button>Adicionar</Button>
+              <NewExpenseModal />
             </div>
             <div className="wrapLottie expense">
               <Lottie options={{ ...lottieOptions, animationData: expense }} />

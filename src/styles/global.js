@@ -1,7 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 
-
-
 export const GlobalStyles = createGlobalStyle`
     :root {
         //primary's colors:
@@ -17,7 +15,8 @@ export const GlobalStyles = createGlobalStyle`
         --salary: #3cb1b9;
         --gift: #a33e57;
         --investment: #3e517a;
-        --food: #a1867f;
+        --food: #F0803C;
+        --market: #A1867F;
         --health: #ff686b;
         --pet: #6c91c2;
         --home: #654a3e;
@@ -26,6 +25,7 @@ export const GlobalStyles = createGlobalStyle`
         --transport: #495383;
         --otherIncome: #057ef0;
         --otherDebt: #edfcf9;
+        --market: 
     }
         
 
@@ -80,6 +80,7 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
         margin-top: 95px;
+        height: calc(100vh - 95px);
         background-color: var(--white-green);
         
     }

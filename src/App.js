@@ -5,11 +5,12 @@ import Header from "./components/Header";
 import { useUser } from "./providers/users";
 
 const App = () => {
-  const { token } = useUser();
+  const { loginSuccess } = useUser();
+
   return (
     <div className="App">
       <Header />
-      {token && <Aside />}
+      {loginSuccess && <Aside />}
       <Routes />
       <GlobalStyles />
     </div>
