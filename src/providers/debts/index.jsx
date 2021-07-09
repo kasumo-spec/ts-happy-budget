@@ -10,7 +10,7 @@ export const DebitProvider = ({ children }) => {
   const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean);
   const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean);
   const [debits, setDebits] = useState([]);
-  const [totalCategory, setTotalCategory] = useState([
+  const [totalDebits, setTtotalDebits] = useState([
     { category: "Moradia", value: 0 },
     { category: "Alimentação", value: 0 },
     { category: "Transporte", value: 0 },
@@ -25,8 +25,8 @@ export const DebitProvider = ({ children }) => {
 
   useEffect(() => {
     if (debits.length > 0) {
-      for (let i = 0; i < totalCategory.length; i++) {
-        const partial = totalCategory[i];
+      for (let i = 0; i < totalDebits.length; i++) {
+        const partial = totalDebits[i];
         partial.value = 0;
 
         for (let j = 0; j < debits.length; j++) {
@@ -36,7 +36,7 @@ export const DebitProvider = ({ children }) => {
           }
         }
       }
-      setTotalCategory([...totalCategory]);
+      setTtotalDebits([...totalDebits]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debits]);
@@ -111,7 +111,7 @@ export const DebitProvider = ({ children }) => {
         debitCreateSuccess,
         debitEditSuccess,
         debitDeleteSuccess,
-        totalCategory,
+        totalDebits,
       }}
     >
       {children}
