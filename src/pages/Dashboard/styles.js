@@ -71,6 +71,7 @@ export const ImageContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 90%;
   }
 
   h3 + button {
@@ -150,6 +151,9 @@ export const ImageContainer = styled.div`
       padding: 8px 20px;
     }
 
+    .status {
+      width: 60%;
+    }
     .wrapLottie {
       width: 250px !important;
       height: 240px;

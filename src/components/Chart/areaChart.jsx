@@ -43,40 +43,55 @@ export const ComposedChartComponent = () => {
 
     if (budgets.length !== 0) {
       for (let i = 0; i < totalDebits.length; i++) {
-        console.log(i);
-
         const partial = totalDebits[i];
         for (let j = 0; j < totalDebits.length; j++) {
           const partialBudget = budgets[j];
-          if (partialBudget.category === partial.category) {
-            result.push({ ...partial, budget: partialBudget.value });
+          if (partialBudget !== undefined) {
+            if (partialBudget.category === partial.category) {
+              result.push({ ...partial, budget: partialBudget.value });
+            }
+          } else {
+            result.push({ ...partial, budget: 0 });
           }
         }
       }
     }
+
     setData(result);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalDebits]);
+  }, [totalDebits, budgets]);
 
   return (
-    <BarChart
-      width={800}
-      height={300}
-      data={data}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="category" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey="value" name="Gastos realizados" fill="#8884d8" unit=" R$" />
-      <Bar dataKey="budget" unit=" R$" name="Gastos previstos" fill="#82ca9d" />
-    </BarChart>
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart
+        width={800}
+        height={300}
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="category" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar
+          dataKey="value"
+          name="Gastos realizados"
+          fill="#8884d8"
+          unit=" R$"
+        />
+        <Bar
+          dataKey="budget"
+          unit=" R$"
+          name="Gastos previstos"
+          fill="#82ca9d"
+        />
+      </BarChart>
+    </ResponsiveContainer>
   );
 };

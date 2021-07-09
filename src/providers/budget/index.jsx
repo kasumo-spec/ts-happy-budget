@@ -24,8 +24,9 @@ export const BudgetProvider = ({ children }) => {
           },
         })
         .then((res) => {
-          setBudgets(res.data);
-          setBudgetsId(res.data.id);
+          const idBudget = res.data[0].id;
+          setBudgets(res.data[0].data);
+          setBudgetsId(idBudget);
         });
     }
   }, [userId, budgetCreateSuccess, budgetDeleteSuccess]);
