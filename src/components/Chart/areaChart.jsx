@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   ComposedChart,
-  Line,
   Area,
   Bar,
   XAxis,
@@ -29,17 +28,6 @@ const colors = [
 ];
 
 export const ComposedChartComponent = () => {
-  // const [data, setData] = useState([
-  //   { category: "Moradia", Orçamento: 1000, Gasto: 800 },
-  //   { category: "Alimentação", Orçamento: 500, Gasto: 400 },
-  //   { category: "Transporte", Orçamento: 300, Gasto: 250 },
-  //   { category: "Saúde", Orçamento: 200, Gasto: 200 },
-  //   { category: "Educação", Orçamento: 400, Gasto: 400 },
-  //   { category: "Lazer", Orçamento: 200, Gasto: 350 },
-  //   { category: "Pets", Orçamento: 150, Gasto: 50 },
-  //   { category: "Outros", Orçamento: 200, Gasto: 100 },
-  // ]);
-
   const [data, setData] = useState([
     { category: "Moradia" },
     { category: "Alimentação" },
@@ -123,41 +111,62 @@ export const ComposedChartComponent = () => {
   );
 };
 
-// const data = [
-//   {
-//     name: "Page A",
-//     uv: 590,
-//     pv: 800,
-//     amt: 1400,
-//   },
-//   {
-//     name: "Page B",
-//     uv: 868,
-//     pv: 967,
-//     amt: 1506,
-//   },
-//   {
-//     name: "Page C",
-//     uv: 1397,
-//     pv: 1098,
-//     amt: 989,
-//   },
-//   {
-//     name: "Page D",
-//     uv: 1480,
-//     pv: 1200,
-//     amt: 1228,
-//   },
-//   {
-//     name: "Page E",
-//     uv: 1520,
-//     pv: 1108,
-//     amt: 1100,
-//   },
-//   {
-//     name: "Page F",
-//     uv: 1400,
-//     pv: 680,
-//     amt: 1700,
-//   },
-// ];
+import "./styles.css";
+import React from "react";
+import {
+  ComposedChart,
+  Line,
+  Area,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Scatter,
+} from "recharts";
+
+const budget = [
+  { x: "Moradia", value: 1000 },
+  { x: "Alimentação", value: 600 },
+  { x: "Transporte", value: 300 },
+  { x: "Saúde", value: 200 },
+  { x: "Educação", value: 450 },
+  { x: "Lazer", value: 150 },
+  { x: "Pets", value: 60 },
+  { x: "Outros", value: 200 },
+];
+const debts = [
+  { x: "Moradia", value: 600 },
+  { x: "Alimentação", value: 450 },
+  { x: "Transporte", value: 200 },
+  { x: "Saúde", value: 0 },
+  { x: "Educação", value: 450 },
+  { x: "Lazer", value: 100 },
+  { x: "Pets", value: 30 },
+  { x: "Outros", value: 80 },
+];
+
+export default function App() {
+  return (
+    <ComposedChart
+      width={500}
+      height={400}
+      data={debts}
+      margin={{
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 20,
+      }}
+    >
+      <CartesianGrid stroke="#f5f5f5" />
+      <XAxis dataKey="x" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Bar type="monotone" dataKey="value" fill="#8884d8" stroke="#8884d8" />
+      <Bar dataKey="value" data={budget} barSize={20} fill="#413ea0" />
+    </ComposedChart>
+  );
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import { useDebits } from "../../providers/debts";
 import { ChartContainer } from "./styles";
@@ -95,40 +95,11 @@ const StructurePieChart = (props) => {
 export const PieChartComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const { debits } = useDebits();
+  const { debits, totalCategory } = useDebits();
   console.log(debits);
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
   };
-
-  const [data, setData] = useState([
-    { category: "Moradia", value: 0 },
-    { category: "Alimentação", value: 0 },
-    { category: "Transporte", value: 0 },
-    { category: "Saúde", value: 0 },
-    { category: "Educação", value: 0 },
-    { category: "Lazer", value: 0 },
-    { category: "Pets", value: 0 },
-    { category: "Outros", value: 0 },
-  ]);
-
-  useEffect(() => {
-    if (debits.length > 0) {
-      for (let i = 0; i < data.length; i++) {
-        const partial = data[i];
-        partial.value = 0;
-
-        for (let j = 0; j < debits.length; j++) {
-          const partialDebts = debits[j];
-          if (partial.category === partialDebts.category) {
-            partial.value += partialDebts.value;
-          }
-        }
-      }
-      setData([...data]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debits]);
 
   return (
     <ChartContainer>
@@ -137,7 +108,7 @@ export const PieChartComponent = () => {
           <Pie
             activeIndex={activeIndex}
             activeShape={StructurePieChart}
-            data={data}
+            data={totalCategory}
             cx="50%"
             cy="50%"
             innerRadius={50}
@@ -146,7 +117,7 @@ export const PieChartComponent = () => {
             onMouseEnter={onPieEnter}
             isAnimationActive
           >
-            {data.map((_, index) => (
+            {totalCategory.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={colors[index % colors.length]}

@@ -1,38 +1,60 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
-import jwtDecode from "jwt-decode";
 
 export const DebitContext = createContext([]);
 
 export const DebitProvider = ({ children }) => {
-  const { token } = useUser();
+  const { token, userId } = useUser();
   const [debitCreateSuccess, setDebitCreateSuccess] = useState(Boolean);
   const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean);
   const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean);
   const [debits, setDebits] = useState([]);
+  const [totalCategory, setTotalCategory] = useState([
+    { category: "Moradia", value: 0 },
+    { category: "Alimentação", value: 0 },
+    { category: "Transporte", value: 0 },
+    { category: "Saúde", value: 0 },
+    { category: "Educação", value: 0 },
+    { category: "Lazer", value: 0 },
+    { category: "Pets", value: 0 },
+    { category: "Outros", value: 0 },
+  ]);
+
   const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
+
+  useEffect(() => {
+    if (debits.length > 0) {
+      for (let i = 0; i < totalCategory.length; i++) {
+        const partial = totalCategory[i];
+        partial.value = 0;
+
+        for (let j = 0; j < debits.length; j++) {
+          const partialDebts = debits[j];
+          if (partial.category === partialDebts.category) {
+            partial.value += partialDebts.value;
+          }
+        }
+      }
+      setTotalCategory([...totalCategory]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debits]);
 
   useEffect(() => {
     if (token !== "") {
       api
-        .get("debit", {
+        .get(`debit/?userId=${userId}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              "@HappyBudget:token"
-            )}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          let decoderId = jwtDecode(localStorage.getItem("@HappyBudget:token"));
-          let userForEffect = parseInt(decoderId.sub);
-          let userDebits = res.data.filter(
-            (item) => item.userId === userForEffect
-          );
-          setDebits(userDebits);
+          setDebits(res.data);
         });
     }
-  }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId, debitCreateSuccess, debitEditSuccess, debitDeleteSuccess]);
 
   const createDebit = (data) => {
     api
@@ -89,6 +111,7 @@ export const DebitProvider = ({ children }) => {
         debitCreateSuccess,
         debitEditSuccess,
         debitDeleteSuccess,
+        totalCategory,
       }}
     >
       {children}
