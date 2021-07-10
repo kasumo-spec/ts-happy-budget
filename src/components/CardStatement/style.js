@@ -6,7 +6,7 @@ export const CardContainer = styled.div`
   background-color: ${(props) =>
     props.category ? `var(--${props.category})` : "var(--violet)"};
   color: ${(props) =>
-    props.category === "otherDebt" ? "var(--blue-green)" : "var(--white)"};
+    props.category === "others" ? "var(--blue-green)" : "var(--white)"};
   font-size: 12px;
   font-weight: 600;
   transition: 300ms;

@@ -66,15 +66,20 @@ export const ExpenseContent = styled.div`
 
 export const CategoryFilters = styled.div`
   position: relative;
-  h3 {
-    text-align: left;
+  h4 {
+    margin-left: 20px;
   }
   div {
     margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     button {
-      background-color: transparent;
+      border-radius: 50%;
       margin: 0 5px;
+      padding: 5px;
       img {
+        margin: 2px;
         width: 25px;
       }
     }

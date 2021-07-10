@@ -1,5 +1,6 @@
 import { CardContainer } from "./style";
 
+import market from "../../assets/categorys/market.png";
 import salary from "../../assets/categorys/money.png";
 import gift from "../../assets/categorys/gift.png";
 import investment from "../../assets/categorys/investment.png";
@@ -10,13 +11,15 @@ import home from "../../assets/categorys/home.svg";
 import hobby from "../../assets/categorys/hobby.png";
 import study from "../../assets/categorys/study.png";
 import transport from "../../assets/categorys/transport.png";
-import otherIncome from "../../assets/categorys/otherIncome.png";
-import otherDebt from "../../assets/categorys/otherDebt.png";
+import others from "../../assets/categorys/otherDebt.png";
 
 import { FaRegTrashAlt } from "react-icons/fa";
+import { useDebits } from "../../providers/debts";
 
-const Card = ({ onClickFunc, children, category, ...rest }) => {
+const Card = ({ debit }) => {
+  const { deleteDebit } = useDebits();
   const categorys = [
+    "market",
     "salary",
     "gift",
     "investment",
@@ -27,11 +30,11 @@ const Card = ({ onClickFunc, children, category, ...rest }) => {
     "hobby",
     "study",
     "transport",
-    "otherIncome",
-    "otherDebt",
+    "others",
   ];
 
   const icons = [
+    market,
     salary,
     gift,
     investment,
@@ -42,19 +45,24 @@ const Card = ({ onClickFunc, children, category, ...rest }) => {
     hobby,
     study,
     transport,
-    otherIncome,
-    otherDebt,
+    others,
   ];
 
-  let image = icons[categorys.indexOf(category)];
-
+  let image = icons[categorys.indexOf(debit.category.toLowerCase())];
+  console.log(debit.category.toLowerCase());
   return (
-    <CardContainer category={category}>
-      <img src={image} alt={category} />
-      <p>Presente de aniversário</p>
-      <span>1.000,00 R$</span>
-      <span>07/07/2021</span>
-      <button>
+    <CardContainer category={debit.category}>
+      <img src={image} alt={debit.category} />
+      <p>{debit.name}</p>
+      <span>
+        R${" "}
+        {debit.value.toLocaleString("pt-br", {
+          style: "currency",
+          currency: "BRL",
+        })}
+      </span>
+      <span>{debit.reqDay}</span>
+      <button onClick={() => deleteDebit(debit.id)}>
         <FaRegTrashAlt />
       </button>
     </CardContainer>

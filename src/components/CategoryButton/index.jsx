@@ -1,4 +1,5 @@
 import { CategoryButtons } from "./style";
+import market from "../../assets/categorys/market.png";
 import salary from "../../assets/categorys/money.png";
 import gift from "../../assets/categorys/gift.png";
 import investment from "../../assets/categorys/investment.png";
@@ -9,11 +10,18 @@ import home from "../../assets/categorys/home.svg";
 import hobby from "../../assets/categorys/hobby.png";
 import study from "../../assets/categorys/study.png";
 import transport from "../../assets/categorys/transport.png";
-import otherIncome from "../../assets/categorys/otherIncome.png";
-import otherDebt from "../../assets/categorys/otherDebt.png";
+import others from "../../assets/categorys/otherDebt.png";
 
-const CategoryButton = ({ onClickFunc, children, category, ...rest }) => {
+const CategoryButton = ({
+  onClickFunc,
+  children,
+  category,
+  value,
+  selected,
+  ...rest
+}) => {
   const categorys = [
+    "market",
     "salary",
     "gift",
     "investment",
@@ -24,11 +32,11 @@ const CategoryButton = ({ onClickFunc, children, category, ...rest }) => {
     "hobby",
     "study",
     "transport",
-    "otherIncome",
-    "otherDebt",
+    "others",
   ];
 
   const icons = [
+    market,
     salary,
     gift,
     investment,
@@ -39,8 +47,7 @@ const CategoryButton = ({ onClickFunc, children, category, ...rest }) => {
     hobby,
     study,
     transport,
-    otherIncome,
-    otherDebt,
+    others,
   ];
 
   let image = icons[categorys.indexOf(category)];
@@ -50,6 +57,8 @@ const CategoryButton = ({ onClickFunc, children, category, ...rest }) => {
       type="button"
       category={category}
       onClick={onClickFunc}
+      selected={selected}
+      value={value}
       {...rest}
     >
       {children}

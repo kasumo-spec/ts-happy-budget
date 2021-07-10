@@ -1,7 +1,7 @@
 import { Container, Page, Header, LottieWrap } from "./styles";
 import income from "../../assets/lotties/expense.json";
 import Lottie from "react-lottie";
-import ExpenseComponent from "../../components/Expense";
+import ExpenseComponent from "../../components/ExpenseComponent";
 const lottieOptions = {
   loop: true,
   autoplay: false,
