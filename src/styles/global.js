@@ -23,9 +23,7 @@ export const GlobalStyles = createGlobalStyle`
         --hobby: #f5d329;
         --study: #00c49a;
         --transport: #495383;
-        --otherIncome: #057ef0;
-        --otherDebt: #edfcf9;
-        --market: 
+        --others: #057ef0;
     }
         
 
