@@ -170,10 +170,7 @@ export const ImageContainer = styled.div`
     }
   }
 
-  @media screen and (min-width: 1024px) and (max-height: 759px) {
-    h2 {
-      font-size: 20px !important;
-    }
+  @media screen and (min-width: 1100px) and (max-height: 725px) {
     h3 {
       font-size: 20px !important;
     }
@@ -181,12 +178,9 @@ export const ImageContainer = styled.div`
     .status:first-child {
       margin-top: 0px !important;
     }
-    h3 + button {
-      padding: 8px 20px;
-    }
 
     p {
-      width: 250px;
+      width: 200px;
       font-size: 18px !important;
     }
 
