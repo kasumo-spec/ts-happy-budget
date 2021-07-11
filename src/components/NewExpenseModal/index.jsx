@@ -28,6 +28,8 @@ import transport from "../../assets/categorys/transport.png";
 import study from "../../assets/categorys/study.png";
 import others from "../../assets/categorys/otherIncome.png";
 
+import { maskMoney } from "../../utils/maskMoney";
+
 const NewExpenseModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [select, setSelect] = useState("");
@@ -35,18 +37,18 @@ const NewExpenseModal = () => {
   const showModal = () => {
     setIsModalVisible(true);
     setValue("name", "");
-    setValue("description", "");
+    setValue("value", "");
     setSelect("");
   };
   const handleOk = () => {
     setIsModalVisible(false);
     setValue("name", "");
-    setValue("description", "");
+    setValue("value", "");
   };
   const handleCancel = () => {
     setIsModalVisible(false);
     setValue("name", "");
-    setValue("description", "");
+    setValue("value", "");
   };
 
   const handleSelectChange = (event) => {
@@ -54,10 +56,12 @@ const NewExpenseModal = () => {
     setSelect(value);
   };
 
-  const { setValue, handleSubmit } = useForm();
+  const { setValue, handleSubmit, register } = useForm();
 
   const submitForm = (data) => {
-    handleCancel();
+    const formatedValue = parseInt(
+      data.value.replace(",", "").replaceAll(".", "")
+    );
   };
 
   return (
@@ -78,13 +82,21 @@ const NewExpenseModal = () => {
       >
         <form onSubmit={handleSubmit(submitForm)}>
           <InputModal>
-            <input type="text" placeholder="Descrição da despesa" required />
+            <input
+              type="text"
+              placeholder="Descrição da despesa"
+              required
+              {...register("name")}
+            />
           </InputModal>
           <InputModal>
+            <span>R$</span>
             <input
+              {...register("value")}
               className="input"
               type="text"
-              placeholder="Valor R$"
+              onChange={(e) => maskMoney(e.target, e)}
+              placeholder="Valor"
               required
             />
           </InputModal>
@@ -232,12 +244,12 @@ const NewExpenseModal = () => {
                 name="radio"
                 value="others"
                 checked={select === "others"}
-                color="var(--otherIncome)"
+                color="var(--others)"
                 required
               />
-              <CardCategory color="var(--otherIncome)">
+              <CardCategory color="var(--others)">
                 <CardWrap>
-                  <CustomText color="var(--otherIncome)">Outros</CustomText>
+                  <CustomText color="var(--others)">Outros</CustomText>
                   <img src={others} alt="others"></img>
                 </CardWrap>
               </CardCategory>
