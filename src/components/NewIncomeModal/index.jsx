@@ -23,6 +23,8 @@ import gift from "../../assets/categorys/gift.png";
 import others from "../../assets/categorys/otherIncome.png";
 import investment from "../../assets/categorys/investment.png";
 
+import { maskMoney } from "../../utils/maskMoney";
+
 const NewExpenseModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [select, setSelect] = useState("");
@@ -49,10 +51,12 @@ const NewExpenseModal = () => {
     setSelect(value);
   };
 
-  const { setValue, handleSubmit } = useForm();
+  const { setValue, handleSubmit, register } = useForm();
 
   const submitForm = (data) => {
-    handleCancel();
+    const formatedValue = parseInt(
+      data.value.replace(",", "").replaceAll(".", "")
+    );
   };
 
   return (
@@ -64,7 +68,7 @@ const NewExpenseModal = () => {
         onOk={handleOk}
         onCancel={handleCancel}
         width={700}
-        title="Adicionar receita"
+        title="Adicionar despesa"
         okText="Criar"
         cancelText="Cancelar"
         closeIcon={<FaTimes />}
@@ -73,13 +77,21 @@ const NewExpenseModal = () => {
       >
         <form onSubmit={handleSubmit(submitForm)}>
           <InputModal>
-            <input type="text" placeholder="Descrição da receita" required />
+            <input
+              type="text"
+              placeholder="Descrição da despesa"
+              required
+              {...register("name")}
+            />
           </InputModal>
           <InputModal>
+            <span>R$</span>
             <input
+              {...register("value")}
               className="input"
               type="text"
-              placeholder="Valor R$"
+              onChange={(e) => maskMoney(e.target, e)}
+              placeholder="Valor"
               required
             />
           </InputModal>
@@ -144,12 +156,12 @@ const NewExpenseModal = () => {
                 name="radio"
                 value="others"
                 checked={select === "others"}
-                color="var(--otherIncome)"
+                color="var(--others)"
                 required
               />
-              <CardCategory color="var(--otherIncome)">
+              <CardCategory color="var(--others)">
                 <CardWrap>
-                  <CustomText color="var(--otherIncome)">Outros</CustomText>
+                  <CustomText color="var(--others)">Outros</CustomText>
                   <img src={others} alt="others"></img>
                 </CardWrap>
               </CardCategory>
