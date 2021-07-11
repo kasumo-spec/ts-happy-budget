@@ -7,6 +7,7 @@ import Expenses from "../pages/Expenses";
 import Incomes from "../pages/Incomes";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
+import Tips from "../pages/Tips";
 
 const Routes = () => {
   return (
@@ -34,6 +35,9 @@ const Routes = () => {
 
       <Route path="/incomes">
         <Incomes />
+      </Route>
+      <Route path="/tips">
+        <Tips />
       </Route>
     </Switch>
   );

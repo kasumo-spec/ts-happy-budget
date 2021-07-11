@@ -11,7 +11,7 @@ export const ContainerDashBoard = styled.div`
     padding-right: 60px;
   }
 `;
-export const ContainerIncomeExpense = styled.div`
+export const ContainerTwoCards = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -28,7 +28,8 @@ export const Income = styled.div`
   height: 35vh;
   border-radius: 5px;
   background-color: var(--green);
-  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.25);
+  padding: 0 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
   .tittle {
     text-align: center;
     font-weight: 700;
@@ -36,6 +37,29 @@ export const Income = styled.div`
     font-size: 28px;
     margin-top: 10px;
   }
+
+  /*increase effect*/
+  position: relative;
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    border-radius: 5px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8),
+      0 12px 40px 0 rgba(0, 0, 0, 0.8);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  &:hover {
+    transform: scale(1.04, 1.04);
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+  /*increase effect*/
 
   @media screen and (min-width: 400px) {
     .tittle {
@@ -130,8 +154,8 @@ export const ImageContainer = styled.div`
 
   @media screen and (min-width: 1100px) {
     p {
-      width: 220px;
-
+      width: 160px;
+      margin-top: 20px;
       font-size: 32px;
     }
 
@@ -146,8 +170,15 @@ export const ImageContainer = styled.div`
       font-size: 30px;
     }
 
+    .status:first-child {
+      margin-top: 30px;
+    }
     h3 + button {
       padding: 8px 20px;
+    }
+
+    p {
+      width: 200px;
     }
 
     .wrapLottie {
@@ -156,7 +187,15 @@ export const ImageContainer = styled.div`
     }
   }
 
+  @media screen and (min-width: 1400px) {
+    p {
+      width: 250px;
+    }
+  }
+
   @media screen and (min-width: 1500px) {
+    position: relative;
+    bottom: 20px;
     h3 {
       font-size: 35px;
     }
@@ -183,7 +222,8 @@ export const Expense = styled.div`
   border-radius: 5px;
   background-color: var(--orange);
   margin: 20px 0;
-  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.25);
+  padding: 0 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
   .tittle {
     text-align: center;
     font-weight: 700;
@@ -192,6 +232,28 @@ export const Expense = styled.div`
     margin-top: 10px;
   }
 
+  /*increase effect*/
+  position: relative;
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    border-radius: 5px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8),
+      0 12px 40px 0 rgba(0, 0, 0, 0.8);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  &:hover {
+    transform: scale(1.04, 1.04);
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+  /*increase effect*/
   @media screen and (min-width: 1000px) {
     width: 48%;
   }
@@ -203,18 +265,13 @@ export const Expense = styled.div`
   }
 `;
 
-export const ContainerBudget = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-`;
-
 export const Budget = styled.div`
   width: 90%;
   height: 35vh;
   border-radius: 5px;
   background-color: var(--blue-green);
-  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.25);
+  padding: 0 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
   .tittle {
     text-align: center;
     font-weight: 700;
@@ -223,14 +280,132 @@ export const Budget = styled.div`
     margin-top: 10px;
   }
 
+  p {
+    font-size: 20px;
+  }
+
+  /*increase effect*/
+  position: relative;
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    border-radius: 5px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8),
+      0 12px 40px 0 rgba(0, 0, 0, 0.8);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  &:hover {
+    transform: scale(1.04, 1.04);
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+  /*increase effect*/
+
+  @media screen and (min-width: 400px) {
+    .tittle {
+      font-size: 32px;
+    }
+  }
+
   @media screen and (min-width: 1000px) {
-    width: 100%;
-    margin-top: 3%;
+    width: 48%;
   }
 
   @media screen and (min-width: 1200px) {
     .tittle {
       font-size: 42px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+  @media screen and (min-width: 1400px) {
+    p {
+      font-size: 28px;
+    }
+  }
+`;
+
+export const Tips = styled.div`
+  width: 90%;
+  height: 35vh;
+  border-radius: 5px;
+  background-color: var(--blue-tips);
+  margin: 20px 0;
+  padding: 0 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+  .tittle {
+    text-align: center;
+    font-weight: 700;
+    color: var(--white);
+    font-size: 28px;
+    margin-top: 10px;
+  }
+
+  p {
+    font-size: 20px;
+  }
+
+  /*increase effect*/
+  position: relative;
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    border-radius: 5px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8),
+      0 12px 40px 0 rgba(0, 0, 0, 0.8);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  &:hover {
+    transform: scale(1.04, 1.04);
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+  /*increase effect*/
+  @media screen and (min-width: 1000px) {
+    width: 48%;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .tittle {
+      font-size: 42px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+  @media screen and (min-width: 1400px) {
+    p {
+      font-size: 28px;
+    }
+
+    .wrapLottie div {
+      width: 270px !important;
+    }
+  }
+
+  @media screen and (min-width: 1600px) {
+    .wrapLottie div {
+      position: relative;
+      width: 400px !important;
+      right: 50px;
+      top: 10px;
     }
   }
 `;
