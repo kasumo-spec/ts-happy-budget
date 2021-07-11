@@ -53,13 +53,12 @@ export const Header = styled.header`
     font-weight: 700;
     color: var(--white);
     font-size: 35px;
-    margin-top: 100px;
-    margin-bottom: 10px;
+    margin-top: 80px;
   }
 
-  @media screen and (min-width: 320px) {
+  @media screen and (min-width: 375px) {
     h2 {
-      margin-top: 170px;
+      margin-top: 120px;
     }
   }
 
@@ -74,6 +73,10 @@ export const Header = styled.header`
       margin-top: 30px;
       margin-left: 280px;
     }
+  }
+
+  @media screen and (max-height: 665px) {
+    margin-top: 100px;
   }
 
   @media screen and (min-width: 720px) {
@@ -107,7 +110,6 @@ export const Header = styled.header`
     }
   }
 `;
-
 export const Page = styled.div`
   width: 90%;
   min-height: 250px;
