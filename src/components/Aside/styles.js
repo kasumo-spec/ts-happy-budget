@@ -42,7 +42,7 @@ export const Profile = styled.div`
 
   @media screen and (min-width: 720px) {
     justify-content: center;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 
     h2 {
       margin-bottom: 12px;
@@ -53,17 +53,17 @@ export const Profile = styled.div`
 
 export const Budget = styled.div`
   width: 98%;
-  height: 35px;
+  height: 30px;
   margin: 10px 5px;
   border-radius: 5px;
-  background-color: var(--white);
+  background-color: var(--green);
   display: flex;
   justify-content: center;
   align-items: center;
 
   p {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 11px;
   }
 
   @media screen and (min-width: 400px) {
