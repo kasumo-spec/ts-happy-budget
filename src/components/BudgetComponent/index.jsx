@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {BottomNavigation, BottomNavigationAction} from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
-import { ChartDiv, ButtonsDiv } from "./styes";
+import {ChartDiv, ButtonsDiv, InfosDiv} from "./styes";
 import {
     ComposedChart,
     Line,
@@ -17,6 +17,7 @@ import {
     ResponsiveContainer,
 } from 'recharts'
 import BudgetDeleteModal from "../BudgetDeleteModal";
+import NewBudgetModal from "../../components/NewBudgetModal";
 
 
 const BudgetComponent = () => {
@@ -122,8 +123,16 @@ const BudgetComponent = () => {
                     <Area dataKey="Orçado" type="monotone" fill="#8884d8" stroke="#8884d8" />
                 </ComposedChart>
             </ResponsiveContainer> :
-                <div>Não há orçamentos para este mês! Crie agora clicando
-                        no botão BOTÃO LINDAMENTE ESTILIZADO!</div>}
+                monthIndex === 7 ?
+                    <InfosDiv>
+                        Não há orçamentos para este mês! Crie agora clicando
+                        no botão BOTÃO LINDAMENTE ESTILIZADO!
+                        <NewBudgetModal />
+                    </InfosDiv> :
+                    <InfosDiv>
+                        Não é permitido criação de orçamento fora do mês corrente!
+                    </InfosDiv>
+            }
         </ChartDiv>
     </>
     )
