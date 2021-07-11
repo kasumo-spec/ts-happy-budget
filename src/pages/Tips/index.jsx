@@ -1,7 +1,6 @@
 import { Container, Page, Header, LottieWrap } from "./styles";
-import income from "../../assets/lotties/expense.json";
+import tips from "../../assets/lotties/tips.json";
 import Lottie from "react-lottie";
-import ExpenseComponent from "../../components/ExpenseComponent";
 const lottieOptions = {
   loop: true,
   autoplay: false,
@@ -9,23 +8,21 @@ const lottieOptions = {
     preserveAspectRatio: "xMidYMid slice",
   },
 };
-const Expenses = () => {
+const Tips = () => {
   return (
     <>
       <Container>
         <Header>
-          <h2 className="tittle">Despesas</h2>
+          <h2 className="tittle">Dicas para o bolso</h2>
         </Header>
         <LottieWrap className="lottie">
-          <Lottie options={{ ...lottieOptions, animationData: income }} />
+          <Lottie options={{ ...lottieOptions, animationData: tips }} />
         </LottieWrap>
 
-        <Page>
-          <ExpenseComponent />
-        </Page>
+        <Page></Page>
       </Container>
     </>
   );
 };
 
-export default Expenses;
+export default Tips;

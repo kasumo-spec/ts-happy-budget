@@ -17,7 +17,7 @@ export const LottieWrap = styled.div`
   justify-content: flex-end !important;
 
   div {
-    width: 140px !important;
+    width: 120px !important;
     height: 180px !important;
     margin: 0 !important;
     position: relative;
@@ -27,19 +27,25 @@ export const LottieWrap = styled.div`
 
   @media screen and (min-width: 720px) {
     div {
-      width: 250px !important;
+      width: 200px !important;
       height: 180px !important;
       margin: 0 !important;
       position: relative;
-      bottom: 70px;
+      bottom: 80px;
     }
   }
 
-  @media screen and (min-width: 1400px) {
+  @media screen and (min-width: 1000px) {
+    div {
+      bottom: 70px;
+      width: 250px !important;
+    }
+  }
+  @media screen and (min-width: 1500px) {
     div {
       width: 360px !important;
-      height: 210px !important;
-      bottom: 30px;
+      height: 220px !important;
+      bottom: 40px;
     }
   }
 `;
@@ -50,6 +56,18 @@ export const Header = styled.header`
     color: var(--white);
     font-size: 35px;
     margin-top: 80px;
+  }
+
+  @media screen and (min-width: 375px) {
+    h2 {
+      margin-top: 120px;
+    }
+  }
+
+  @media screen and (min-height: 736px) and (max-width: 719px) {
+    h2 {
+      margin-top: 40px;
+    }
   }
 
   @media screen and (min-width: 880px) {
@@ -65,21 +83,35 @@ export const Header = styled.header`
 
   @media screen and (min-width: 720px) {
     h2 {
-      margin-top: 0px;
-      font-size: 55px;
-      margin-left: 50px;
+      margin-top: 30px;
+      margin-left: 280px;
+
+      font-size: 35px;
+
+      padding: 10px;
     }
   }
 
-  @media screen and (min-width: 880px) {
+  @media screen and (min-width: 1100px) {
     h2 {
-      margin-top: 30px;
-      margin-left: 280px;
+      font-size: 50px;
+    }
+  }
+
+  @media screen and (min-width: 1400px) {
+    h2 {
+      position: relative;
+      top: 20px;
+    }
+  }
+
+  @media screen and (min-width: 1500px) {
+    h2 {
+      position: relative;
+      top: 50px;
     }
   }
 `;
-
-export const Wrap = styled.div``;
 
 export const Page = styled.div`
   width: 90%;

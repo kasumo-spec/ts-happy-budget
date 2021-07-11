@@ -5,11 +5,12 @@ export const GlobalStyles = createGlobalStyle`
         //primary's colors:
         --white: #fff9ff;
         --white-green: #DCF9F6;
-        --black: #18251D;
+        --black: #0C090D;
         --violet: #341E48;
         --blue-green: #053E61;
         --orange: #F06543;
         --green: #04B43B;
+        --blue-tips: #0973B4;
         --button-hover:#584077;
         //buttonsprimary's colors:
         --salary: #3cb1b9;
@@ -23,9 +24,7 @@ export const GlobalStyles = createGlobalStyle`
         --hobby: #f5d329;
         --study: #00c49a;
         --transport: #495383;
-        --otherIncome: #057ef0;
-        --otherDebt: #edfcf9;
-        --market: 
+        --others: #057ef0;
     }
         
 

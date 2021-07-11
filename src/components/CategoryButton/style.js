@@ -1,20 +1,17 @@
 import styled from "styled-components";
 
 export const CategoryButtons = styled.button`
+  padding: 10px;
   border-radius: 5px;
   background-color: ${(props) =>
-    props.category ? `var(--${props.category})` : "var(--violet)"};
+    props.selected === true ? `var(--${props.category})` : "transparent"};
   color: ${(props) =>
-    props.category === "otherDebt" ? "var(--blue-green)" : "var(--white)"};
+    props.category === "others" ? "var(--blue-green)" : "var(--white)"};
   font-size: 12px;
   font-weight: 600;
   transition: 300ms;
   padding: 6px 1px;
-  border: 3px solid
-    ${(props) =>
-      props.category === "otherDebt"
-        ? "var(--blue-green)"
-        : `var(--${props.category})`};
+  border: 3px solid ${(props) => props.category};
   display: flex;
   align-items: center;
   position: relative;
