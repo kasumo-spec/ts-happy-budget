@@ -1,6 +1,8 @@
 import { Container, Page, Header, LottieWrap } from "./styles";
 import income from "../../assets/lotties/budget.json";
 import Lottie from "react-lottie";
+import BudgetComponent from "../../components/BudgetComponent";
+
 const lottieOptions = {
   loop: true,
   autoplay: false,
@@ -8,7 +10,9 @@ const lottieOptions = {
     preserveAspectRatio: "xMidYMid slice",
   },
 };
+
 const Budget = () => {
+
   return (
     <>
       <Container>
@@ -19,7 +23,9 @@ const Budget = () => {
           <Lottie options={{ ...lottieOptions, animationData: income }} />
         </LottieWrap>
 
-        <Page></Page>
+        <Page>
+          <BudgetComponent />
+        </Page>
       </Container>
     </>
   );

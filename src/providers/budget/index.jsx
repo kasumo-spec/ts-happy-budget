@@ -28,13 +28,18 @@ export const BudgetProvider = ({ children }) => {
     }
   }, [userId, budgetCreateSuccess, budgetDeleteSuccess]);
 
-  const createBudget = (data) => {
+  const createBudget = (data,prediction) => {
     let budgetInfos = {
       userId: userId,
       name: reqMonth,
-      data: { data },
+      prediction: prediction,
+      data: data,
     };
-    api.post("budget", budgetInfos).then((res) => {
+    api.post("budget", budgetInfos,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    }).then((res) => {
       if (res.status === 201) {
         setBudgetCreateSuccess(true);
       }
