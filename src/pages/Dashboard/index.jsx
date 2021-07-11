@@ -16,6 +16,8 @@ import Lottie from "react-lottie";
 
 import NewIncomeModal from "../../components/NewIncomeModal";
 import NewExpenseModal from "../../components/NewExpenseModal";
+import NewBudgetModal from "../../components/NewBudgetModal";
+
 import { useHistory } from "react-router-dom";
 const lottieOptions = {
   loop: true,
@@ -70,7 +72,7 @@ const Dashboard = () => {
           <ImageContainer>
             <div className="status">
               <p>Clique no botão abaixo para criar seu orçamento</p>
-              <Button>Criar</Button>
+              <NewBudgetModal />
             </div>
             <div className="wrapLottie">
               <Lottie options={{ ...lottieOptions, animationData: budget }} />
