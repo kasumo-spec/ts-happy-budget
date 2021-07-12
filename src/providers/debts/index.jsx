@@ -32,7 +32,7 @@ export const DebitProvider = ({ children }) => {
           setDebits(userDebits);
         });
     }
-  }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess]);
+  }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess, token]);
 
   const createDebit = (data) => {
     api

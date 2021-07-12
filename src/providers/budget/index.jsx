@@ -28,22 +28,24 @@ export const BudgetProvider = ({ children }) => {
     }
   }, [userId, budgetCreateSuccess, budgetDeleteSuccess]);
 
-  const createBudget = (data,prediction) => {
+  const createBudget = (data, prediction) => {
     let budgetInfos = {
       userId: userId,
       name: reqMonth,
       prediction: prediction,
       data: data,
     };
-    api.post("budget", budgetInfos,{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    }).then((res) => {
-      if (res.status === 201) {
-        setBudgetCreateSuccess(true);
-      }
-    });
+    api
+      .post("budget", budgetInfos, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          setBudgetCreateSuccess(true);
+        }
+      });
   };
 
   const deleteBudget = (data) => {
