@@ -1,4 +1,5 @@
-import { CategoryButtons } from "./style";
+import { CardContainer } from "./style";
+
 import market from "../../assets/categorys/market.png";
 import salary from "../../assets/categorys/money.png";
 import gift from "../../assets/categorys/gift.png";
@@ -12,14 +13,11 @@ import study from "../../assets/categorys/study.png";
 import transport from "../../assets/categorys/transport.png";
 import others from "../../assets/categorys/otherDebt.png";
 
-const CategoryButton = ({
-  onClickFunc,
-  children,
-  category,
-  value,
-  selected,
-  ...rest
-}) => {
+import { FaRegTrashAlt } from "react-icons/fa";
+import { useDebits } from "../../providers/debts";
+
+const Card = ({ debit }) => {
+  const { deleteDebit } = useDebits();
   const categorys = [
     "market",
     "salary",
@@ -50,21 +48,25 @@ const CategoryButton = ({
     others,
   ];
 
-  let image = icons[categorys.indexOf(category)];
-
+  let image = icons[categorys.indexOf(debit.category.toLowerCase())];
+  console.log(debit.category.toLowerCase());
   return (
-    <CategoryButtons
-      type="button"
-      category={category}
-      onClick={onClickFunc}
-      selected={selected}
-      value={value}
-      {...rest}
-    >
-      {children}
-      <img src={image} alt={category} />
-    </CategoryButtons>
+    <CardContainer category={debit.category}>
+      <img src={image} alt={debit.category} />
+      <p>{debit.name}</p>
+      <span>
+        R${" "}
+        {debit.value.toLocaleString("pt-br", {
+          style: "currency",
+          currency: "BRL",
+        })}
+      </span>
+      <span>{debit.reqDay}</span>
+      <button onClick={() => deleteDebit(debit.id)}>
+        <FaRegTrashAlt />
+      </button>
+    </CardContainer>
   );
 };
 
-export default CategoryButton;
+export default Card;

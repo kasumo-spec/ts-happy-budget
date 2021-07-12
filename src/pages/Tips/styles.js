@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   height: calc(100vh - 95px);
-  background-color: var(--blue-green);
+  background-color: var(--blue-tips);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  /* padding-top: 20px; */
 `;
 
 export const LottieWrap = styled.div`
@@ -15,7 +17,7 @@ export const LottieWrap = styled.div`
   justify-content: flex-end !important;
 
   div {
-    width: 120px !important;
+    width: 140px !important;
     height: 180px !important;
     margin: 0 !important;
     position: relative;
@@ -25,25 +27,24 @@ export const LottieWrap = styled.div`
 
   @media screen and (min-width: 720px) {
     div {
-      width: 200px !important;
+      width: 250px !important;
       height: 180px !important;
       margin: 0 !important;
       position: relative;
-      bottom: 80px;
+      bottom: 70px;
     }
   }
 
   @media screen and (min-width: 1000px) {
     div {
-      bottom: 70px;
-      width: 250px !important;
+      bottom: 120px;
     }
   }
-  @media screen and (min-width: 1500px) {
+  @media screen and (min-width: 1400px) {
     div {
       width: 360px !important;
-      height: 220px !important;
-      bottom: 40px;
+      height: 210px !important;
+      bottom: 80px;
     }
   }
 `;
@@ -99,17 +100,11 @@ export const Header = styled.header`
   @media screen and (min-width: 1400px) {
     h2 {
       position: relative;
-      top: 20px;
-    }
-  }
-
-  @media screen and (min-width: 1500px) {
-    h2 {
-      position: relative;
       top: 50px;
     }
   }
 `;
+
 export const Page = styled.div`
   width: 90%;
   min-height: 250px;

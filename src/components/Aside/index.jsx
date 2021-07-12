@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { RiDashboardLine } from "react-icons/ri";
 import { BsFileSpreadsheet } from "react-icons/bs";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
+import { FaPiggyBank } from "react-icons/fa";
 
 import { NavLink, useHistory, useLocation } from "react-router-dom";
 
@@ -98,6 +99,14 @@ const Aside = () => {
           >
             <GiPayMoney />
             <span>Despesas</span>
+          </NavLink>
+          <NavLink
+            to="/tips"
+            ref={(el) => navLinks.current.push(el)}
+            activeClassName="navlink--active"
+          >
+            <FaPiggyBank />
+            <span>Dicas</span>
           </NavLink>
           <span
             className="indicator"

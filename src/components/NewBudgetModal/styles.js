@@ -10,7 +10,7 @@ export const CustomModal = styled(Modal)`
 
   p {
     font-size: 12px;
-    margin-top: 5px;
+    margin: 5px 0;
   }
 
   .ant-modal-header {
@@ -32,7 +32,7 @@ export const CustomModal = styled(Modal)`
   .ant-modal-body {
     background-color: var(--white-green);
     border-radius: 15px;
-    padding: 40px;
+    padding: 0px 40px 20px 40px;
   }
 
   .ant-modal-footer {
@@ -65,51 +65,56 @@ export const InputModal = styled.div`
 
     color: var(--black);
     font-weight: 500;
-    font-size: 16px;
+    font-size: 10px;
     width: 100%;
     height: 20px;
-    padding: 20px 12px;
-
-    @media (min-width: 540px) {
-      font-size: 20px;
-
-      padding: 25px 12px;
-    }
+    padding: 16px 0px;
   }
 
   span {
     position: absolute;
-    top: 148.5px;
+    top: 46px;
     display: flex;
 
     color: var(--black);
     font-weight: 500;
-    font-size: 16px;
+    font-size: 10px;
     width: 20px;
     height: 20px;
     padding: 20px 12px;
-
-    @media (min-width: 540px) {
-      font-size: 20px;
-      top: 156px;
-      padding: 25px 12px;
-    }
-  }
-
-  @media screen and (min-width: 720px) {
-    span {
-      bottom: 349.6px;
-    }
   }
 
   .input {
-    margin-top: 20px;
-    padding-left: 30px;
+    padding-left: 23px;
   }
 
-  @media screen and (min-width: 540px) {
+  @media (min-width: 340px) {
+    input {
+      font-size: 15px;
+    }
+    span {
+      font-size: 15px;
+      top: 43px;
+    }
+
     .input {
-      padding-left: 38px;
+      padding-left: 28px;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    input {
+      height: 44px;
+      font-size: 20px;
+    }
+
+    span {
+      font-size: 20px;
+      padding: 18px 12px;
+      top: 44px;
+    }
+    .input {
+      padding-left: 35px;
     }
   }
 `;
@@ -118,45 +123,30 @@ export const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  div {
-    width: 49%;
-
-    transition: all 200ms;
-  }
-
-  @media screen and (min-width: 600px) {
-    div {
-      width: 30%;
-    }
-  }
+  width: 100%;
 `;
 
 export const Item = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  height: 48px;
-  position: relative;
-  margin-top: 10px;
-  width: 50%;
-`;
-
-export const CardCategory = styled.label`
-  background: var(--white);
-  border: 3px solid ${(props) => props.color};
-  justify-content: center;
+  justify-content: space-between;
+  height: 40px;
 
   width: 100%;
-  cursor: pointer;
+
+  @media screen and (min-width: 600px) {
+    height: 50px;
+  }
+`;
+
+export const CardCategory = styled.div`
+  background: ${(props) => props.color};
+  justify-content: center;
   display: flex;
   align-items: center;
-  justify-content: center;
-  position: absolute;
-  z-index: 0;
 
-  margin: 4px;
+  height: 30px;
+  width: 80%;
   border-radius: 5px;
-  padding: 8px 0;
-  transition: all 300ms;
 
   p {
     font-size: 10px;
@@ -164,36 +154,23 @@ export const CardCategory = styled.label`
     margin: 0;
   }
 
-  @media (min-width: 430px) {
-    height: 40px;
+  @media (min-width: 600px) {
+    padding: 22px 0;
     p {
-      font-size: 14px;
-    }
-  }
-
-  @media (min-width: 460px) {
-    width: 100%;
-    max-width: 198px;
-
-    margin: 0;
-
-    @media (min-width: 600px) {
-      padding: 22px 0;
-      p {
-        font-size: 18px;
-      }
+      font-size: 18px;
     }
   }
 `;
 
 export const CardWrap = styled.div`
-  min-width: 100px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
 
   img {
     width: 20px;
+    margin-left: 5px;
   }
 
   @media screen and (min-width: 600px) {
@@ -206,40 +183,79 @@ export const CardWrap = styled.div`
 `;
 
 export const CustomText = styled.p`
-  color: ${(props) => props.color};
-  z-index: 20;
+  color: var(--white);
   margin: 0;
   font-size: 18px;
   text-align: center;
   font-weight: 500;
-  transition: all 300ms;
 `;
 
-export const RadioButton = styled.input`
-  position: relative;
-  opacity: 0;
-  z-index: 205;
-  cursor: pointer;
-  transition: all 300ms;
-
+export const InputCategory = styled.div`
+  display: flex;
   width: 100%;
-  height: 48px;
-
-  &:hover ~ ${CardCategory} {
-    filter: brightness(0.92);
+  input {
+    border-radius: 5px;
+    border: 2px solid var(--violet);
+    position: absolute;
+    z-index: 1;
+    color: var(--black);
+    font-weight: 500;
+    font-size: 10px;
+    width: 37%;
+    height: 30px;
+    padding: 10px 12px;
+  }
+  @media (min-width: 340px) {
+    font-size: 16px;
   }
 
-  &:checked + ${CardCategory} {
-    background: ${(props) => props.color};
+  span {
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+    display: flex;
 
-    p {
-      color: var(--white);
+    color: var(--black);
+    font-weight: 500;
+    font-size: 10px;
+    max-width: 0px;
+    height: 20px;
+    padding: 20px 12px;
+
+    bottom: 12px;
+  }
+
+  .input {
+    padding-left: 25px;
+  }
+  @media (min-width: 340px) {
+    span {
+      font-size: 16px;
+      padding: 15px 12px;
+    }
+
+    input {
+      font-size: 16px;
+    }
+
+    .input {
+      padding-left: 30px;
     }
   }
 
-  @media (min-width: 460px) {
-    width: 100%;
-    max-width: 198px;
+  @media screen and (min-width: 600px) {
+    input {
+      height: 42px;
+      font-size: 20px;
+    }
+
+    span {
+      font-size: 20px;
+      padding: 18px 12px;
+    }
+    .input {
+      padding-left: 35px;
+    }
   }
 `;
 export const ButtonWrap = styled.div`
@@ -248,8 +264,8 @@ export const ButtonWrap = styled.div`
   justify-content: flex-end;
 
   button {
-    margin-top: 40px;
-    font-size: 20px;
+    margin-top: 20px;
+    font-size: 14px;
 
     padding: 4px 30px;
   }

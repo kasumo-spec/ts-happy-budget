@@ -25,28 +25,35 @@ export const BudgetProvider = ({ children }) => {
         })
         .then((res) => {
           const idBudget = res.data[0].id;
-          setBudgets(res.data[0].data);
           setBudgetsId(idBudget);
+          setBudgets(res.data);
         });
     }
   }, [userId, budgetCreateSuccess, budgetDeleteSuccess]);
 
-  const createBudget = (data) => {
+  const createBudget = (data, prediction) => {
     let budgetInfos = {
       userId: userId,
       name: reqMonth,
-      data: { data },
+      prediction: prediction,
+      data: data,
     };
-    api.post("budget", budgetInfos).then((res) => {
-      if (res.status === 201) {
-        setBudgetCreateSuccess(true);
-      }
-    });
+    api
+      .post("budget", budgetInfos, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          setBudgetCreateSuccess(true);
+        }
+      });
   };
 
-  const deleteBudget = (data) => {
+  const deleteBudget = (idBudget) => {
     api
-      .delete(`budget/${data}`, {
+      .delete(`budget/${idBudget}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

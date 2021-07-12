@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+
+import { useBudget } from "../../providers/budget";
+import { useDebits } from "../../providers/debts";
+
 import {
-  ComposedChart,
-  Area,
   Bar,
   XAxis,
   YAxis,
@@ -9,15 +11,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  Cell,
-  Line,
   BarChart,
 } from "recharts";
-
-import { ChartContainer } from "./styles";
-
-import { useBudget } from "../../providers/budget";
-import { useDebits } from "../../providers/debts";
 
 // const colors = [
 //   "#0088FE",
@@ -40,7 +35,6 @@ export const ComposedChartComponent = () => {
 
   useEffect(() => {
     const result = [];
-
     if (budgets.length !== 0) {
       for (let i = 0; i < totalDebits.length; i++) {
         const partial = totalDebits[i];
