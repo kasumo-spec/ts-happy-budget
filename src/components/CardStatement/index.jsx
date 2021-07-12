@@ -16,7 +16,7 @@ import others from "../../assets/categorys/otherDebt.png";
 import { FaRegTrashAlt } from "react-icons/fa";
 
 const Card = ({ entry, onClickFunc }) => {
-  console.log(entry);
+
   const { id, category, name, value, reqDay } = entry;
 
   const categorys = [
