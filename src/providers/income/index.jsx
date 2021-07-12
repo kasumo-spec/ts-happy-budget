@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
 import jwtDecode from "jwt-decode";
-import { NotificationsContext } from "../notifications"
 
 export const IncomeContext = createContext([]);
 
@@ -13,7 +12,6 @@ export const IncomeProvider = ({ children }) => {
   const [incomeDeleteSuccess, setIncomeDeleteSuccess] = useState(Boolean);
   const [incomes, setIncomes] = useState([]);
   const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
-  const { newIncomeSuccess, newIncomeError, deleteIncomeSuccess, deleteIncomeError } = useContext(NotificationsContext)
 
   useEffect(() => {
     if (token !== "") {
@@ -50,13 +48,9 @@ export const IncomeProvider = ({ children }) => {
       .then((res) => {
         if (res.status === 201) {
           setIncomeCreateSuccess(true);
-          newIncomeSuccess()
         }
       })
-      .catch((_) => {
-        setIncomeCreateSuccess(false)
-        newIncomeError()
-      });
+      .catch((_) => setIncomeCreateSuccess(false));
   };
 
   const editIncome = (data, id) => {
@@ -81,12 +75,8 @@ export const IncomeProvider = ({ children }) => {
       })
       .then((_) => {
         setIncomeDeleteSuccess(true);
-        deleteIncomeSuccess()
       })
-      .catch((_) => {
-        setIncomeDeleteSuccess(false)
-        deleteIncomeError()
-      });
+      .catch((_) => setIncomeDeleteSuccess(false));
   };
 
   return (
