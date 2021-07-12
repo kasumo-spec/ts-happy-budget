@@ -49,7 +49,7 @@ const Card = ({ debit }) => {
   ];
 
   let image = icons[categorys.indexOf(debit.category.toLowerCase())];
-  console.log(debit.category.toLowerCase());
+
   return (
     <CardContainer category={debit.category}>
       <img src={image} alt={debit.category} />
