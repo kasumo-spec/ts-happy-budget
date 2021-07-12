@@ -41,6 +41,9 @@ const ExpenseComponent = () => {
   const [categorySelected, setCategorySelected] = useState("");
   const [filteredDebits, setFilteredDebits] = useState([]);
 
+  const { debits, deleteDebit } = useDebits();
+  const { budgets } = useBudget();
+
   const [month, setMonth] = useState(
     new Date().toLocaleString("en-US", {
       month: "numeric",
@@ -53,9 +56,6 @@ const ExpenseComponent = () => {
   );
 
   const [monthlyDebts, setMonthlyDebts] = useState([]);
-
-  const { debits, deleteDebit } = useDebits();
-  const { budgets } = useBudget();
 
   const handleChange = (_, value) => {
     setCategorySelected("");
