@@ -1,6 +1,6 @@
 import { GoGraph } from "react-icons/go";
 import { BsLayoutTextWindow } from "react-icons/bs";
-import { BiPlus } from "react-icons/bi";
+import NewExpenseModal from "../NewExpenseModal";
 
 import Card from "../CardStatement";
 import CategoryButton from "../CategoryButton";
@@ -20,7 +20,7 @@ const ExpenseComponent = () => {
   const [categorySelected, setCategorySelected] = useState("");
   const [filteredDebits, setFilteredDebits] = useState([]);
 
-  const { debits } = useDebits();
+  const { debits, deleteDebit } = useDebits();
 
   const handleCategorySelected = (event) => {
     const value = event.target.alt;
@@ -70,9 +70,7 @@ const ExpenseComponent = () => {
         </div>
         <div> - julho 2021 - </div>
 
-        <button>
-          <BiPlus />
-        </button>
+        <NewExpenseModal />
       </header>
 
       <ExpenseContent>
@@ -178,7 +176,12 @@ const ExpenseComponent = () => {
               </h3>
             ) : (
               debits.map((debit, index) => (
-                <Card key={index} category={debit.category} debit={debit} />
+                <Card
+                  key={index}
+                  category={debit.category}
+                  entry={debit}
+                  onClickFunc={deleteDebit}
+                />
               ))
             )}
           </>

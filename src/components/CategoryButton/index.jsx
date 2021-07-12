@@ -21,10 +21,10 @@ const CategoryButton = ({
   ...rest
 }) => {
   const categorys = [
-    "market",
     "salary",
     "gift",
     "investment",
+    "market",
     "food",
     "health",
     "pet",
@@ -36,10 +36,10 @@ const CategoryButton = ({
   ];
 
   const icons = [
-    market,
     salary,
     gift,
     investment,
+    market,
     food,
     health,
     pet,
