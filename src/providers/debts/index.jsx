@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
+import jwtDecode from "jwt-decode";
 
 export const DebitContext = createContext([]);
 
@@ -11,14 +12,15 @@ export const DebitProvider = ({ children }) => {
   const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean);
   const [debits, setDebits] = useState([]);
   const [totalDebits, setTtotalDebits] = useState([
-    { category: "Moradia", value: 0 },
-    { category: "Alimentação", value: 0 },
-    { category: "Transporte", value: 0 },
-    { category: "Saúde", value: 0 },
-    { category: "Educação", value: 0 },
-    { category: "Lazer", value: 0 },
-    { category: "Pets", value: 0 },
-    { category: "Outros", value: 0 },
+    { category: "home", value: 0 },
+    { category: "food", value: 0 },
+    { category: "transport", value: 0 },
+    { category: "health", value: 0 },
+    { category: "study", value: 0 },
+    { category: "hobby", value: 0 },
+    { category: "pet", value: 0 },
+    { category: "market", value: 0 },
+    { category: "others", value: 0 },
   ]);
 
   const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
@@ -111,7 +113,10 @@ export const DebitProvider = ({ children }) => {
         debitCreateSuccess,
         debitEditSuccess,
         debitDeleteSuccess,
+<<<<<<< HEAD
         totalDebits,
+=======
+>>>>>>> develop
       }}
     >
       {children}
