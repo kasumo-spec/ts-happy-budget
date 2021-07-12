@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ExpenseContainer = styled.div`
+export const IncomeContainer = styled.div`
   width: 100%;
   height: 100%;
   font-weight: bold;
@@ -11,20 +11,6 @@ export const ExpenseContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 50px;
-
-    div.buttonContent {
-    }
-
-    /* > button {
-      height: 30px;
-      width: 30px;
-      font-size: 30px;
-      padding: 0;
-      font-weight: bold;
-      border-radius: 50%;
-      background-color: #eb6f68;
-      border: 1px solide red;
-    } */
   }
 `;
 
@@ -40,7 +26,7 @@ export const ButtonSetComponent = styled.button`
   }
 `;
 
-export const ExpenseContent = styled.div`
+export const IncomeContent = styled.div`
   height: calc(100% - 50px);
   display: flex;
   flex-direction: column;
