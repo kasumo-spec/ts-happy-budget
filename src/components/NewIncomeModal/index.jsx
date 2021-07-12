@@ -25,7 +25,7 @@ import investment from "../../assets/categorys/investment.png";
 
 import { maskMoney } from "../../utils/maskMoney";
 
-const NewExpenseModal = () => {
+const NewIncomeModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [select, setSelect] = useState("");
 
@@ -68,7 +68,7 @@ const NewExpenseModal = () => {
         onOk={handleOk}
         onCancel={handleCancel}
         width={700}
-        title="Adicionar despesa"
+        title="Adicionar Receita"
         okText="Criar"
         cancelText="Cancelar"
         closeIcon={<FaTimes />}
@@ -79,7 +79,7 @@ const NewExpenseModal = () => {
           <InputModal>
             <input
               type="text"
-              placeholder="Descrição da despesa"
+              placeholder="Descrição da receita"
               required
               {...register("name")}
             />
@@ -177,4 +177,4 @@ const NewExpenseModal = () => {
   );
 };
 
-export default NewExpenseModal;
+export default NewIncomeModal;

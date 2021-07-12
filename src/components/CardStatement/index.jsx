@@ -14,10 +14,11 @@ import transport from "../../assets/categorys/transport.png";
 import others from "../../assets/categorys/otherDebt.png";
 
 import { FaRegTrashAlt } from "react-icons/fa";
-import { useDebits } from "../../providers/debts";
 
-const Card = ({ debit }) => {
-  const { deleteDebit } = useDebits();
+const Card = ({ entry, onClickFunc }) => {
+  console.log(entry);
+  const { id, category, name, value, reqDay } = entry;
+
   const categorys = [
     "market",
     "salary",
@@ -48,21 +49,21 @@ const Card = ({ debit }) => {
     others,
   ];
 
-  let image = icons[categorys.indexOf(debit.category.toLowerCase())];
+  let image = icons[categorys.indexOf(category.toLowerCase())];
 
   return (
-    <CardContainer category={debit.category}>
-      <img src={image} alt={debit.category} />
-      <p>{debit.name}</p>
+    <CardContainer category={category}>
+      <img src={image} alt={category} />
+      <p>{name}</p>
       <span>
         R${" "}
-        {debit.value.toLocaleString("pt-br", {
+        {value.toLocaleString("pt-br", {
           style: "currency",
           currency: "BRL",
         })}
       </span>
-      <span>{debit.reqDay}</span>
-      <button onClick={() => deleteDebit(debit.id)}>
+      <span>{reqDay}</span>
+      <button onClick={() => onClickFunc(id)}>
         <FaRegTrashAlt />
       </button>
     </CardContainer>

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { GoGraph } from "react-icons/go";
 import { BsLayoutTextWindow } from "react-icons/bs";
-import { BiPlus } from "react-icons/bi";
+import NewExpenseModal from "../NewExpenseModal";
 
 import Card from "../CardStatement";
 import CategoryButton from "../CategoryButton";
@@ -54,7 +54,7 @@ const ExpenseComponent = () => {
 
   const [monthlyDebts, setMonthlyDebts] = useState([]);
 
-  const { debits } = useDebits();
+  const { debits, deleteDebit } = useDebits();
   const { budgets } = useBudget();
 
   const handleChange = (_, value) => {
@@ -138,7 +138,11 @@ const ExpenseComponent = () => {
           </ButtonSetComponent>
         </div>
 
-        <BottomNavigation onChange={handleChange} showLabels>
+        <BottomNavigation
+          style={{ height: "50px", background: "transparent" }}
+          onChange={handleChange}
+          showLabels
+        >
           <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
           <BottomNavigationAction
             disabled={true}
@@ -147,9 +151,7 @@ const ExpenseComponent = () => {
           <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
         </BottomNavigation>
 
-        <button>
-          <BiPlus />
-        </button>
+        <NewExpenseModal />
       </header>
 
       <ExpenseContent>
@@ -245,7 +247,12 @@ const ExpenseComponent = () => {
                 </h3>
               ) : (
                 filteredDebits.map((debit, index) => (
-                  <Card key={index} category={debit.category} debit={debit} />
+                  <Card
+                    key={index}
+                    category={debit.category}
+                    entry={debit}
+                    onClickFunc={deleteDebit}
+                  />
                 ))
               )
             ) : monthlyDebts.length === 0 ? (
@@ -255,7 +262,12 @@ const ExpenseComponent = () => {
               </h3>
             ) : (
               monthlyDebts.map((debit, index) => (
-                <Card key={index} category={debit.category} debit={debit} />
+                <Card
+                  key={index}
+                  category={debit.category}
+                  entry={debit}
+                  onClickFunc={deleteDebit}
+                />
               ))
             )}
           </>

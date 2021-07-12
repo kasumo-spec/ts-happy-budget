@@ -1,6 +1,7 @@
 import { Container, Page, Header, LottieWrap } from "./styles";
 import income from "../../assets/lotties/income.json";
 import Lottie from "react-lottie";
+import IncomeComponent from "../../components/IncomeComponent";
 const lottieOptions = {
   loop: true,
   autoplay: false,
@@ -19,7 +20,9 @@ const Incomes = () => {
           <Lottie options={{ ...lottieOptions, animationData: income }} />
         </LottieWrap>
 
-        <Page></Page>
+        <Page>
+          <IncomeComponent />
+        </Page>
       </Container>
     </>
   );

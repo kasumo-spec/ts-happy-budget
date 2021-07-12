@@ -15,13 +15,14 @@ import {
   Profile,
 } from "./styles";
 
-import Button from "../Button";
 import { useUser } from "../../providers/users";
+
+import Button from "../Button";
 
 const Aside = () => {
   const history = useHistory();
+  const { userName, token, setToken } = useUser();
   const { pathname } = useLocation();
-  const { userName } = useUser();
   const [topIndicator, setTopIndicator] = useState(0);
   const [leftIndicator, setLeftIndicator] = useState(0);
 
@@ -50,6 +51,8 @@ const Aside = () => {
   };
 
   const logOff = () => {
+    localStorage.clear();
+    setToken("");
     history.push("/");
   };
 
