@@ -21,9 +21,8 @@ import Button from "../Button";
 
 const Aside = () => {
   const history = useHistory();
-  const { token, setToken } = useUser();
+  const { userName, token, setToken } = useUser();
   const { pathname } = useLocation();
-
   const [topIndicator, setTopIndicator] = useState(0);
   const [leftIndicator, setLeftIndicator] = useState(0);
 
@@ -61,7 +60,7 @@ const Aside = () => {
     <AsideContainer>
       <Profile>
         <h2>Bem vindo!!!</h2>
-        <h2>Nome do usuário</h2>
+        <h2>{userName}</h2>
         <Budget>
           <p>Saldo: 1.000.000,00R$</p>
         </Budget>

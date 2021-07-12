@@ -16,7 +16,9 @@ import others from "../../assets/categorys/otherDebt.png";
 import { FaRegTrashAlt } from "react-icons/fa";
 
 const Card = ({ entry, onClickFunc }) => {
+
   const { id, category, name, value, reqDay } = entry;
+
   const categorys = [
     "market",
     "salary",
@@ -48,7 +50,7 @@ const Card = ({ entry, onClickFunc }) => {
   ];
 
   let image = icons[categorys.indexOf(category.toLowerCase())];
-  console.log(category.toLowerCase());
+
   return (
     <CardContainer category={category}>
       <img src={image} alt={category} />

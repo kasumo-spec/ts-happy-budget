@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { GoGraph } from "react-icons/go";
 import { BsLayoutTextWindow } from "react-icons/bs";
 import NewExpenseModal from "../NewExpenseModal";
@@ -11,16 +13,83 @@ import {
   ExpenseContainer,
   ExpenseContent,
 } from "./styles";
-import { useState } from "react";
+
 import { useDebits } from "../../providers/debts";
-import { useEffect } from "react";
+
+import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { useBudget } from "../../providers/budget";
 
 const ExpenseComponent = () => {
+  const months = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
+
   const [active, setActive] = useState(true);
   const [categorySelected, setCategorySelected] = useState("");
   const [filteredDebits, setFilteredDebits] = useState([]);
 
   const { debits, deleteDebit } = useDebits();
+  const { budgets } = useBudget();
+
+  const [month, setMonth] = useState(
+    new Date().toLocaleString("en-US", {
+      month: "numeric",
+    })
+  );
+  const [year, setYear] = useState(
+    new Date().toLocaleString("en-US", {
+      year: "numeric",
+    })
+  );
+
+  const [monthlyDebts, setMonthlyDebts] = useState([]);
+
+  const handleChange = (_, value) => {
+    setCategorySelected("");
+    if (value < 0) {
+      if (parseInt(month) === 1) {
+        setYear(parseInt(year) + value);
+        setMonth("12");
+      } else {
+        const newMonth = parseInt(month) + value;
+        setMonth(newMonth.toString());
+      }
+    } else {
+      if (parseInt(month) === 12) {
+        setYear(parseInt(year) + value);
+        setMonth("1");
+      } else {
+        const newMonth = parseInt(month) + value;
+        setMonth(newMonth.toString());
+      }
+    }
+  };
+
+  useEffect(() => {
+    setMonthlyDebts([]);
+    budgets.forEach((budget) => {
+      if (budget.name === `${month}/${year}`) {
+        let result = [];
+        result = debits.filter((debit) => {
+          return debit.budgetId === budget.id;
+        });
+        return setMonthlyDebts(result);
+      }
+    });
+  }, [month]);
 
   const handleCategorySelected = (event) => {
     const value = event.target.alt;
@@ -34,7 +103,7 @@ const ExpenseComponent = () => {
 
   useEffect(() => {
     if (categorySelected !== "") {
-      const debitsSelected = debits.filter(
+      const debitsSelected = monthlyDebts.filter(
         (debit) => debit.category === categorySelected
       );
       setFilteredDebits(debitsSelected);
@@ -68,7 +137,19 @@ const ExpenseComponent = () => {
             <BsLayoutTextWindow />
           </ButtonSetComponent>
         </div>
-        <div> - julho 2021 - </div>
+
+        <BottomNavigation
+          style={{ height: "50px", background: "transparent" }}
+          onChange={handleChange}
+          showLabels
+        >
+          <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
+          <BottomNavigationAction
+            disabled={true}
+            label={`${months[month - 1]} de ${year}`}
+          />
+          <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
+        </BottomNavigation>
 
         <NewExpenseModal />
       </header>
@@ -166,16 +247,21 @@ const ExpenseComponent = () => {
                 </h3>
               ) : (
                 filteredDebits.map((debit, index) => (
-                  <Card key={index} category={debit.category} debit={debit} />
+                  <Card
+                    key={index}
+                    category={debit.category}
+                    entry={debit}
+                    onClickFunc={deleteDebit}
+                  />
                 ))
               )
-            ) : debits.length === 0 ? (
+            ) : monthlyDebts.length === 0 ? (
               <h3>
                 Nenhum débito cadastrado, clique no botão com sinal de mais (+)
                 e comece a fazer o controle deste mês
               </h3>
             ) : (
-              debits.map((debit, index) => (
+              monthlyDebts.map((debit, index) => (
                 <Card
                   key={index}
                   category={debit.category}

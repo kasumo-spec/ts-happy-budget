@@ -14,13 +14,81 @@ import {
   IncomeContainer,
   IncomeContent,
 } from "./styles";
+import { useBudget } from "../../providers/budget";
+import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 const IncomeComponent = () => {
+  const months = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
+
   const [active, setActive] = useState(true);
   const [categorySelected, setCategorySelected] = useState("");
   const [filteredIncomes, setFilteredIncomes] = useState([]);
 
   const { incomes, deleteIncome } = useIncome();
+  const { budgets } = useBudget();
+
+  const [month, setMonth] = useState(
+    new Date().toLocaleString("en-US", {
+      month: "numeric",
+    })
+  );
+  const [year, setYear] = useState(
+    new Date().toLocaleString("en-US", {
+      year: "numeric",
+    })
+  );
+
+  const [monthlyIncomes, setMonthlyIncomes] = useState([]);
+
+  const handleChange = (_, value) => {
+    setCategorySelected("");
+    if (value < 0) {
+      if (parseInt(month) === 1) {
+        setYear(parseInt(year) + value);
+        setMonth("12");
+      } else {
+        const newMonth = parseInt(month) + value;
+        setMonth(newMonth.toString());
+      }
+    } else {
+      if (parseInt(month) === 12) {
+        setYear(parseInt(year) + value);
+        setMonth("1");
+      } else {
+        const newMonth = parseInt(month) + value;
+        setMonth(newMonth.toString());
+      }
+    }
+  };
+
+  useEffect(() => {
+    setMonthlyIncomes([]);
+    budgets.forEach((budget) => {
+      if (budget.name === `${month}/${year}`) {
+        let result = [];
+        result = incomes.filter((income) => {
+          return income.budgetId === budget.id;
+        });
+        return setMonthlyIncomes(result);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [budgets, incomes, month]);
 
   const handleCategorySelected = (event) => {
     const value = event.target.alt;
@@ -34,7 +102,7 @@ const IncomeComponent = () => {
 
   useEffect(() => {
     if (categorySelected !== "") {
-      const incomesSelected = incomes.filter(
+      const incomesSelected = monthlyIncomes.filter(
         (income) => income.category === categorySelected
       );
       setFilteredIncomes(incomesSelected);
@@ -68,7 +136,18 @@ const IncomeComponent = () => {
             <BsLayoutTextWindow />
           </ButtonSetComponent>
         </div>
-        <div> - julho 2021 - </div>
+        <BottomNavigation
+          style={{ height: "50px", background: "transparent" }}
+          onChange={handleChange}
+          showLabels
+        >
+          <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
+          <BottomNavigationAction
+            disabled={true}
+            label={`${months[month - 1]} de ${year}`}
+          />
+          <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
+        </BottomNavigation>
 
         <NewIncomeModal />
       </header>
@@ -132,13 +211,13 @@ const IncomeComponent = () => {
                   />
                 ))
               )
-            ) : incomes.length === 0 ? (
+            ) : monthlyIncomes.length === 0 ? (
               <h3>
                 Nenhum débito cadastrado, clique no botão com sinal de mais (+)
                 e comece a fazer o controle deste mês
               </h3>
             ) : (
-              incomes.map((income, index) => (
+              monthlyIncomes.map((income, index) => (
                 <Card
                   key={index}
                   category={income.category}

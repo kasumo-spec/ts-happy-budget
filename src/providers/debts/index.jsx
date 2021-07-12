@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
-import jwtDecode from "jwt-decode";
+import { NotificationsContext } from "../notifications";
 
 export const DebitContext = createContext([]);
 
@@ -24,6 +24,12 @@ export const DebitProvider = ({ children }) => {
   ]);
 
   const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
+  const {
+    newDebitSuccess,
+    newDebitError,
+    deleteDebitSuccess,
+    deleteDebitError,
+  } = useContext(NotificationsContext);
 
   useEffect(() => {
     if (debits.length > 0) {
@@ -55,8 +61,7 @@ export const DebitProvider = ({ children }) => {
           setDebits(res.data);
         });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId, debitCreateSuccess, debitEditSuccess, debitDeleteSuccess]);
+  }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess, token, userId]);
 
   const createDebit = (data) => {
     api
@@ -72,9 +77,13 @@ export const DebitProvider = ({ children }) => {
       .then((res) => {
         if (res.status === 201) {
           setDebitCreateSuccess(true);
+          newDebitSuccess();
         }
       })
-      .catch((_) => setDebitCreateSuccess(false));
+      .catch((_) => {
+        setDebitCreateSuccess(false);
+        newDebitError();
+      });
   };
 
   const editDebit = (data, id) => {
@@ -99,8 +108,12 @@ export const DebitProvider = ({ children }) => {
       })
       .then((_) => {
         setDebitDeleteSuccess(true);
+        deleteDebitSuccess();
       })
-      .catch((_) => setDebitDeleteSuccess(false));
+      .catch((_) => {
+        setDebitDeleteSuccess(false);
+        deleteDebitError();
+      });
   };
 
   return (
