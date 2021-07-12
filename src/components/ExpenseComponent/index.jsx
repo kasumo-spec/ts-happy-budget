@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { GoGraph } from "react-icons/go";
 import { BsLayoutTextWindow } from "react-icons/bs";
 import { BiPlus } from "react-icons/bi";
@@ -11,16 +13,52 @@ import {
   ExpenseContainer,
   ExpenseContent,
 } from "./styles";
-import { useState } from "react";
+
 import { useDebits } from "../../providers/debts";
-import { useEffect } from "react";
+
+import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 const ExpenseComponent = () => {
+  const months = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
+
   const [active, setActive] = useState(true);
   const [categorySelected, setCategorySelected] = useState("");
   const [filteredDebits, setFilteredDebits] = useState([]);
 
+  const [month, setMonth] = useState(
+    new Date().toLocaleString("en-US", {
+      month: "numeric",
+    })
+  );
+  const [year, setYear] = useState(
+    new Date().toLocaleString("en-US", {
+      year: "numeric",
+    })
+  );
+
+  const [disablePrevious, setDisablePrevious] = useState(false);
+  const [disableNext, setDisableNext] = useState(false);
+
   const { debits } = useDebits();
+
+  const handleChange = (event, value) => {
+    setMonth(month + value);
+  };
 
   const handleCategorySelected = (event) => {
     const value = event.target.alt;
@@ -68,7 +106,23 @@ const ExpenseComponent = () => {
             <BsLayoutTextWindow />
           </ButtonSetComponent>
         </div>
-        <div> - julho 2021 - </div>
+
+        <BottomNavigation onChange={handleChange} showLabels>
+          <BottomNavigationAction
+            value={-1}
+            disabled={disablePrevious}
+            icon={<ChevronLeftIcon />}
+          />
+          <BottomNavigationAction
+            disabled={true}
+            label={`${months[month - 1]} de ${year}`}
+          />
+          <BottomNavigationAction
+            value={1}
+            disabled={disableNext}
+            icon={<ChevronRightIcon />}
+          />
+        </BottomNavigation>
 
         <button>
           <BiPlus />

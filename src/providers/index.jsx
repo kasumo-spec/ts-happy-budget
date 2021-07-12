@@ -2,19 +2,19 @@ import { UserProvider } from "./users";
 import { BudgetProvider } from "./budget";
 import { IncomeProvider } from "./income";
 import { DebitProvider } from "./debts";
-import { NotificationsProvider } from "./notifications"
+import { NotificationsProvider } from "./notifications";
 
 const Providers = ({ children }) => {
   return (
-    <NotificationsProvider>
-      <UserProvider>
+    <IncomeProvider>
+      <DebitProvider>
         <BudgetProvider>
-          <IncomeProvider>
-            <DebitProvider>{children}</DebitProvider>
-          </IncomeProvider>
+          <UserProvider>
+            <NotificationsProvider>{children}</NotificationsProvider>
+          </UserProvider>
         </BudgetProvider>
-      </UserProvider>
-    </NotificationsProvider>
+      </DebitProvider>
+    </IncomeProvider>
   );
 };
 
