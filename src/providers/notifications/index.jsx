@@ -53,7 +53,7 @@ export const NotificationsProvider = ({children}) => {
         })
     }
 
-    const incomeDeleteSuccess = () => {
+    const deleteIncomeSuccess = () => {
         notification.success({
             message: <h3>Ah não!</h3>,
             description: <p>Receita excluída.</p>,
@@ -62,7 +62,7 @@ export const NotificationsProvider = ({children}) => {
         })
     }
 
-    const incomeDeleteError = () => {
+    const deleteIncomeError = () => {
         notification.error({
             message: <h3>Ops!</h3>,
             description: <p>Não conseguimos excluir essa receita.</p>,
@@ -71,7 +71,7 @@ export const NotificationsProvider = ({children}) => {
         })
     }
 
-    const debitDeleteSuccess = () => {
+    const deleteDebitSuccess = () => {
         notification.success({
             message: <h3>Oba!</h3>,
             description: <p>Vai sobrar um dinheirinho? Despesa excluída.</p>,
@@ -80,7 +80,7 @@ export const NotificationsProvider = ({children}) => {
         })
     }
 
-    const debitDeleteError = () => {
+    const deleteDebitError = () => {
         notification.error({
             message: <h3>Aff!</h3>,
             description: <p>Não conseguimos excluir essa despesa.</p>,
@@ -97,10 +97,10 @@ export const NotificationsProvider = ({children}) => {
                 newIncomeError,
                 newDebitSuccess,
                 newDebitError,
-                incomeDeleteSuccess,
-                incomeDeleteError,
-                debitDeleteSuccess,
-                debitDeleteError }
+                deleteIncomeSuccess,
+                deleteIncomeError,
+                deleteDebitSuccess,
+                deleteDebitError }
             }>
                 {children}
         </NotificationsContext.Provider>
