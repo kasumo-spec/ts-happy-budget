@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import api from "../../services";
+import { NotificationsContext } from "../notifications"
 
 export const UserContext = createContext([]);
 
@@ -10,6 +11,7 @@ export const UserProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [createSuccess, setCreateSucess] = useState(Boolean);
   const [loginSuccess, setLoginSuccess] = useState(Boolean);
+  const { registerSuccess } = useContext(NotificationsContext)
 
   useEffect(() => {
     let storagedToken = localStorage.getItem("@HappyBudget:token") || "";
@@ -34,6 +36,7 @@ export const UserProvider = ({ children }) => {
       .then((res) => {
         if (res.status === 201) {
           setCreateSucess(true);
+          registerSuccess()
         }
       })
       .catch((_) => setCreateSucess(false));
