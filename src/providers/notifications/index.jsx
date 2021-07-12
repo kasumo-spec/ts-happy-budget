@@ -12,7 +12,16 @@ export const NotificationsProvider = ({children}) => {
         notification.success({
             message: <h3>Uhull!</h3>,
             description: <p>Seu cadastro deu bom!</p>,
-            icon: <Emoji label="partying face" symbol="🥳"/>,
+            icon: <Emoji label="waving hand" symbol="🥳"/>,
+            className: "success"
+        })
+    }
+
+    const logout = () => {
+        notification.success({
+            message: <h3>Até logo!</h3>,
+            description: <p>Não esqueça de manter suas finanças atualizadas.</p>,
+            icon: <Emoji label="partying face" symbol="👋"/>,
             className: "success"
         })
     }
@@ -53,7 +62,7 @@ export const NotificationsProvider = ({children}) => {
         })
     }
 
-    const incomeDeleteSuccess = () => {
+    const deleteIncomeSuccess = () => {
         notification.success({
             message: <h3>Ah não!</h3>,
             description: <p>Receita excluída.</p>,
@@ -62,7 +71,7 @@ export const NotificationsProvider = ({children}) => {
         })
     }
 
-    const incomeDeleteError = () => {
+    const deleteIncomeError = () => {
         notification.error({
             message: <h3>Ops!</h3>,
             description: <p>Não conseguimos excluir essa receita.</p>,
@@ -71,7 +80,7 @@ export const NotificationsProvider = ({children}) => {
         })
     }
 
-    const debitDeleteSuccess = () => {
+    const deleteDebitSuccess = () => {
         notification.success({
             message: <h3>Oba!</h3>,
             description: <p>Vai sobrar um dinheirinho? Despesa excluída.</p>,
@@ -80,7 +89,7 @@ export const NotificationsProvider = ({children}) => {
         })
     }
 
-    const debitDeleteError = () => {
+    const deleteDebitError = () => {
         notification.error({
             message: <h3>Aff!</h3>,
             description: <p>Não conseguimos excluir essa despesa.</p>,
@@ -93,14 +102,15 @@ export const NotificationsProvider = ({children}) => {
         <NotificationsContext.Provider value={
             {   
                 registerSuccess,
+                logout,
                 newIncomeSuccess,
                 newIncomeError,
                 newDebitSuccess,
                 newDebitError,
-                incomeDeleteSuccess,
-                incomeDeleteError,
-                debitDeleteSuccess,
-                debitDeleteError }
+                deleteIncomeSuccess,
+                deleteIncomeError,
+                deleteDebitSuccess,
+                deleteDebitError }
             }>
                 {children}
         </NotificationsContext.Provider>
