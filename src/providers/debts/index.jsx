@@ -113,10 +113,7 @@ export const DebitProvider = ({ children }) => {
         debitCreateSuccess,
         debitEditSuccess,
         debitDeleteSuccess,
-<<<<<<< HEAD
         totalDebits,
-=======
->>>>>>> develop
       }}
     >
       {children}
