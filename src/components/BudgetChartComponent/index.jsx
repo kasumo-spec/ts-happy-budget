@@ -2,6 +2,7 @@ import {
     Area,
     Bar,
     CartesianGrid,
+    Cell,
     ComposedChart,
     Legend,
     Line,
@@ -12,6 +13,7 @@ import {
 } from "recharts";
 
 const ChartBudget = ({data, className}) => {
+
     return (
         <ResponsiveContainer className={className}>
             <ComposedChart
@@ -40,7 +42,13 @@ const ChartBudget = ({data, className}) => {
                     dataKey="Recebimento Realizado"
                     stroke="green"
                 />
-                <Bar dataKey="Utilizado" barSize={20} fill="#413ea0" />
+
+                <Bar dataKey="Utilizado" barSize={20} >
+                    {data.map((entry,index) => {
+                        return <Cell key={`cell-${index}`} fill={entry.color} />
+                    })}
+                </Bar>
+
                 <Area
                     dataKey="Orçado"
                     type="monotone"

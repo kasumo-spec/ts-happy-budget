@@ -4,18 +4,6 @@ import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { ChartDiv, ButtonsDiv, InfosDiv } from "./styes";
-import {
-  ComposedChart,
-  Line,
-  Area,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
 import ChartBudget from "../BudgetChartComponent";
@@ -50,6 +38,18 @@ const BudgetComponent = () => {
     study: "Estudos",
     others: "Outros",
     total: "Total"
+  }
+  const chartColors = {
+    food: "#F0803C",
+    market: "#A1867F",
+    health: "#ff686b",
+    pet: "#6c91c2",
+    home: "#654a3e",
+    hobby: "#f5d329",
+    study: "#00c49a",
+    transport: "#495383",
+    others: "#057ef0",
+    total: "#3cb1b9"
   }
   const { budgets } = useBudget();
   const [value] = useState();
@@ -105,6 +105,7 @@ const BudgetComponent = () => {
         for (let [key, value] of Object.entries(result[0].data)) {
           dataCreated.push({
             name: translateCategory[key],
+            color: chartColors[key],
             Orçado: value,
             Utilizado: 300,
             "Recebimento Previsto": result[0].prediction,
@@ -125,12 +126,14 @@ const BudgetComponent = () => {
         }
         dataCreated.push({
           name: translateCategory.total,
+          color: chartColors.total,
           "Recebimento Previsto": result[0].prediction,
           "Recebimento Realizado": recebidos,
           Utilizado: total,
         });
         max3Mobile.push({
           name: translateCategory.total,
+          color: chartColors.total,
           "Recebimento Previsto": result[0].prediction,
           "Recebimento Realizado": recebidos,
           Utilizado: total,
