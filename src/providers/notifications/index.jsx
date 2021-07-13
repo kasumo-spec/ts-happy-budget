@@ -16,15 +16,6 @@ export const NotificationsProvider = ({ children }) => {
     });
   };
 
-  const logout = () => {
-    notification.success({
-      message: <h3>Até logo!</h3>,
-      description: <p>Não esqueça de manter suas finanças atualizadas.</p>,
-      icon: <Emoji label="partying face" symbol="👋" />,
-      className: "success",
-    });
-  };
-
     const logout = () => {
         notification.success({
             message: <h3>Até logo!</h3>,
