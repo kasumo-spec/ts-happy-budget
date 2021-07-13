@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [createSuccess, setCreateSucess] = useState(Boolean);
   const [loginSuccess, setLoginSuccess] = useState(Boolean);
-  const { registerSuccess, login, loginError } = useContext(NotificationsContext)
+  const { registerSuccess } = useContext(NotificationsContext)
 
   useEffect(() => {
     let storagedToken = localStorage.getItem("@HappyBudget:token") || "";
@@ -49,12 +49,8 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem("@HappyBudget:token", res.data.accessToken);
         setToken(res.data.accessToken);
         setLoginSuccess(true);
-        login()
       })
-      .catch((_) => {
-        setLoginSuccess(false)
-        loginError()
-      });
+      .catch((_) => setLoginSuccess(false));
   };
 
   return (
