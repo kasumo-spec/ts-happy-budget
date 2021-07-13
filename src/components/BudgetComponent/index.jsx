@@ -18,6 +18,11 @@ import {
 } from "recharts";
 import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
+import ChartBudget from "../BudgetChartComponent";
+
+
+//todo: Corrigir o layout do botão de deletar +
+//      Tentar solucionar as cores no Gráfico +
 
 const BudgetComponent = () => {
   const months = [
@@ -34,10 +39,23 @@ const BudgetComponent = () => {
     "Novembro",
     "Dezembro",
   ];
+  const translateCategory = {
+    market: "Mercado",
+    food: "Comida",
+    health: "Saúde",
+    pet: "Pet",
+    home: "Casa",
+    hobby: "Hobby",
+    transport: "Transporte",
+    study: "Estudos",
+    others: "Outros",
+    total: "Total"
+  }
   const { budgets } = useBudget();
   const [value] = useState();
   const [elementBudget, setElementBudget] = useState();
   const [data, setData] = useState();
+  const [mobileData, setMobileData] = useState()
 
   const [month, setMonth] = useState(
     new Date().toLocaleString("en-US", {
@@ -86,22 +104,39 @@ const BudgetComponent = () => {
         let dataCreated = [];
         for (let [key, value] of Object.entries(result[0].data)) {
           dataCreated.push({
-            name: key,
+            name: translateCategory[key],
             Orçado: value,
             Utilizado: 300,
             "Recebimento Previsto": result[0].prediction,
+            "Recebimento Realizado": 100
           });
         }
+        let sortMobile = dataCreated
+        let max3Mobile = []
+        sortMobile.sort((a,b) => a.Orçado > b.Orçado)
+        for (let i = 0; i < 3; i++) {
+          max3Mobile.push(sortMobile[i])
+        }
         let total = 0;
+        let recebidos = 0;
         for (let i = 0; i < dataCreated.length; i++) {
           total += dataCreated[i].Utilizado;
+          recebidos += dataCreated[i]["Recebimento Realizado"]
         }
         dataCreated.push({
-          name: "total",
+          name: translateCategory.total,
           "Recebimento Previsto": result[0].prediction,
+          "Recebimento Realizado": recebidos,
+          Utilizado: total,
+        });
+        max3Mobile.push({
+          name: translateCategory.total,
+          "Recebimento Previsto": result[0].prediction,
+          "Recebimento Realizado": recebidos,
           Utilizado: total,
         });
         setData(dataCreated);
+        setMobileData(max3Mobile)
       }
     } else {
       return null;
@@ -130,37 +165,10 @@ const BudgetComponent = () => {
       </ButtonsDiv>
       <ChartDiv>
         {elementBudget ? (
-          <ResponsiveContainer>
-            <ComposedChart
-              width={500}
-              height={300}
-              data={data}
-              margin={{
-                top: 20,
-                right: 80,
-                bottom: 20,
-                left: 20,
-              }}
-            >
-              <XAxis dataKey={"name"} />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <CartesianGrid stroke="#f5f5f5" />
-              <Line
-                type="monotone"
-                dataKey="Recebimento Previsto"
-                stroke="#ff7300"
-              />
-              <Bar dataKey="Utilizado" barSize={20} fill="#413ea0" />
-              <Area
-                dataKey="Orçado"
-                type="monotone"
-                fill="#8884d8"
-                stroke="#8884d8"
-              />
-            </ComposedChart>
-          </ResponsiveContainer>
+            <>
+              <ChartBudget className={"web"} data={data} />
+              <ChartBudget className={"mobile"} data={mobileData} />
+            </>
         ) : month === "7" ? (
           <InfosDiv>
             Não há orçamentos para este mês! Crie agora clicando no botão BOTÃO
