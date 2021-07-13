@@ -11,7 +11,7 @@ const Header = () => {
   const { pathname } = useLocation();
   const history = useHistory();
   const { token, setToken } = useUser();
-  const { logout } = useContext(NotificationsContext)
+  const { logoutSuccess } = useContext(NotificationsContext)
 
   const handleLocation = (location) => {
     if (location === "login") {
@@ -24,7 +24,7 @@ const Header = () => {
   const logOff = () => {
     localStorage.clear();
     setToken("");
-    logout()
+    logoutSuccess()
     history.push("/");
   };
 
