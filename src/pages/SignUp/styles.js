@@ -86,3 +86,54 @@ export const FormInput = styled(TextField)`
     padding: 8.5px 5px;
   }
 `;
+
+export const ContainerSVG = styled.div`
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+
+  svg {
+    transition: all 300ms;
+  }
+
+  .top {
+    display: none;
+  }
+
+  .bottom {
+    display: none;
+  }
+
+  @media screen and (min-width: 700px) {
+    svg {
+      width: 90vmin;
+    }
+
+    .top {
+      display: block;
+      position: absolute;
+      right: -263px;
+      top: 100px;
+    }
+
+    .bottom {
+      display: block;
+      position: absolute;
+      left: -343px;
+      bottom: 0px;
+    }
+  }
+
+  @media screen and (min-width: 1400px) {
+    svg {
+      width: 100vmin;
+    }
+
+    .bottom {
+      position: absolute;
+      left: -343px;
+      bottom: 0px;
+    }
+  }
+`;

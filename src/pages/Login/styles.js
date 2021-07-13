@@ -11,6 +11,10 @@ export const Container = styled.div`
   @media screen and (min-width: 1400px) {
     height: 88vh;
   }
+
+  @media screen and (min-height: 600px) and (max-height: 800px) and (min-width: 1000px) {
+    height: 82vh;
+  }
 `;
 
 export const ContainerForm = styled.div`
@@ -80,6 +84,7 @@ export const ImageContainer = styled.div`
     height: 100% !important;
     max-height: 360px;
     width: 100% !important;
+    overflow: hidden !important;
   }
 
   @media screen and (min-width: 700px) {
@@ -94,6 +99,56 @@ export const ImageContainer = styled.div`
   @media screen and (min-height: 600px) and (max-height: 800px) and (min-width: 1000px) {
     div {
       width: 40% !important;
+    }
+  }
+`;
+
+export const ContainerSVG = styled.div`
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+
+  svg {
+    transition: all 300ms;
+  }
+
+  .top {
+    display: none;
+  }
+
+  .bottom {
+    display: none;
+  }
+
+  @media screen and (min-width: 700px) {
+    svg {
+      width: 75vmin;
+    }
+
+    .top {
+      display: block;
+      position: absolute;
+      left: -284px;
+    }
+
+    .bottom {
+      display: block;
+      position: absolute;
+      right: -285px;
+      bottom: 0px;
+    }
+  }
+
+  @media screen and (min-width: 1400px) {
+    svg {
+      width: 100vmin;
+    }
+
+    .bottom {
+      position: absolute;
+      right: -285px;
+      bottom: 0px;
     }
   }
 `;
