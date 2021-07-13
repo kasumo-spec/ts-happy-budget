@@ -42,7 +42,7 @@ const BudgetComponent = () => {
         "Novembro",
         "Dezembro",
     ]
-    const { budgets, clearBudgets } = useBudget()
+    const { budgets } = useBudget()
     const [value] = useState()
     const [elementBudget, setElementBudget] = useState()
     const [data, setData] = useState()

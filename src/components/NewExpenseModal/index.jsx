@@ -29,10 +29,16 @@ import study from "../../assets/categorys/study.png";
 import others from "../../assets/categorys/otherIncome.png";
 
 import { maskMoney } from "../../utils/maskMoney";
+import {useUser} from "../../providers/users";
+import {useBudget} from "../../providers/budget";
+import {useDebits} from "../../providers/debts";
 
 const NewExpenseModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [select, setSelect] = useState("");
+  const { userId } = useUser()
+  const { idBudget } = useBudget()
+  const { createDebit } = useDebits()
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -59,9 +65,18 @@ const NewExpenseModal = () => {
   const { setValue, handleSubmit, register } = useForm();
 
   const submitForm = (data) => {
-    const formatedValue = parseInt(
-      data.value.replace(",", "").replaceAll(".", "")
-    );
+    let valueFormated = parseFloat(
+        data.value.replaceAll(".","").replace(",",".")
+    )
+    let formatedObject = {
+      name: data.name,
+      value: valueFormated,
+      userId: userId,
+      budgetId: idBudget,
+      category: select
+    }
+    createDebit(formatedObject)
+    setIsModalVisible(false)
   };
 
   return (

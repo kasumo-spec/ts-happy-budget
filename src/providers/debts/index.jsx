@@ -7,31 +7,23 @@ import { NotificationsContext } from "../notifications"
 export const DebitContext = createContext([]);
 
 export const DebitProvider = ({ children }) => {
-  const { token } = useUser();
+  const { token, userId } = useUser();
   const [debitCreateSuccess, setDebitCreateSuccess] = useState(Boolean);
   const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean);
   const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean);
   const [debits, setDebits] = useState([]);
-  const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
   const { newDebitSuccess, newDebitError, deleteDebitSuccess, deleteDebitError } = useContext(NotificationsContext)
 
   useEffect(() => {
     if (token !== "") {
       api
-        .get("debit", {
+        .get(`debit/?userId=${userId}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              "@HappyBudget:token"
-            )}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          let decoderId = jwtDecode(localStorage.getItem("@HappyBudget:token"));
-          let userForEffect = parseInt(decoderId.sub);
-          let userDebits = res.data.filter(
-            (item) => item.userId === userForEffect
-          );
-          setDebits(userDebits);
+          setDebits(res.data);
         });
     }
   }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess, token]);
@@ -40,7 +32,7 @@ export const DebitProvider = ({ children }) => {
     api
       .post(
         "debit",
-        { ...data, reqDay },
+        data,
         {
           headers: {
             Authorization: `Bearer ${token}`,
