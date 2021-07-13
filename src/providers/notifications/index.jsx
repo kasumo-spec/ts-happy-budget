@@ -11,7 +11,16 @@ export const NotificationsProvider = ({ children }) => {
     notification.success({
       message: <h3>Uhull!</h3>,
       description: <p>Seu cadastro deu bom!</p>,
-      icon: <Emoji label="partying face" symbol="🥳" />,
+      icon: <Emoji label="waving hand" symbol="🥳" />,
+      className: "success",
+    });
+  };
+
+  const logout = () => {
+    notification.success({
+      message: <h3>Até logo!</h3>,
+      description: <p>Não esqueça de manter suas finanças atualizadas.</p>,
+      icon: <Emoji label="partying face" symbol="👋" />,
       className: "success",
     });
   };
@@ -94,6 +103,7 @@ export const NotificationsProvider = ({ children }) => {
     <NotificationsContext.Provider
       value={{
         registerSuccess,
+        logout,
         newIncomeSuccess,
         newIncomeError,
         newDebitSuccess,
@@ -108,5 +118,3 @@ export const NotificationsProvider = ({ children }) => {
     </NotificationsContext.Provider>
   );
 };
-
-export const useNotifications = () => useContext(NotificationsContext);
