@@ -119,23 +119,21 @@ const BudgetComponent = () => {
           max3Mobile.push(sortMobile[i])
         }
         let total = 0;
-        let recebidos = 0;
         for (let i = 0; i < dataCreated.length; i++) {
           total += dataCreated[i].Utilizado;
-          recebidos += dataCreated[i]["Recebimento Realizado"]
         }
         dataCreated.push({
           name: translateCategory.total,
           color: chartColors.total,
           "Recebimento Previsto": result[0].prediction,
-          "Recebimento Realizado": recebidos,
+          "Recebimento Realizado": 100,
           Utilizado: total,
         });
         max3Mobile.push({
           name: translateCategory.total,
           color: chartColors.total,
           "Recebimento Previsto": result[0].prediction,
-          "Recebimento Realizado": recebidos,
+          "Recebimento Realizado": 100,
           Utilizado: total,
         });
         setData(dataCreated);

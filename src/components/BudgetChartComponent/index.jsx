@@ -43,18 +43,20 @@ const ChartBudget = ({data, className}) => {
                     stroke="green"
                 />
 
-                <Bar dataKey="Utilizado" barSize={20} >
-                    {data.map((entry,index) => {
-                        return <Cell key={`cell-${index}`} fill={entry.color} />
-                    })}
-                </Bar>
-
                 <Area
                     dataKey="Orçado"
                     type="monotone"
                     fill="#8884d8"
                     stroke="#8884d8"
                 />
+
+                <Bar dataKey="Utilizado" barSize={20} fill={"red"} >
+                    {data.map((entry,index) => {
+                        return <Cell key={`cell-${index}`} fill={entry.color} />
+                    })}
+                </Bar>
+
+
             </ComposedChart>
         </ResponsiveContainer>
     )
