@@ -65,15 +65,11 @@ export const DebitProvider = ({ children }) => {
 
   const createDebit = (data) => {
     api
-      .post(
-        "debit",
-        { ...data, reqDay },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post("debit", { ...data, reqDay }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         if (res.status === 201) {
           setDebitCreateSuccess(true);

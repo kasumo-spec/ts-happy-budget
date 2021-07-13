@@ -13,7 +13,7 @@ export const BudgetProvider = ({ children }) => {
   const [budgetCreateSuccess, setBudgetCreateSuccess] = useState(Boolean);
   const [budgetDeleteSuccess, setBudgetDeleteSuccess] = useState(Boolean);
   const [budgets, setBudgets] = useState([]);
-  const [budgetsId, setBudgetsId] = useState(0);
+  const [idBudget, setIdBudget] = useState(Number);
 
   useEffect(() => {
     if (token !== "") {
@@ -27,6 +27,11 @@ export const BudgetProvider = ({ children }) => {
           const idBudget = res.data[0].id;
           setBudgetsId(idBudget);
           setBudgets(res.data);
+          res.data.forEach((budget) => {
+            if (budget.name === reqMonth) {
+              setIdBudget(budget.id);
+            }
+          });
         });
     }
   }, [userId, budgetCreateSuccess, budgetDeleteSuccess]);
@@ -72,6 +77,8 @@ export const BudgetProvider = ({ children }) => {
     <BudgetContext.Provider
       value={{
         budgets,
+        idBudget,
+        setIdBudget,
         budgetCreateSuccess,
         budgetDeleteSuccess,
         createBudget,

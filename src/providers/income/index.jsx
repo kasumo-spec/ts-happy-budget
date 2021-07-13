@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
-
 import { NotificationsContext } from "../notifications";
 
 export const IncomeContext = createContext([]);
@@ -13,6 +12,7 @@ export const IncomeProvider = ({ children }) => {
   const [incomeDeleteSuccess, setIncomeDeleteSuccess] = useState(Boolean);
   const [incomes, setIncomes] = useState([]);
   const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
+
   const {
     newIncomeSuccess,
     newIncomeError,
@@ -42,15 +42,11 @@ export const IncomeProvider = ({ children }) => {
 
   const createIncome = (data) => {
     api
-      .post(
-        "income",
-        { ...data, reqDay },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post("income", { ...data, reqDay }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         if (res.status === 201) {
           setIncomeCreateSuccess(true);
