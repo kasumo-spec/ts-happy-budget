@@ -22,7 +22,7 @@ export const AsideContainer = styled.aside`
     flex-direction: column;
     align-items: center;
     background-color: var(--violet);
-    padding: 150px 0;
+    padding: 110px 0;
   }
 `;
 

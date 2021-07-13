@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
 import "antd/dist/antd.css";
 import { FaTimes } from "react-icons/fa";
-
 import Button from "../Button";
 
 import {
@@ -14,7 +12,7 @@ import {
   CustomText,
   InputModal,
   Item,
-  RadioButton,
+  InputCategory,
   CardWrap,
 } from "./styles";
 
@@ -29,66 +27,50 @@ import study from "../../assets/categorys/study.png";
 import others from "../../assets/categorys/otherIncome.png";
 
 import { maskMoney } from "../../utils/maskMoney";
-import { useUser } from "../../providers/users";
 import { useBudget } from "../../providers/budget";
-import { useDebits } from "../../providers/debts";
 
 const NewExpenseModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [select, setSelect] = useState("");
-  const { userId } = useUser();
-  const { idBudget } = useBudget();
-  const { createDebit } = useDebits();
+  const { createBudget } = useBudget();
 
   const showModal = () => {
     setIsModalVisible(true);
-    setValue("name", "");
-    setValue("value", "");
-    setSelect("");
   };
   const handleOk = () => {
     setIsModalVisible(false);
-    setValue("name", "");
-    setValue("value", "");
   };
   const handleCancel = () => {
     setIsModalVisible(false);
-    setValue("name", "");
-    setValue("value", "");
   };
 
-  const handleSelectChange = (event) => {
-    const value = event.target.value;
-    setSelect(value);
-  };
-
-  const { setValue, handleSubmit, register } = useForm();
+  const { handleSubmit, register } = useForm();
 
   const submitForm = (data) => {
-    let valueFormated = parseFloat(
-      data.value.replaceAll(".", "").replace(",", ".")
+    let formatedObject = {};
+    let predictionFormated = parseFloat(
+      data.prediction.replaceAll(".", "").replace(",", ".")
     );
-    let formatedObject = {
-      name: data.name,
-      value: valueFormated,
-      userId: userId,
-      budgetId: idBudget,
-      category: select,
-    };
-    createDebit(formatedObject);
+    for (let [key, value] of Object.entries(data)) {
+      if (key !== "prediction") {
+        formatedObject[key] = parseFloat(
+          value.replaceAll(".", "").replace(",", ".")
+        );
+      }
+    }
+    createBudget(formatedObject, predictionFormated);
     setIsModalVisible(false);
   };
 
   return (
     <>
-      <Button onClick={showModal}>Adicionar</Button>
+      <Button onClick={showModal}>Criar</Button>
 
       <CustomModal
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        width={700}
-        title="Adicionar despesa"
+        width={600}
+        title="Criar orçamento"
         okText="Criar"
         cancelText="Cancelar"
         closeIcon={<FaTimes />}
@@ -97,52 +79,54 @@ const NewExpenseModal = () => {
       >
         <form onSubmit={handleSubmit(submitForm)}>
           <InputModal>
-            <input
-              type="text"
-              placeholder="Descrição da despesa"
-              required
-              {...register("name")}
-            />
-          </InputModal>
-          <InputModal>
             <span>R$</span>
             <input
-              {...register("value")}
+              {...register("prediction")}
               className="input"
               type="text"
               onChange={(e) => maskMoney(e.target, e)}
-              placeholder="Valor"
+              placeholder="Qual sua renda média mensal ?"
               required
             />
           </InputModal>
-          <p>Em qual categoria sua receita se encaixa?</p>
+
+          <p>O quanto você planeja gastar com:</p>
           <CardContainer>
-            <Item onChange={(event) => handleSelectChange(event)}>
-              <RadioButton
-                type="radio"
-                name="radio"
-                value="market"
-                checked={select === "market"}
-                color="var(--market)"
-                required
-              />
+            <Item>
+              <InputCategory>
+                <span>R$</span>
+
+                <input
+                  {...register("market")}
+                  className="input"
+                  type="text"
+                  onChange={(e) => maskMoney(e.target, e)}
+                  placeholder="Mercado?"
+                  required
+                />
+              </InputCategory>
+
               <CardCategory color="var(--market)">
                 <CardWrap>
-                  <CustomText color="var(--market)">Mercado</CustomText>
+                  <CustomText>Mercado</CustomText>
                   <img src={market} alt="money" />
                 </CardWrap>
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
-              <RadioButton
-                type="radio"
-                name="radio"
-                value="food"
-                checked={select === "food"}
-                color="var(--food)"
-                required
-              />
+            <Item>
+              <InputCategory>
+                <span>R$</span>
+
+                <input
+                  {...register("food")}
+                  className="input"
+                  type="text"
+                  onChange={(e) => maskMoney(e.target, e)}
+                  placeholder="Comida?"
+                  required
+                />
+              </InputCategory>
               <CardCategory color="var(--food)">
                 <CardWrap>
                   <CustomText color="var(--food)">Comida</CustomText>
@@ -151,15 +135,19 @@ const NewExpenseModal = () => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
-              <RadioButton
-                type="radio"
-                name="radio"
-                value="health"
-                checked={select === "health"}
-                color="var(--health)"
-                required
-              />
+            <Item>
+              <InputCategory>
+                <span>R$</span>
+
+                <input
+                  {...register("health")}
+                  className="input"
+                  type="text"
+                  onChange={(e) => maskMoney(e.target, e)}
+                  placeholder="Saúde?"
+                  required
+                />
+              </InputCategory>
               <CardCategory color="var(--health)">
                 <CardWrap>
                   <CustomText color="var(--health)">Saúde</CustomText>
@@ -168,32 +156,40 @@ const NewExpenseModal = () => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
-              <RadioButton
-                type="radio"
-                name="radio"
-                value="pet"
-                checked={select === "pet"}
-                color="var(--pet)"
-                required
-              />
+            <Item>
+              <InputCategory>
+                <span>R$</span>
+
+                <input
+                  {...register("pet")}
+                  className="input"
+                  type="text"
+                  onChange={(e) => maskMoney(e.target, e)}
+                  placeholder="Pet?"
+                  required
+                />
+              </InputCategory>
               <CardCategory color="var(--pet)">
                 <CardWrap>
-                  <CustomText color="var(--pet)">Outros</CustomText>
+                  <CustomText color="var(--pet)">Pet</CustomText>
                   <img src={pet} alt="pet" />
                 </CardWrap>
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
-              <RadioButton
-                type="radio"
-                name="radio"
-                value="home"
-                checked={select === "home"}
-                color="var(--home)"
-                required
-              />
+            <Item>
+              <InputCategory>
+                <span>R$</span>
+
+                <input
+                  {...register("home")}
+                  className="input"
+                  type="text"
+                  onChange={(e) => maskMoney(e.target, e)}
+                  placeholder="Moradia?"
+                  required
+                />
+              </InputCategory>
               <CardCategory color="var(--home)">
                 <CardWrap>
                   <CustomText color="var(--home)">Moradia</CustomText>
@@ -202,15 +198,19 @@ const NewExpenseModal = () => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
-              <RadioButton
-                type="radio"
-                name="radio"
-                value="hobby"
-                checked={select === "hobby"}
-                color="var(--hobby)"
-                required
-              />
+            <Item>
+              <InputCategory>
+                <span>R$</span>
+
+                <input
+                  {...register("hobby")}
+                  className="input"
+                  type="text"
+                  onChange={(e) => maskMoney(e.target, e)}
+                  placeholder="Hobby?"
+                  required
+                />
+              </InputCategory>
               <CardCategory color="var(--hobby)">
                 <CardWrap>
                   <CustomText color="var(--hobby)">Hobby</CustomText>
@@ -219,15 +219,19 @@ const NewExpenseModal = () => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
-              <RadioButton
-                type="radio"
-                name="radio"
-                value="transport"
-                checked={select === "transport"}
-                color="var(--transport)"
-                required
-              />
+            <Item>
+              <InputCategory>
+                <span>R$</span>
+
+                <input
+                  {...register("transport")}
+                  className="input"
+                  type="text"
+                  onChange={(e) => maskMoney(e.target, e)}
+                  placeholder="Transporte?"
+                  required
+                />
+              </InputCategory>
               <CardCategory color="var(--transport)">
                 <CardWrap>
                   <CustomText color="var(--transport)">Transporte</CustomText>
@@ -236,15 +240,19 @@ const NewExpenseModal = () => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
-              <RadioButton
-                type="radio"
-                name="radio"
-                value="study"
-                checked={select === "study"}
-                color="var(--study)"
-                required
-              />
+            <Item>
+              <InputCategory>
+                <span>R$</span>
+
+                <input
+                  {...register("study")}
+                  className="input"
+                  type="text"
+                  onChange={(e) => maskMoney(e.target, e)}
+                  placeholder="Educação?"
+                  required
+                />
+              </InputCategory>
               <CardCategory color="var(--study)">
                 <CardWrap>
                   <CustomText color="var(--study)">Educação</CustomText>
@@ -253,15 +261,19 @@ const NewExpenseModal = () => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
-              <RadioButton
-                type="radio"
-                name="radio"
-                value="others"
-                checked={select === "others"}
-                color="var(--others)"
-                required
-              />
+            <Item>
+              <InputCategory>
+                <span>R$</span>
+
+                <input
+                  {...register("others")}
+                  className="input"
+                  type="text"
+                  onChange={(e) => maskMoney(e.target, e)}
+                  placeholder="Outros?"
+                  required
+                />
+              </InputCategory>
               <CardCategory color="var(--others)">
                 <CardWrap>
                   <CustomText color="var(--others)">Outros</CustomText>

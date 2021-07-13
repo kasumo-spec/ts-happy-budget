@@ -1,28 +1,26 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { GoGraph } from "react-icons/go";
 import { BsLayoutTextWindow } from "react-icons/bs";
-import NewExpenseModal from "../NewExpenseModal";
 
 import Card from "../CardStatement";
 import CategoryButton from "../CategoryButton";
+import NewIncomeModal from "../NewIncomeModal";
+import { useIncome } from "../../providers/income";
 
 import {
   ButtonSetComponent,
   CategoryFilters,
-  ExpenseContainer,
-  ExpenseContent,
+  IncomeContainer,
+  IncomeContent,
 } from "./styles";
-
-import { useDebits } from "../../providers/debts";
-
+import { useBudget } from "../../providers/budget";
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { useBudget } from "../../providers/budget";
 import { PieChartComponent } from "../Chart/pieChart";
 
-const ExpenseComponent = () => {
+const IncomeComponent = () => {
   const months = [
     "Janeiro",
     "Fevereiro",
@@ -40,21 +38,9 @@ const ExpenseComponent = () => {
 
   const [active, setActive] = useState(true);
   const [categorySelected, setCategorySelected] = useState("");
-  const [filteredDebits, setFilteredDebits] = useState([]);
-  const [monthlyDebts, setMonthlyDebts] = useState([]);
-  const [totalPerCategories, setTotalPerCategories] = useState([
-    { category: "home", value: 0 },
-    { category: "food", value: 0 },
-    { category: "transport", value: 0 },
-    { category: "health", value: 0 },
-    { category: "study", value: 0 },
-    { category: "hobby", value: 0 },
-    { category: "pet", value: 0 },
-    { category: "market", value: 0 },
-    { category: "others", value: 0 },
-  ]);
+  const [filteredIncomes, setFilteredIncomes] = useState([]);
 
-  const { debits, deleteDebit } = useDebits();
+  const { incomes, deleteIncome } = useIncome();
   const { budgets } = useBudget();
 
   const [month, setMonth] = useState(
@@ -67,6 +53,8 @@ const ExpenseComponent = () => {
       year: "numeric",
     })
   );
+
+  const [monthlyIncomes, setMonthlyIncomes] = useState([]);
 
   const handleChange = (_, value) => {
     setCategorySelected("");
@@ -90,42 +78,24 @@ const ExpenseComponent = () => {
   };
 
   useEffect(() => {
-    if (monthlyDebts.length > 0) {
-      for (let i = 0; i < totalPerCategories.length; i++) {
-        const partial = totalPerCategories[i];
-        partial.value = 0;
-
-        for (let j = 0; j < monthlyDebts.length; j++) {
-          const partialDebts = monthlyDebts[j];
-          if (partial.category === partialDebts.category) {
-            partial.value += partialDebts.value;
-          }
-        }
-      }
-      setTotalPerCategories([...totalPerCategories]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [monthlyDebts]);
-
-  useEffect(() => {
-    setMonthlyDebts([]);
+    setMonthlyIncomes([]);
     budgets.forEach((budget) => {
       if (budget.name === `${month}/${year}`) {
         let result = [];
-        result = debits.filter((debit) => {
-          return debit.budgetId === budget.id;
+        result = incomes.filter((income) => {
+          return income.budgetId === budget.id;
         });
-        return setMonthlyDebts(result);
+        return setMonthlyIncomes(result);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debits, month]);
+  }, [budgets, incomes, month]);
 
   const handleCategorySelected = (event) => {
     const value = event.target.alt;
     if (value === categorySelected) {
       setCategorySelected("");
-      setFilteredDebits([]);
+      setFilteredIncomes([]);
     } else {
       setCategorySelected(value);
     }
@@ -133,10 +103,10 @@ const ExpenseComponent = () => {
 
   useEffect(() => {
     if (categorySelected !== "") {
-      const debitsSelected = monthlyDebts.filter(
-        (debit) => debit.category === categorySelected
+      const incomesSelected = monthlyIncomes.filter(
+        (income) => income.category === categorySelected
       );
-      setFilteredDebits(debitsSelected);
+      setFilteredIncomes(incomesSelected);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categorySelected]);
@@ -151,7 +121,7 @@ const ExpenseComponent = () => {
   };
 
   return (
-    <ExpenseContainer>
+    <IncomeContainer>
       <header>
         <div className="buttonContent">
           <ButtonSetComponent
@@ -167,7 +137,6 @@ const ExpenseComponent = () => {
             <BsLayoutTextWindow />
           </ButtonSetComponent>
         </div>
-
         <BottomNavigation
           style={{ height: "50px", background: "transparent" }}
           onChange={handleChange}
@@ -181,11 +150,10 @@ const ExpenseComponent = () => {
           <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
         </BottomNavigation>
 
-        <NewExpenseModal />
+        <NewIncomeModal />
       </header>
-
       {active ? (
-        <ExpenseContent>
+        <IncomeContent>
           <CategoryFilters>
             <h4>Filtrar por categoria</h4>
             <div>
@@ -193,68 +161,26 @@ const ExpenseComponent = () => {
                 onClickFunc={(e) => {
                   handleCategorySelected(e);
                 }}
-                category="market"
-                selected={categorySelected === "market"}
-                value="market"
+                category="salary"
+                selected={categorySelected === "salary"}
+                value="salary"
               />
               <CategoryButton
                 onClickFunc={(e) => {
                   handleCategorySelected(e);
                 }}
-                category="study"
-                selected={categorySelected === "study"}
-                value="study"
+                category="gift"
+                selected={categorySelected === "gift"}
+                value="gift"
               />
               <CategoryButton
                 onClickFunc={(e) => {
                   handleCategorySelected(e);
                 }}
-                category="transport"
-                selected={categorySelected === "transport"}
-                value="transport"
+                category="investment"
+                selected={categorySelected === "investment"}
+                value="investment"
               />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="pet"
-                selected={categorySelected === "pet"}
-                value="pet"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="health"
-                selected={categorySelected === "health"}
-                value="health"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="food"
-                selected={categorySelected === "food"}
-                value="food"
-              />
-
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="hobby"
-                selected={categorySelected === "hobby"}
-                value="hobby"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="home"
-                selected={categorySelected === "home"}
-                value="home"
-              />
-
               <CategoryButton
                 onClickFunc={(e) => {
                   handleCategorySelected(e);
@@ -267,50 +193,50 @@ const ExpenseComponent = () => {
           </CategoryFilters>
 
           <div className="statement">
-            <h2>Extrato de despesas</h2>
+            <h2>Extrato de Receitas</h2>
             <>
               {categorySelected ? (
-                filteredDebits.length === 0 ? (
+                filteredIncomes.length === 0 ? (
                   <h3>
-                    Não consta nenhum débito cadastrado nesta categoria, clique
-                    em outra categoria ou selecione novamente esta categoria
-                    para trazer todos os débitos
+                    Não consta nenhuma receita cadastrado nesta categoria,
+                    clique em outra categoria ou selecione a mesma categoria
+                    para trazer todas as receitas cadastradas
                   </h3>
                 ) : (
-                  filteredDebits.map((debit, index) => (
+                  filteredIncomes.map((income, index) => (
                     <Card
                       key={index}
-                      category={debit.category}
-                      entry={debit}
-                      onClickFunc={deleteDebit}
+                      category={income.category}
+                      entry={income}
+                      onClickFunc={deleteIncome}
                     />
                   ))
                 )
-              ) : monthlyDebts.length === 0 ? (
+              ) : monthlyIncomes.length === 0 ? (
                 <h3>
                   Nenhum débito cadastrado, clique no botão com sinal de mais
                   (+) e comece a fazer o controle deste mês
                 </h3>
               ) : (
-                monthlyDebts.map((debit, index) => (
+                monthlyIncomes.map((income, index) => (
                   <Card
                     key={index}
-                    category={debit.category}
-                    entry={debit}
-                    onClickFunc={deleteDebit}
+                    category={income.category}
+                    entry={income}
+                    onClickFunc={deleteIncome}
                   />
                 ))
               )}
             </>
           </div>
-        </ExpenseContent>
-      ) : monthlyDebts.length === 0 ? (
+        </IncomeContent>
+      ) : monthlyIncomes.length === 0 ? (
         <h3>Nenhum débito cadastrado neste orçamento.</h3>
       ) : (
-        <PieChartComponent data={totalPerCategories} />
+        <PieChartComponent data={incomes} />
       )}
-    </ExpenseContainer>
+    </IncomeContainer>
   );
 };
 
-export default ExpenseComponent;
+export default IncomeComponent;

@@ -15,12 +15,14 @@ import {
   Profile,
 } from "./styles";
 
+import { useUser } from "../../providers/users";
+
 import Button from "../Button";
 
 const Aside = () => {
   const history = useHistory();
+  const { userName, setToken } = useUser();
   const { pathname } = useLocation();
-
   const [topIndicator, setTopIndicator] = useState(0);
   const [leftIndicator, setLeftIndicator] = useState(0);
 
@@ -49,6 +51,8 @@ const Aside = () => {
   };
 
   const logOff = () => {
+    localStorage.clear();
+    setToken("");
     history.push("/");
   };
 
@@ -56,7 +60,7 @@ const Aside = () => {
     <AsideContainer>
       <Profile>
         <h2>Bem vindo!!!</h2>
-        <h2>Nome do usuário</h2>
+        <h2>{userName}</h2>
         <Budget>
           <p>Saldo: 1.000.000,00R$</p>
         </Budget>

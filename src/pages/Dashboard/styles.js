@@ -71,6 +71,11 @@ export const Income = styled.div`
     width: 48%;
   }
 
+  @media screen and (min-width: 1024px) and (max-height: 759px) {
+    h2 {
+      font-size: 30px !important;
+    }
+  }
   @media screen and (min-width: 1200px) {
     .tittle {
       font-size: 42px;
@@ -95,6 +100,7 @@ export const ImageContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 90%;
   }
 
   h3 + button {
@@ -156,12 +162,32 @@ export const ImageContainer = styled.div`
     p {
       width: 160px;
       margin-top: 20px;
-      font-size: 32px;
+      font-size: 28px;
     }
 
     p + button {
       margin-top: 30px;
       padding: 8px 50px;
+    }
+  }
+
+  @media screen and (min-width: 1100px) and (max-height: 725px) {
+    h3 {
+      font-size: 20px !important;
+    }
+
+    .status:first-child {
+      margin-top: 0px !important;
+    }
+
+    p {
+      width: 200px;
+      font-size: 18px !important;
+    }
+
+    .wrapLottie {
+      width: 150px !important;
+      height: 150px !important;
     }
   }
 
@@ -258,6 +284,11 @@ export const Expense = styled.div`
     width: 48%;
   }
 
+  @media screen and (min-width: 1024px) and (max-height: 759px) {
+    h2 {
+      font-size: 30px !important;
+    }
+  }
   @media screen and (min-width: 1200px) {
     .tittle {
       font-size: 42px;
@@ -315,6 +346,13 @@ export const Budget = styled.div`
 
   @media screen and (min-width: 1000px) {
     width: 48%;
+  }
+
+  @media screen and (min-width: 1024px) and (max-height: 759px) {
+    margin-top: 20px;
+    h2 {
+      font-size: 30px !important;
+    }
   }
 
   @media screen and (min-width: 1200px) {
@@ -380,6 +418,12 @@ export const Tips = styled.div`
     width: 48%;
   }
 
+  @media screen and (min-width: 1024px) and (max-height: 759px) {
+    margin-bottom: 0px;
+    h2 {
+      font-size: 30px !important;
+    }
+  }
   @media screen and (min-width: 1200px) {
     .tittle {
       font-size: 42px;

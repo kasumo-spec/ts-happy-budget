@@ -23,9 +23,17 @@ import gift from "../../assets/categorys/gift.png";
 import others from "../../assets/categorys/otherIncome.png";
 import investment from "../../assets/categorys/investment.png";
 
-const NewExpenseModal = () => {
+import { maskMoney } from "../../utils/maskMoney";
+import { useUser } from "../../providers/users";
+import { useBudget } from "../../providers/budget";
+import { useIncome } from "../../providers/income";
+
+const NewIncomeModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [select, setSelect] = useState("");
+  const { userId } = useUser();
+  const { idBudget } = useBudget();
+  const { createIncome } = useIncome();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -49,10 +57,21 @@ const NewExpenseModal = () => {
     setSelect(value);
   };
 
-  const { setValue, handleSubmit } = useForm();
+  const { setValue, handleSubmit, register } = useForm();
 
   const submitForm = (data) => {
-    handleCancel();
+    let valueFormated = parseFloat(
+      data.value.replaceAll(".", "").replace(",", ".")
+    );
+    let formatedObject = {
+      name: data.name,
+      value: valueFormated,
+      userId: userId,
+      budgetId: idBudget,
+      category: select,
+    };
+    createIncome(formatedObject);
+    setIsModalVisible(false);
   };
 
   return (
@@ -64,7 +83,7 @@ const NewExpenseModal = () => {
         onOk={handleOk}
         onCancel={handleCancel}
         width={700}
-        title="Adicionar receita"
+        title="Adicionar Receita"
         okText="Criar"
         cancelText="Cancelar"
         closeIcon={<FaTimes />}
@@ -73,13 +92,21 @@ const NewExpenseModal = () => {
       >
         <form onSubmit={handleSubmit(submitForm)}>
           <InputModal>
-            <input type="text" placeholder="Descrição da receita" required />
+            <input
+              type="text"
+              placeholder="Descrição da receita"
+              required
+              {...register("name")}
+            />
           </InputModal>
           <InputModal>
+            <span>R$</span>
             <input
+              {...register("value")}
               className="input"
               type="text"
-              placeholder="Valor R$"
+              onChange={(e) => maskMoney(e.target, e)}
+              placeholder="Valor"
               required
             />
           </InputModal>
@@ -97,7 +124,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--salary)">
                 <CardWrap>
                   <CustomText color="var(--salary)">Salário</CustomText>
-                  <img src={money} alt="money"></img>
+                  <img src={money} alt="money" />
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -114,7 +141,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--gift)">
                 <CardWrap>
                   <CustomText color="var(--gift)">Presente</CustomText>
-                  <img src={gift} alt="gift"></img>
+                  <img src={gift} alt="gift" />
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -133,7 +160,7 @@ const NewExpenseModal = () => {
                   <CustomText color="var(--investment)">
                     Investimento
                   </CustomText>
-                  <img src={investment} alt="gift"></img>
+                  <img src={investment} alt="gift" />
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -144,13 +171,13 @@ const NewExpenseModal = () => {
                 name="radio"
                 value="others"
                 checked={select === "others"}
-                color="var(--otherIncome)"
+                color="var(--others)"
                 required
               />
-              <CardCategory color="var(--otherIncome)">
+              <CardCategory color="var(--others)">
                 <CardWrap>
-                  <CustomText color="var(--otherIncome)">Outros</CustomText>
-                  <img src={others} alt="others"></img>
+                  <CustomText color="var(--others)">Outros</CustomText>
+                  <img src={others} alt="others" />
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -165,4 +192,4 @@ const NewExpenseModal = () => {
   );
 };
 
-export default NewExpenseModal;
+export default NewIncomeModal;

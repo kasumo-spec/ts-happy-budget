@@ -13,6 +13,8 @@ export const Container = styled.div`
 `;
 
 export const ContainerSignup = styled.div`
+  position: relative;
+  z-index: 2;
   h1 {
     font-size: 3em;
     font-weight: 700;
@@ -84,5 +86,57 @@ export const FormInput = styled(TextField)`
     border: 2px solid #341e48;
     border-radius: 5px;
     padding: 8.5px 5px;
+  }
+`;
+
+export const ContainerSVG = styled.div`
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  svg {
+    transition: all 300ms;
+    object-fit: cover;
+  }
+
+  .top {
+    display: none;
+  }
+
+  .bottom {
+    display: none;
+  }
+
+  @media screen and (min-width: 700px) {
+    svg {
+      width: 90vmin;
+    }
+
+    .top {
+      display: block;
+      position: absolute;
+      right: -263px;
+      top: 100px;
+    }
+
+    .bottom {
+      display: block;
+      position: absolute;
+      left: -343px;
+      bottom: 0px;
+    }
+  }
+
+  @media screen and (min-width: 1400px) {
+    svg {
+      width: 100vmin;
+    }
+
+    .bottom {
+      position: absolute;
+      left: -343px;
+      bottom: 0px;
+    }
   }
 `;

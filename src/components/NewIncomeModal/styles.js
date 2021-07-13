@@ -59,10 +59,6 @@ export const CustomModal = styled(Modal)`
 `;
 
 export const InputModal = styled.div`
-  .input {
-    margin-top: 20px;
-  }
-
   input {
     border-radius: 5px;
     border: 2px solid var(--violet);
@@ -78,6 +74,42 @@ export const InputModal = styled.div`
       font-size: 20px;
 
       padding: 25px 12px;
+    }
+  }
+
+  span {
+    position: absolute;
+    top: 148.5px;
+    display: flex;
+
+    color: var(--black);
+    font-weight: 500;
+    font-size: 16px;
+    width: 20px;
+    height: 20px;
+    padding: 20px 12px;
+
+    @media (min-width: 540px) {
+      font-size: 20px;
+      top: 156px;
+      padding: 25px 12px;
+    }
+  }
+
+  @media screen and (min-width: 720px) {
+    span {
+      bottom: 349.6px;
+    }
+  }
+
+  .input {
+    margin-top: 20px;
+    padding-left: 30px;
+  }
+
+  @media screen and (min-width: 540px) {
+    .input {
+      padding-left: 38px;
     }
   }
 `;
