@@ -7,6 +7,8 @@ import { ChartDiv, ButtonsDiv, InfosDiv } from "./styes";
 import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
 import ChartBudget from "../BudgetChartComponent";
+import {useIncome} from "../../providers/income";
+import {useDebits} from "../../providers/debts";
 
 const BudgetComponent = () => {
   const months = [
@@ -48,6 +50,8 @@ const BudgetComponent = () => {
     total: "#3cb1b9"
   }
   const { budgets } = useBudget();
+  const { totalIncomes } = useIncome()
+  const { totalDebits } = useDebits()
   const [value] = useState();
   const [elementBudget, setElementBudget] = useState();
   const [data, setData] = useState();
@@ -103,9 +107,9 @@ const BudgetComponent = () => {
             name: translateCategory[key],
             color: chartColors[key],
             Orçado: value,
-            Utilizado: 300,
+            Utilizado: totalDebits[key],
             "Recebimento Previsto": result[0].prediction,
-            "Recebimento Realizado": 100
+            "Recebimento Realizado": totalIncomes.total
           });
         }
         let sortMobile = dataCreated
@@ -122,14 +126,14 @@ const BudgetComponent = () => {
           name: translateCategory.total,
           color: chartColors.total,
           "Recebimento Previsto": result[0].prediction,
-          "Recebimento Realizado": 100,
+          "Recebimento Realizado": totalIncomes.total,
           Utilizado: total,
         });
         max3Mobile.push({
           name: translateCategory.total,
           color: chartColors.total,
           "Recebimento Previsto": result[0].prediction,
-          "Recebimento Realizado": 100,
+          "Recebimento Realizado": totalIncomes.total,
           Utilizado: total,
         });
         setData(dataCreated);

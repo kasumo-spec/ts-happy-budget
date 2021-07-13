@@ -2,52 +2,37 @@ import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
 import { NotificationsContext } from "../notifications";
+import {useBudget} from "../budget";
 
 export const DebitContext = createContext([]);
 
 export const DebitProvider = ({ children }) => {
   const { token, userId } = useUser();
+  const { idBudget } = useBudget()
   const [debitCreateSuccess, setDebitCreateSuccess] = useState(Boolean);
   const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean);
   const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean);
   const [debits, setDebits] = useState([]);
-  const [totalDebits, setTtotalDebits] = useState([
-    { category: "home", value: 0 },
-    { category: "food", value: 0 },
-    { category: "transport", value: 0 },
-    { category: "health", value: 0 },
-    { category: "study", value: 0 },
-    { category: "hobby", value: 0 },
-    { category: "pet", value: 0 },
-    { category: "market", value: 0 },
-    { category: "others", value: 0 },
-  ]);
+  const [totalDebits, setTotalDebits] = useState({});
+  const categoryTest = {
+    market: 0,
+    food: 1,
+    health: 2,
+    pet: 3,
+    home: 4,
+    hobby: 5,
+    transport: 6,
+    study: 7,
+    others: 8,
+    total: 9
+  }
 
-  const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
   const {
     newDebitSuccess,
     newDebitError,
     deleteDebitSuccess,
     deleteDebitError,
   } = useContext(NotificationsContext);
-
-  useEffect(() => {
-    if (debits.length > 0) {
-      for (let i = 0; i < totalDebits.length; i++) {
-        const partial = totalDebits[i];
-        partial.value = 0;
-
-        for (let j = 0; j < debits.length; j++) {
-          const partialDebts = debits[j];
-          if (partial.category === partialDebts.category) {
-            partial.value += partialDebts.value;
-          }
-        }
-      }
-      setTtotalDebits([...totalDebits]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debits]);
 
   useEffect(() => {
     if (token !== "") {
@@ -59,13 +44,39 @@ export const DebitProvider = ({ children }) => {
         })
         .then((res) => {
           setDebits(res.data);
+          let rebuildDebit = [[],[],[],[],[],[],[],[],[],[]]
+          res.data.forEach((debit) => {
+            if (debit.budgetId === idBudget) {
+              rebuildDebit[categoryTest[`${debit.category}`]].push({
+                category: debit.category,
+                value: debit.value
+              })
+            }
+          })
+          for (let i = 0; i < 9; i++){
+            rebuildDebit[i] = rebuildDebit[i].reduce((a,b) => a + b.value, 0)
+            rebuildDebit[9].push(rebuildDebit[i])
+          }
+          rebuildDebit[9] = rebuildDebit[9].reduce((a,b) => a + b, 0)
+          setTotalDebits({
+            market: rebuildDebit[0],
+            food: rebuildDebit[1],
+            health: rebuildDebit[2],
+            pet: rebuildDebit[3],
+            home: rebuildDebit[4],
+            hobby: rebuildDebit[5],
+            transport: rebuildDebit[6],
+            study: rebuildDebit[7],
+            others: rebuildDebit[8],
+            total: rebuildDebit[9]
+          })
         });
     }
-  }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess, token, userId]);
+  }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess, token, userId, idBudget]);
 
   const createDebit = (data) => {
     api
-      .post("debit", { ...data, reqDay }, {
+      .post("debit", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
