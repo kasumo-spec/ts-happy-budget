@@ -1,61 +1,54 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
-import jwtDecode from "jwt-decode";
-import { NotificationsContext } from "../notifications"
+
+import { NotificationsContext } from "../notifications";
 
 export const DebitContext = createContext([]);
 
 export const DebitProvider = ({ children }) => {
-  const { token } = useUser();
+  const { token, userId } = useUser();
   const [debitCreateSuccess, setDebitCreateSuccess] = useState(Boolean);
   const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean);
   const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean);
   const [debits, setDebits] = useState([]);
-  const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
-  const { newDebitSuccess, newDebitError, deleteDebitSuccess, deleteDebitError } = useContext(NotificationsContext)
+  const {
+    newDebitSuccess,
+    newDebitError,
+    deleteDebitSuccess,
+    deleteDebitError,
+  } = useContext(NotificationsContext);
 
   useEffect(() => {
     if (token !== "") {
       api
-        .get("debit", {
+        .get(`debit/?userId=${userId}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              "@HappyBudget:token"
-            )}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          let decoderId = jwtDecode(localStorage.getItem("@HappyBudget:token"));
-          let userForEffect = parseInt(decoderId.sub);
-          let userDebits = res.data.filter(
-            (item) => item.userId === userForEffect
-          );
-          setDebits(userDebits);
+          setDebits(res.data);
         });
     }
   }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess, token]);
 
   const createDebit = (data) => {
     api
-      .post(
-        "debit",
-        { ...data, reqDay },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post("debit", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         if (res.status === 201) {
           setDebitCreateSuccess(true);
-          newDebitSuccess()
+          newDebitSuccess();
         }
       })
       .catch((_) => {
-        setDebitCreateSuccess(false)
-        newDebitError()
+        setDebitCreateSuccess(false);
+        newDebitError();
       });
   };
 
@@ -81,11 +74,11 @@ export const DebitProvider = ({ children }) => {
       })
       .then((_) => {
         setDebitDeleteSuccess(true);
-        deleteDebitSuccess()
+        deleteDebitSuccess();
       })
       .catch((_) => {
-        setDebitDeleteSuccess(false)
-        deleteDebitError()
+        setDebitDeleteSuccess(false);
+        deleteDebitError();
       });
   };
 
