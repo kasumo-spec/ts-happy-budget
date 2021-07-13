@@ -1,6 +1,8 @@
 import { Container, Page, Header, LottieWrap } from "./styles";
 import tips from "../../assets/lotties/tips.json";
 import Lottie from "react-lottie";
+import TipsComponent from "../../components/TipsComponent";
+
 const lottieOptions = {
   loop: true,
   autoplay: false,
@@ -9,6 +11,7 @@ const lottieOptions = {
   },
 };
 const Tips = () => {
+
   return (
     <>
       <Container>
@@ -19,7 +22,9 @@ const Tips = () => {
           <Lottie options={{ ...lottieOptions, animationData: tips }} />
         </LottieWrap>
 
-        <Page></Page>
+        <Page>
+          <TipsComponent />
+        </Page>
       </Container>
     </>
   );
