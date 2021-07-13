@@ -4,7 +4,7 @@ import { ButtonType } from "../Button/styles";
 import {useBudget} from "../../providers/budget";
 
 const BudgetDeleteModal = ({budgetId}) => {
-    const {deleteBudget, budgets} = useBudget()
+    const {deleteBudget} = useBudget()
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [modalText, setModalText] = useState()
@@ -18,13 +18,9 @@ const BudgetDeleteModal = ({budgetId}) => {
         setModalText('Orçamento será deletado e este modal será fechado em três segundos!');
         setConfirmLoading(true);
         deleteBudget(budgetId)
-
         setTimeout(() => {
             setVisible(false);
             setConfirmLoading(false);
-            if (budgets.length === 1) {
-                window.location.reload()
-            }
         }, 3000);
     };
 

@@ -68,7 +68,7 @@ const Login = () => {
             type="password"
             margin="dense"
             variant="outlined"
-            placeholder="Digite sua senha."
+            placeholder="Digite seu e-mail."
             size="small"
             color="primary"
             {...register("password")}
