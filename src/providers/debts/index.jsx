@@ -23,7 +23,6 @@ export const DebitProvider = ({ children }) => {
     { category: "others", value: 0 },
   ]);
 
-  const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
   const {
     newDebitSuccess,
     newDebitError,
@@ -65,7 +64,7 @@ export const DebitProvider = ({ children }) => {
 
   const createDebit = (data) => {
     api
-      .post("debit", { ...data, reqDay }, {
+      .post("debit", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -8,6 +8,9 @@ import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
 import ChartBudget from "../BudgetChartComponent";
 
+// todo: Contabilização dos incomes e debits para mostrar
+//        fix show income x debit
+
 const BudgetComponent = () => {
   const months = [
     "Janeiro",

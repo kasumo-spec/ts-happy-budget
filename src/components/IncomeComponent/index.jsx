@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-
 import { GoGraph } from "react-icons/go";
 import { BsLayoutTextWindow } from "react-icons/bs";
-
 import Card from "../CardStatement";
 import CategoryButton from "../CategoryButton";
 import NewIncomeModal from "../NewIncomeModal";
 import { useIncome } from "../../providers/income";
-
 import {
   ButtonSetComponent,
   CategoryFilters,
@@ -35,14 +32,11 @@ const IncomeComponent = () => {
     "Novembro",
     "Dezembro",
   ];
-
   const [active, setActive] = useState(true);
   const [categorySelected, setCategorySelected] = useState("");
   const [filteredIncomes, setFilteredIncomes] = useState([]);
-
   const { incomes, deleteIncome } = useIncome();
   const { budgets } = useBudget();
-
   const [month, setMonth] = useState(
     new Date().toLocaleString("en-US", {
       month: "numeric",
@@ -53,7 +47,6 @@ const IncomeComponent = () => {
       year: "numeric",
     })
   );
-
   const [monthlyIncomes, setMonthlyIncomes] = useState([]);
 
   const handleChange = (_, value) => {
