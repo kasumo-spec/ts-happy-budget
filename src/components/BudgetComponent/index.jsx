@@ -21,7 +21,6 @@ import NewBudgetModal from "../../components/NewBudgetModal";
 
 
 //todo: Correção pra mobile +
-//      Implementação dos 3 maiores pro mobile +
 //      Corrigir o layout do botão de deletar +
 //      Tentar solucionar as cores no Gráfico +
 
@@ -56,6 +55,7 @@ const BudgetComponent = () => {
   const [value] = useState();
   const [elementBudget, setElementBudget] = useState();
   const [data, setData] = useState();
+  const [mobileData, setMobileData] = useState()
 
   const [month, setMonth] = useState(
     new Date().toLocaleString("en-US", {
@@ -111,6 +111,12 @@ const BudgetComponent = () => {
             "Recebimento Realizado": 100
           });
         }
+        let sortMobile = dataCreated
+        let max3Mobile = []
+        sortMobile.sort((a,b) => a.Orçado > b.Orçado)
+        for (let i = 0; i < 3; i++) {
+          max3Mobile.push(sortMobile[i])
+        }
         let total = 0;
         let recebidos = 0;
         for (let i = 0; i < dataCreated.length; i++) {
@@ -123,7 +129,14 @@ const BudgetComponent = () => {
           "Recebimento Realizado": recebidos,
           Utilizado: total,
         });
+        max3Mobile.push({
+          name: translateCategory.total,
+          "Recebimento Previsto": result[0].prediction,
+          "Recebimento Realizado": recebidos,
+          Utilizado: total,
+        });
         setData(dataCreated);
+        setMobileData(max3Mobile)
       }
     } else {
       return null;
