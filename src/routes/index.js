@@ -1,5 +1,4 @@
-import { Switch } from "react-router-dom";
-import ProtectedRoute from "./protected"
+import { Switch, Route } from "react-router-dom";
 
 import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
@@ -13,23 +12,33 @@ import Tips from "../pages/Tips";
 const Routes = () => {
   return (
     <Switch>
-      
-      <ProtectedRoute exact path="/" component={Home}/>
+      <Route exact path="/">
+        <Home />
+      </Route>
+      <Route path="/login">
+        <Login></Login>
+      </Route>
+      <Route path="/signup">
+        <SignUp />
+      </Route>
+      <Route path="/dashboard">
+        <Dashboard />
+      </Route>
 
-      <ProtectedRoute path="/login" component={Login}/>
+      <Route path="/budgets">
+        <Budget />
+      </Route>
 
-      <ProtectedRoute path="/signup" component={SignUp}/>
+      <Route path="/expenses">
+        <Expenses />
+      </Route>
 
-      <ProtectedRoute path="/dashboard" component={Dashboard} isPrivate/>
-
-      <ProtectedRoute path="/budgets" component={Budget} isPrivate/>
-      
-      <ProtectedRoute path="/expenses" component={Expenses} isPrivate/>
-
-      <ProtectedRoute path="/incomes" component={Incomes} isPrivate/>
-
-      <ProtectedRoute path="/tips" component={Tips} isPrivate/>
-
+      <Route path="/incomes">
+        <Incomes />
+      </Route>
+      <Route path="/tips">
+        <Tips />
+      </Route>
     </Switch>
   );
 };
