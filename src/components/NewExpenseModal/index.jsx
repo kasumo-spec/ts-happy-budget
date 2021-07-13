@@ -29,16 +29,10 @@ import study from "../../assets/categorys/study.png";
 import others from "../../assets/categorys/otherIncome.png";
 
 import { maskMoney } from "../../utils/maskMoney";
-import {useUser} from "../../providers/users";
-import {useBudget} from "../../providers/budget";
-import {useDebits} from "../../providers/debts";
 
 const NewExpenseModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [select, setSelect] = useState("");
-  const { userId } = useUser()
-  const { idBudget } = useBudget()
-  const { createDebit } = useDebits()
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -65,18 +59,9 @@ const NewExpenseModal = () => {
   const { setValue, handleSubmit, register } = useForm();
 
   const submitForm = (data) => {
-    let valueFormated = parseFloat(
-        data.value.replaceAll(".","").replace(",",".")
-    )
-    let formatedObject = {
-      name: data.name,
-      value: valueFormated,
-      userId: userId,
-      budgetId: idBudget,
-      category: select
-    }
-    createDebit(formatedObject)
-    setIsModalVisible(false)
+    const formatedValue = parseInt(
+      data.value.replace(",", "").replaceAll(".", "")
+    );
   };
 
   return (
@@ -129,7 +114,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--market)">
                 <CardWrap>
                   <CustomText color="var(--market)">Mercado</CustomText>
-                  <img src={market} alt="money"/>
+                  <img src={market} alt="money"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -146,7 +131,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--food)">
                 <CardWrap>
                   <CustomText color="var(--food)">Comida</CustomText>
-                  <img src={food} alt="food"/>
+                  <img src={food} alt="food"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -163,7 +148,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--health)">
                 <CardWrap>
                   <CustomText color="var(--health)">Saúde</CustomText>
-                  <img src={health} alt="health"/>
+                  <img src={health} alt="health"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -180,7 +165,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--pet)">
                 <CardWrap>
                   <CustomText color="var(--pet)">Outros</CustomText>
-                  <img src={pet} alt="pet"/>
+                  <img src={pet} alt="pet"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -197,7 +182,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--home)">
                 <CardWrap>
                   <CustomText color="var(--home)">Moradia</CustomText>
-                  <img src={home} alt="home"/>
+                  <img src={home} alt="home"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -214,7 +199,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--hobby)">
                 <CardWrap>
                   <CustomText color="var(--hobby)">Hobby</CustomText>
-                  <img src={hobby} alt="hobby"/>
+                  <img src={hobby} alt="hobby"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -231,7 +216,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--transport)">
                 <CardWrap>
                   <CustomText color="var(--transport)">Transporte</CustomText>
-                  <img src={transport} alt="transport"/>
+                  <img src={transport} alt="transport"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -248,7 +233,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--study)">
                 <CardWrap>
                   <CustomText color="var(--study)">Educação</CustomText>
-                  <img src={study} alt="study"/>
+                  <img src={study} alt="study"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -265,7 +250,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--others)">
                 <CardWrap>
                   <CustomText color="var(--others)">Outros</CustomText>
-                  <img src={others} alt="others"/>
+                  <img src={others} alt="others"></img>
                 </CardWrap>
               </CardCategory>
             </Item>

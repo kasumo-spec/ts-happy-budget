@@ -24,16 +24,10 @@ import others from "../../assets/categorys/otherIncome.png";
 import investment from "../../assets/categorys/investment.png";
 
 import { maskMoney } from "../../utils/maskMoney";
-import {useUser} from "../../providers/users";
-import {useBudget} from "../../providers/budget";
-import {useIncome} from "../../providers/income";
 
 const NewIncomeModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [select, setSelect] = useState("");
-  const { userId } = useUser()
-  const { idBudget } = useBudget()
-  const { createIncome } = useIncome()
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -60,18 +54,9 @@ const NewIncomeModal = () => {
   const { setValue, handleSubmit, register } = useForm();
 
   const submitForm = (data) => {
-    let valueFormated = parseFloat(
-        data.value.replaceAll(".","").replace(",",".")
-    )
-    let formatedObject = {
-      name: data.name,
-      value: valueFormated,
-      userId: userId,
-      budgetId: idBudget,
-      category: select
-    }
-    createIncome(formatedObject)
-    setIsModalVisible(false)
+    const formatedValue = parseInt(
+      data.value.replace(",", "").replaceAll(".", "")
+    );
   };
 
   return (
@@ -124,7 +109,7 @@ const NewIncomeModal = () => {
               <CardCategory color="var(--salary)">
                 <CardWrap>
                   <CustomText color="var(--salary)">Salário</CustomText>
-                  <img src={money} alt="money"/>
+                  <img src={money} alt="money"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -141,7 +126,7 @@ const NewIncomeModal = () => {
               <CardCategory color="var(--gift)">
                 <CardWrap>
                   <CustomText color="var(--gift)">Presente</CustomText>
-                  <img src={gift} alt="gift"/>
+                  <img src={gift} alt="gift"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -160,7 +145,7 @@ const NewIncomeModal = () => {
                   <CustomText color="var(--investment)">
                     Investimento
                   </CustomText>
-                  <img src={investment} alt="gift"/>
+                  <img src={investment} alt="gift"></img>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -177,7 +162,7 @@ const NewIncomeModal = () => {
               <CardCategory color="var(--others)">
                 <CardWrap>
                   <CustomText color="var(--others)">Outros</CustomText>
-                  <img src={others} alt="others"/>
+                  <img src={others} alt="others"></img>
                 </CardWrap>
               </CardCategory>
             </Item>

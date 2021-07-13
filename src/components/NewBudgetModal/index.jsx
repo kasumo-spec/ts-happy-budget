@@ -85,7 +85,7 @@ const NewExpenseModal = () => {
               className="input"
               type="text"
               onChange={(e) => maskMoney(e.target, e)}
-              placeholder="Qual sua renda média mensal ?"
+              placeholder="Quanto você planeja gastar no mês ?"
               required
             />
           </InputModal>
