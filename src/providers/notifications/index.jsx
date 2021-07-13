@@ -25,14 +25,41 @@ export const NotificationsProvider = ({ children }) => {
     });
   };
 
-  const newIncomeSuccess = () => {
-    notification.success({
-      message: <h3>Muito bom!</h3>,
-      description: <p>Nova receita adicionada.</p>,
-      icon: <Emoji label="bolsa de dinaro" symbol="💰" />,
-      className: "success",
-    });
-  };
+    const logoutSuccess = () => {
+        notification.success({
+            message: <h3>Até logo!</h3>,
+            description: <p>Não esqueça de manter suas finanças atualizadas.</p>,
+            icon: <Emoji label="partying face" symbol="👋"/>,
+            className: "success"
+        })
+    }
+
+    const login = () => {
+        notification.success({
+            message: <h3>Bem vindo a bordo!</h3>,
+            description: <p>Vamos navegar em suas finanças e mantê-la no controle.</p>,
+            icon: <Emoji label="smiling face with hearts" symbol="⛵"/>,
+            className: "success"
+        })
+    }
+
+    const loginError = () => {
+        notification.error({
+            message: <h3>Deu erro!</h3>,
+            description: <p>Não conseguimos fazer seu login.</p>,
+            icon: <Emoji label="smiling face with hearts" symbol="🔒"/>,
+            className: "success"
+        })
+    }
+    
+    const newIncomeSuccess = () => {
+        notification.success({
+            message: <h3>Muito bom!</h3>,
+            description: <p>Nova receita adicionada.</p>,
+            icon: <Emoji label="bolsa de dinaro" symbol="💰"/>,
+            className: "success"
+        })
+    }
 
   const newIncomeError = () => {
     notification.error({
@@ -90,33 +117,32 @@ export const NotificationsProvider = ({ children }) => {
     });
   };
 
-  const deleteDebitError = () => {
-    notification.error({
-      message: <h3>Aff!</h3>,
-      description: <p>Não conseguimos excluir essa despesa.</p>,
-      icon: <Emoji label="loud cry" symbol="😭" />,
-      className: "error",
-    });
-  };
-
-  return (
-    <NotificationsContext.Provider
-      value={{
-        registerSuccess,
-        logout,
-        newIncomeSuccess,
-        newIncomeError,
-        newDebitSuccess,
-        newDebitError,
-        deleteIncomeSuccess,
-        deleteIncomeError,
-        deleteDebitSuccess,
-        deleteDebitError,
-      }}
-    >
-      {children}
-    </NotificationsContext.Provider>
-  );
-};
-
-export const useNotifications = () => useContext(NotificationsContext);
+    const deleteDebitError = () => {
+        notification.error({
+            message: <h3>Aff!</h3>,
+            description: <p>Não conseguimos excluir essa despesa.</p>,
+            icon: <Emoji label="loud cry" symbol="😭"/>,
+            className: "error"
+        })
+    }
+    
+    return (
+        <NotificationsContext.Provider value={
+            {   
+                registerSuccess,
+                logoutSuccess,
+                login,
+                loginError,
+                newIncomeSuccess,
+                newIncomeError,
+                newDebitSuccess,
+                newDebitError,
+                deleteIncomeSuccess,
+                deleteIncomeError,
+                deleteDebitSuccess,
+                deleteDebitError }
+            }>
+                {children}
+        </NotificationsContext.Provider>
+    )
+}

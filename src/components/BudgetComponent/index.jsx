@@ -108,18 +108,9 @@ const BudgetComponent = () => {
           showLabels
           style={elementBudget ? { width: "90%" } : { width: "100%" }}
         >
-          <BottomNavigationAction value={-1} disabled={disableMinus}
-            icon={<ChevronLeftIcon />}
-          />
-          <BottomNavigationAction
-            disabled={true}
-            label={month[monthIndex - 1]}
-          />
-          <BottomNavigationAction
-            value={1}
-            disabled={disableSum}
-            icon={<ChevronRightIcon />}
-          />
+          <BottomNavigationAction value={-1} disabled={disableMinus} icon={<ChevronLeftIcon />} />
+          <BottomNavigationAction disabled={true} label={month[monthIndex - 1]} />
+          <BottomNavigationAction value={1} disabled={disableSum} icon={<ChevronRightIcon />} />
         </BottomNavigation>
         {elementBudget && (
           <BudgetDeleteModal budgetId={elementBudget.id} flexGrow={1} />
