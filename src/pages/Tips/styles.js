@@ -116,6 +116,20 @@ export const Page = styled.div`
   border-radius: 5px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 
+  overflow-y: scroll;
+  height: 250px;
+
+    ::-webkit-scrollbar-track {
+      background-color: #F4F4F4;
+  }
+  ::-webkit-scrollbar {
+      width: 6px;
+      background: #F4F4F4;
+  }
+  ::-webkit-scrollbar-thumb {
+      background: #dad7d7;
+  }
+
   @media screen and (min-width: 360px) {
     min-height: 300px;
   }
@@ -134,3 +148,4 @@ export const Page = styled.div`
     min-height: 650px;
   }
 `;
+

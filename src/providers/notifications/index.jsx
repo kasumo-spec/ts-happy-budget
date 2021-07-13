@@ -16,11 +16,29 @@ export const NotificationsProvider = ({ children }) => {
     });
   };
 
-    const logout = () => {
+    const logoutSuccess = () => {
         notification.success({
             message: <h3>Até logo!</h3>,
             description: <p>Não esqueça de manter suas finanças atualizadas.</p>,
             icon: <Emoji label="partying face" symbol="👋"/>,
+            className: "success"
+        })
+    }
+
+    const login = () => {
+      notification.success({
+          message: <h3>Bem vindo a bordo!</h3>,
+          description: <p>Vamos navegar em suas finanças e mantê-la no controle.</p>,
+          icon: <Emoji label="smiling face with hearts" symbol="⛵"/>,
+          className: "success"
+      })
+    }
+
+    const loginError = () => {
+        notification.error({
+            message: <h3>Deu erro!</h3>,
+            description: <p>Não conseguimos fazer seu login.</p>,
+            icon: <Emoji label="smiling face with hearts" symbol="🔒"/>,
             className: "success"
         })
     }
@@ -103,7 +121,9 @@ export const NotificationsProvider = ({ children }) => {
         <NotificationsContext.Provider value={
             {   
                 registerSuccess,
-                logout,
+                logoutSuccess,
+                login,
+                loginError,
                 newIncomeSuccess,
                 newIncomeError,
                 newDebitSuccess,
