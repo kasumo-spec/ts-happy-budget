@@ -16,6 +16,8 @@ import Lottie from "react-lottie";
 
 import NewIncomeModal from "../../components/NewIncomeModal";
 import NewExpenseModal from "../../components/NewExpenseModal";
+import { ComposedChartComponent } from "../../components/Chart/areaChart";
+import { useBudget } from "../../providers/budget";
 import NewBudgetModal from "../../components/NewBudgetModal";
 
 import { useHistory } from "react-router-dom";
@@ -28,6 +30,7 @@ const lottieOptions = {
 };
 
 const Dashboard = () => {
+  const { budgetsId } = useBudget();
   const history = useHistory();
 
   const redirectToTips = () => {

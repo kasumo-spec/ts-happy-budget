@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
-
 import { NotificationsContext } from "../notifications";
 
 export const DebitContext = createContext([]);
@@ -12,12 +11,43 @@ export const DebitProvider = ({ children }) => {
   const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean);
   const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean);
   const [debits, setDebits] = useState([]);
+  const [totalDebits, setTtotalDebits] = useState([
+    { category: "home", value: 0 },
+    { category: "food", value: 0 },
+    { category: "transport", value: 0 },
+    { category: "health", value: 0 },
+    { category: "study", value: 0 },
+    { category: "hobby", value: 0 },
+    { category: "pet", value: 0 },
+    { category: "market", value: 0 },
+    { category: "others", value: 0 },
+  ]);
+
+  const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
   const {
     newDebitSuccess,
     newDebitError,
     deleteDebitSuccess,
     deleteDebitError,
   } = useContext(NotificationsContext);
+
+  useEffect(() => {
+    if (debits.length > 0) {
+      for (let i = 0; i < totalDebits.length; i++) {
+        const partial = totalDebits[i];
+        partial.value = 0;
+
+        for (let j = 0; j < debits.length; j++) {
+          const partialDebts = debits[j];
+          if (partial.category === partialDebts.category) {
+            partial.value += partialDebts.value;
+          }
+        }
+      }
+      setTtotalDebits([...totalDebits]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debits]);
 
   useEffect(() => {
     if (token !== "") {
@@ -31,11 +61,11 @@ export const DebitProvider = ({ children }) => {
           setDebits(res.data);
         });
     }
-  }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess, token]);
+  }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess, token, userId]);
 
   const createDebit = (data) => {
     api
-      .post("debit", data, {
+      .post("debit", { ...data, reqDay }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -92,6 +122,7 @@ export const DebitProvider = ({ children }) => {
         debitCreateSuccess,
         debitEditSuccess,
         debitDeleteSuccess,
+        totalDebits,
       }}
     >
       {children}

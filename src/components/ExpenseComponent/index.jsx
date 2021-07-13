@@ -20,6 +20,7 @@ import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { useBudget } from "../../providers/budget";
+import { PieChartComponent } from "../Chart/pieChart";
 
 const ExpenseComponent = () => {
   const months = [
@@ -40,6 +41,18 @@ const ExpenseComponent = () => {
   const [active, setActive] = useState(true);
   const [categorySelected, setCategorySelected] = useState("");
   const [filteredDebits, setFilteredDebits] = useState([]);
+  const [monthlyDebts, setMonthlyDebts] = useState([]);
+  const [totalPerCategories, setTotalPerCategories] = useState([
+    { category: "home", value: 0 },
+    { category: "food", value: 0 },
+    { category: "transport", value: 0 },
+    { category: "health", value: 0 },
+    { category: "study", value: 0 },
+    { category: "hobby", value: 0 },
+    { category: "pet", value: 0 },
+    { category: "market", value: 0 },
+    { category: "others", value: 0 },
+  ]);
 
   const { debits, deleteDebit } = useDebits();
   const { budgets } = useBudget();
@@ -54,8 +67,6 @@ const ExpenseComponent = () => {
       year: "numeric",
     })
   );
-
-  const [monthlyDebts, setMonthlyDebts] = useState([]);
 
   const handleChange = (_, value) => {
     setCategorySelected("");
@@ -79,6 +90,24 @@ const ExpenseComponent = () => {
   };
 
   useEffect(() => {
+    if (monthlyDebts.length > 0) {
+      for (let i = 0; i < totalPerCategories.length; i++) {
+        const partial = totalPerCategories[i];
+        partial.value = 0;
+
+        for (let j = 0; j < monthlyDebts.length; j++) {
+          const partialDebts = monthlyDebts[j];
+          if (partial.category === partialDebts.category) {
+            partial.value += partialDebts.value;
+          }
+        }
+      }
+      setTotalPerCategories([...totalPerCategories]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [monthlyDebts]);
+
+  useEffect(() => {
     setMonthlyDebts([]);
     budgets.forEach((budget) => {
       if (budget.name === `${month}/${year}`) {
@@ -89,7 +118,8 @@ const ExpenseComponent = () => {
         return setMonthlyDebts(result);
       }
     });
-  }, [month]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debits, month]);
 
   const handleCategorySelected = (event) => {
     const value = event.target.alt;
@@ -154,99 +184,115 @@ const ExpenseComponent = () => {
         <NewExpenseModal />
       </header>
 
-      <ExpenseContent>
-        <CategoryFilters>
-          <h4>Filtrar por categoria</h4>
-          <div>
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="market"
-              selected={categorySelected === "market"}
-              value="market"
-            />
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="study"
-              selected={categorySelected === "study"}
-              value="study"
-            />
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="transport"
-              selected={categorySelected === "transport"}
-              value="transport"
-            />
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="pet"
-              selected={categorySelected === "pet"}
-              value="pet"
-            />
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="health"
-              selected={categorySelected === "health"}
-              value="health"
-            />
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="food"
-              selected={categorySelected === "food"}
-              value="food"
-            />
+      {active ? (
+        <ExpenseContent>
+          <CategoryFilters>
+            <h4>Filtrar por categoria</h4>
+            <div>
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="market"
+                selected={categorySelected === "market"}
+                value="market"
+              />
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="study"
+                selected={categorySelected === "study"}
+                value="study"
+              />
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="transport"
+                selected={categorySelected === "transport"}
+                value="transport"
+              />
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="pet"
+                selected={categorySelected === "pet"}
+                value="pet"
+              />
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="health"
+                selected={categorySelected === "health"}
+                value="health"
+              />
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="food"
+                selected={categorySelected === "food"}
+                value="food"
+              />
 
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="hobby"
-              selected={categorySelected === "hobby"}
-              value="hobby"
-            />
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="home"
-              selected={categorySelected === "home"}
-              value="home"
-            />
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="hobby"
+                selected={categorySelected === "hobby"}
+                value="hobby"
+              />
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="home"
+                selected={categorySelected === "home"}
+                value="home"
+              />
 
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="others"
-              selected={categorySelected === "others"}
-              value="others"
-            />
-          </div>
-        </CategoryFilters>
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="others"
+                selected={categorySelected === "others"}
+                value="others"
+              />
+            </div>
+          </CategoryFilters>
 
-        <div className="statement">
-          <h2>Extrato de despesas</h2>
-          <>
-            {categorySelected ? (
-              filteredDebits.length === 0 ? (
+          <div className="statement">
+            <h2>Extrato de despesas</h2>
+            <>
+              {categorySelected ? (
+                filteredDebits.length === 0 ? (
+                  <h3>
+                    Não consta nenhum débito cadastrado nesta categoria, clique
+                    em outra categoria ou selecione novamente esta categoria
+                    para trazer todos os débitos
+                  </h3>
+                ) : (
+                  filteredDebits.map((debit, index) => (
+                    <Card
+                      key={index}
+                      category={debit.category}
+                      entry={debit}
+                      onClickFunc={deleteDebit}
+                    />
+                  ))
+                )
+              ) : monthlyDebts.length === 0 ? (
                 <h3>
-                  Não consta nenhum débito cadastrado nesta categoria, clique em
-                  outra categoria ou selecione novamente esta categoria para
-                  trazer todos os débitos
+                  Nenhum débito cadastrado, clique no botão com sinal de mais
+                  (+) e comece a fazer o controle deste mês
                 </h3>
               ) : (
-                filteredDebits.map((debit, index) => (
+                monthlyDebts.map((debit, index) => (
                   <Card
                     key={index}
                     category={debit.category}
@@ -254,25 +300,15 @@ const ExpenseComponent = () => {
                     onClickFunc={deleteDebit}
                   />
                 ))
-              )
-            ) : monthlyDebts.length === 0 ? (
-              <h3>
-                Nenhum débito cadastrado, clique no botão com sinal de mais (+)
-                e comece a fazer o controle deste mês
-              </h3>
-            ) : (
-              monthlyDebts.map((debit, index) => (
-                <Card
-                  key={index}
-                  category={debit.category}
-                  entry={debit}
-                  onClickFunc={deleteDebit}
-                />
-              ))
-            )}
-          </>
-        </div>
-      </ExpenseContent>
+              )}
+            </>
+          </div>
+        </ExpenseContent>
+      ) : monthlyDebts.length === 0 ? (
+        <h3>Nenhum débito cadastrado neste orçamento.</h3>
+      ) : (
+        <PieChartComponent data={totalPerCategories} />
+      )}
     </ExpenseContainer>
   );
 };

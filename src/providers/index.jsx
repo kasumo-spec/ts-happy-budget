@@ -10,9 +10,7 @@ const Providers = ({ children }) => {
       <UserProvider>
         <BudgetProvider>
           <IncomeProvider>
-            <DebitProvider>
-              {children}
-            </DebitProvider>
+            <DebitProvider>{children}</DebitProvider>
           </IncomeProvider>
         </BudgetProvider>
       </UserProvider>

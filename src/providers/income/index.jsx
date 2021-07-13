@@ -11,6 +11,7 @@ export const IncomeProvider = ({ children }) => {
   const [incomeEditSuccess, setIncomeEditSuccess] = useState(Boolean);
   const [incomeDeleteSuccess, setIncomeDeleteSuccess] = useState(Boolean);
   const [incomes, setIncomes] = useState([]);
+  const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
 
   const {
     newIncomeSuccess,
@@ -31,11 +32,17 @@ export const IncomeProvider = ({ children }) => {
           setIncomes(res.data);
         });
     }
-  }, [incomeCreateSuccess, incomeEditSuccess, incomeDeleteSuccess]);
+  }, [
+    incomeCreateSuccess,
+    incomeEditSuccess,
+    incomeDeleteSuccess,
+    token,
+    userId,
+  ]);
 
   const createIncome = (data) => {
     api
-      .post("income", data, {
+      .post("income", { ...data, reqDay }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

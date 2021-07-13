@@ -36,7 +36,7 @@ export const UserProvider = ({ children }) => {
       .then((res) => {
         if (res.status === 201) {
           setCreateSucess(true);
-          registerSuccess()
+          registerSuccess();
         }
       })
       .catch((_) => setCreateSucess(false));

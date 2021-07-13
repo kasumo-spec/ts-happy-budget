@@ -24,6 +24,8 @@ export const BudgetProvider = ({ children }) => {
           },
         })
         .then((res) => {
+          const idBudget = res.data[0].id;
+          setIdBudget(idBudget);
           setBudgets(res.data);
           res.data.forEach((budget) => {
             if (budget.name === reqMonth) {
@@ -54,9 +56,9 @@ export const BudgetProvider = ({ children }) => {
       });
   };
 
-  const deleteBudget = (data) => {
+  const deleteBudget = (idBudget) => {
     api
-      .delete(`budget/${data}`, {
+      .delete(`budget/${idBudget}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -80,7 +82,7 @@ export const BudgetProvider = ({ children }) => {
         budgetCreateSuccess,
         budgetDeleteSuccess,
         createBudget,
-        deleteBudget,
+        deleteBudget
       }}
     >
       {children}
