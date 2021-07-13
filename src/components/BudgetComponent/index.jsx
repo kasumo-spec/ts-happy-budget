@@ -24,7 +24,6 @@ import NewBudgetModal from "../../components/NewBudgetModal";
 //      Implementação dos 3 maiores pro mobile +
 //      Corrigir o layout do botão de deletar +
 //      Tentar solucionar as cores no Gráfico +
-//      Verificar Submit de Income e Dei
 
 
 const BudgetComponent = () => {
