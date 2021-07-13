@@ -74,14 +74,8 @@ const Dashboard = () => {
 
           <ImageContainer>
             <div className="status">
-              {budgetsId !== 0 ? (
-                <ComposedChartComponent />
-              ) : (
-                <>
-                  <p>Clique no botão abaixo para criar seu orçamento</p>
-                  <NewBudgetModal />
-                </>
-              )}
+              <p>Clique no botão abaixo para criar seu orçamento</p>
+              <NewBudgetModal />
             </div>
             <div className="wrapLottie">
               <Lottie options={{ ...lottieOptions, animationData: budget }} />

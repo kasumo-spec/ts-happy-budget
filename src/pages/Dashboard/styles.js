@@ -203,16 +203,10 @@ export const ImageContainer = styled.div`
       padding: 8px 20px;
     }
 
-<<<<<<< HEAD
-    .status {
-      width: 60%;
-    }
-=======
     p {
       width: 200px;
     }
 
->>>>>>> develop
     .wrapLottie {
       width: 250px !important;
       height: 240px;

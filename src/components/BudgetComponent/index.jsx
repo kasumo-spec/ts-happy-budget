@@ -108,9 +108,7 @@ const BudgetComponent = () => {
           showLabels
           style={elementBudget ? { width: "90%" } : { width: "100%" }}
         >
-          <BottomNavigationAction
-            value={-1}
-            disabled={disableMinus}
+          <BottomNavigationAction value={-1} disabled={disableMinus}
             icon={<ChevronLeftIcon />}
           />
           <BottomNavigationAction
