@@ -70,7 +70,7 @@ const Login = () => {
               type="password"
               margin="dense"
               variant="outlined"
-              placeholder="Digite seu e-mail."
+              placeholder="Digite sua senha."
               size="small"
               color="primary"
               {...register("password")}
