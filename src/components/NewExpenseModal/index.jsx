@@ -129,7 +129,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--market)">
                 <CardWrap>
                   <CustomText color="var(--market)">Mercado</CustomText>
-                  <img src={market} alt="money"></img>
+                  <img src={market} alt="money"/>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -146,7 +146,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--food)">
                 <CardWrap>
                   <CustomText color="var(--food)">Comida</CustomText>
-                  <img src={food} alt="food"></img>
+                  <img src={food} alt="food"/>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -163,7 +163,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--health)">
                 <CardWrap>
                   <CustomText color="var(--health)">Saúde</CustomText>
-                  <img src={health} alt="health"></img>
+                  <img src={health} alt="health"/>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -180,7 +180,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--pet)">
                 <CardWrap>
                   <CustomText color="var(--pet)">Outros</CustomText>
-                  <img src={pet} alt="pet"></img>
+                  <img src={pet} alt="pet"/>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -197,7 +197,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--home)">
                 <CardWrap>
                   <CustomText color="var(--home)">Moradia</CustomText>
-                  <img src={home} alt="home"></img>
+                  <img src={home} alt="home"/>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -214,7 +214,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--hobby)">
                 <CardWrap>
                   <CustomText color="var(--hobby)">Hobby</CustomText>
-                  <img src={hobby} alt="hobby"></img>
+                  <img src={hobby} alt="hobby"/>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -231,7 +231,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--transport)">
                 <CardWrap>
                   <CustomText color="var(--transport)">Transporte</CustomText>
-                  <img src={transport} alt="transport"></img>
+                  <img src={transport} alt="transport"/>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -248,7 +248,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--study)">
                 <CardWrap>
                   <CustomText color="var(--study)">Educação</CustomText>
-                  <img src={study} alt="study"></img>
+                  <img src={study} alt="study"/>
                 </CardWrap>
               </CardCategory>
             </Item>
@@ -265,7 +265,7 @@ const NewExpenseModal = () => {
               <CardCategory color="var(--others)">
                 <CardWrap>
                   <CustomText color="var(--others)">Outros</CustomText>
-                  <img src={others} alt="others"></img>
+                  <img src={others} alt="others"/>
                 </CardWrap>
               </CardCategory>
             </Item>
