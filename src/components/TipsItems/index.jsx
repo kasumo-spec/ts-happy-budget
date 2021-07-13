@@ -5,14 +5,14 @@ export const TipsOne = () => {
         <Container>
             <div>
                 <h2>O que é educação finaceira?</h2>
-                <p>A educação financeira pode te proporcionar uma grande vantagem: lidar com seu dinheiro sem ser controlado por ele.</p>
-                <p>Com ela, você tem mais controle sobre as suas finanças e, consequentemente, uma melhor administração do dinheiro. Assim, fica mais fácil economizar dinheiro para adquirir um imóvel e sair do aluguel, ou ainda, pensar numa aposentadoria mais tranquila ou em uma boa faculdade para seus filhos.</p>
+                <p>  A educação financeira pode te proporcionar uma grande vantagem: lidar com seu dinheiro sem ser controlado por ele.</p>
+                <p>  Com ela, você tem mais controle sobre as suas finanças e, consequentemente, uma melhor administração do dinheiro. Assim, fica mais fácil economizar dinheiro para adquirir um imóvel e sair do aluguel, ou ainda, pensar numa aposentadoria mais tranquila ou em uma boa faculdade para seus filhos.</p>
 
-                <span>Não é apenas o caminho para aprender a fazer um bom planejamento financeiro, é também a chave para um futuro mais tranquilo e financeiramente confortável.</span>
+                <p>  Não é apenas o caminho para aprender a fazer um bom planejamento financeiro, é também a chave para um futuro mais tranquilo e financeiramente confortável.</p>
 
-                <p>Ser educado financeiramente é poder honrar todos os compromissos do dia a dia (contas de luz, telefone, água, aluguel, combustível, supermercado, etc). E ainda sim ter condições de fazer atividades prazerosas com pessoas queridas, como ir ao cinema, viajar, jantar fora, e curtir um happy hour com colegas de trabalho, por exemplo.</p>
+                <p>  Ser educado financeiramente é poder honrar todos os compromissos do dia a dia (contas de luz, telefone, água, aluguel, combustível, supermercado, etc). E ainda sim ter condições de fazer atividades prazerosas com pessoas queridas, como ir ao cinema, viajar, jantar fora, e curtir um happy hour com colegas de trabalho, por exemplo.</p>
 
-                <p>Enfim, os benefícios são muitos e variados, mas podemos resumir tudo em uma coisa só: qualidade de vida. Não só para você, mas para a sua família também.</p>
+                <p>  Enfim, os benefícios são muitos e variados, mas podemos resumir tudo em uma coisa só: qualidade de vida. Não só para você, mas para a sua família também.</p>
             </div>
         </Container>
     );
