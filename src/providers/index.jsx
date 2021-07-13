@@ -6,15 +6,15 @@ import { NotificationsProvider } from "./notifications";
 
 const Providers = ({ children }) => {
   return (
-    <UserProvider>
-      <BudgetProvider>
-        <IncomeProvider>
-          <DebitProvider>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </DebitProvider>
-        </IncomeProvider>
-      </BudgetProvider>
-    </UserProvider>
+    <NotificationsProvider>
+      <UserProvider>
+        <BudgetProvider>
+          <IncomeProvider>
+            <DebitProvider>{children}</DebitProvider>
+          </IncomeProvider>
+        </BudgetProvider>
+      </UserProvider>
+    </NotificationsProvider>
   );
 };
 

@@ -21,7 +21,7 @@ import Button from "../Button";
 
 const Aside = () => {
   const history = useHistory();
-  const { userName, token, setToken } = useUser();
+  const { userName, setToken } = useUser();
   const { pathname } = useLocation();
   const [topIndicator, setTopIndicator] = useState(0);
   const [leftIndicator, setLeftIndicator] = useState(0);

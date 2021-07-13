@@ -1,37 +1,35 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
-import jwtDecode from "jwt-decode";
-import { NotificationsContext } from "../notifications"
+
+import { NotificationsContext } from "../notifications";
 
 export const IncomeContext = createContext([]);
 
 export const IncomeProvider = ({ children }) => {
-  const { token } = useUser();
+  const { token, userId } = useUser();
   const [incomeCreateSuccess, setIncomeCreateSuccess] = useState(Boolean);
   const [incomeEditSuccess, setIncomeEditSuccess] = useState(Boolean);
   const [incomeDeleteSuccess, setIncomeDeleteSuccess] = useState(Boolean);
   const [incomes, setIncomes] = useState([]);
   const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
-  const { newIncomeSuccess, newIncomeError, deleteIncomeSuccess, deleteIncomeError } = useContext(NotificationsContext)
+  const {
+    newIncomeSuccess,
+    newIncomeError,
+    deleteIncomeSuccess,
+    deleteIncomeError,
+  } = useContext(NotificationsContext);
 
   useEffect(() => {
     if (token !== "") {
       api
-        .get("income", {
+        .get(`income/?userId=${userId}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              "@HappyBudget:token"
-            )}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          let decoderId = jwtDecode(localStorage.getItem("@HappyBudget:token"));
-          let userForEffect = parseInt(decoderId.sub);
-          let userIncomes = res.data.filter(
-            (item) => item.userId === userForEffect
-          );
-          setIncomes(userIncomes);
+          setIncomes(res.data);
         });
     }
   }, [incomeCreateSuccess, incomeEditSuccess, incomeDeleteSuccess]);
@@ -50,12 +48,12 @@ export const IncomeProvider = ({ children }) => {
       .then((res) => {
         if (res.status === 201) {
           setIncomeCreateSuccess(true);
-          newIncomeSuccess()
+          newIncomeSuccess();
         }
       })
       .catch((_) => {
-        setIncomeCreateSuccess(false)
-        newIncomeError()
+        setIncomeCreateSuccess(false);
+        newIncomeError();
       });
   };
 
@@ -81,11 +79,11 @@ export const IncomeProvider = ({ children }) => {
       })
       .then((_) => {
         setIncomeDeleteSuccess(true);
-        deleteIncomeSuccess()
+        deleteIncomeSuccess();
       })
       .catch((_) => {
-        setIncomeDeleteSuccess(false)
-        deleteIncomeError()
+        setIncomeDeleteSuccess(false);
+        deleteIncomeError();
       });
   };
 

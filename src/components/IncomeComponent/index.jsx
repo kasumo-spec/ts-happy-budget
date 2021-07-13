@@ -18,6 +18,7 @@ import { useBudget } from "../../providers/budget";
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { PieChartComponent } from "../Chart/pieChart";
 
 const IncomeComponent = () => {
   const months = [
@@ -151,58 +152,73 @@ const IncomeComponent = () => {
 
         <NewIncomeModal />
       </header>
+      {active ? (
+        <IncomeContent>
+          <CategoryFilters>
+            <h4>Filtrar por categoria</h4>
+            <div>
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="salary"
+                selected={categorySelected === "salary"}
+                value="salary"
+              />
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="gift"
+                selected={categorySelected === "gift"}
+                value="gift"
+              />
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="investment"
+                selected={categorySelected === "investment"}
+                value="investment"
+              />
+              <CategoryButton
+                onClickFunc={(e) => {
+                  handleCategorySelected(e);
+                }}
+                category="others"
+                selected={categorySelected === "others"}
+                value="others"
+              />
+            </div>
+          </CategoryFilters>
 
-      <IncomeContent>
-        <CategoryFilters>
-          <h4>Filtrar por categoria</h4>
-          <div>
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="salary"
-              selected={categorySelected === "salary"}
-              value="salary"
-            />
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="gift"
-              selected={categorySelected === "gift"}
-              value="gift"
-            />
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="investment"
-              selected={categorySelected === "investment"}
-              value="investment"
-            />
-            <CategoryButton
-              onClickFunc={(e) => {
-                handleCategorySelected(e);
-              }}
-              category="others"
-              selected={categorySelected === "others"}
-              value="others"
-            />
-          </div>
-        </CategoryFilters>
-
-        <div className="statement">
-          <h2>Extrato de Receitas</h2>
-          <>
-            {categorySelected ? (
-              filteredIncomes.length === 0 ? (
+          <div className="statement">
+            <h2>Extrato de Receitas</h2>
+            <>
+              {categorySelected ? (
+                filteredIncomes.length === 0 ? (
+                  <h3>
+                    Não consta nenhuma receita cadastrado nesta categoria,
+                    clique em outra categoria ou selecione a mesma categoria
+                    para trazer todas as receitas cadastradas
+                  </h3>
+                ) : (
+                  filteredIncomes.map((income, index) => (
+                    <Card
+                      key={index}
+                      category={income.category}
+                      entry={income}
+                      onClickFunc={deleteIncome}
+                    />
+                  ))
+                )
+              ) : monthlyIncomes.length === 0 ? (
                 <h3>
-                  Não consta nenhuma receita cadastrado nesta categoria, clique
-                  em outra categoria ou selecione a mesma categoria para trazer
-                  todas as receitas cadastradas
+                  Nenhum débito cadastrado, clique no botão com sinal de mais
+                  (+) e comece a fazer o controle deste mês
                 </h3>
               ) : (
-                filteredIncomes.map((income, index) => (
+                monthlyIncomes.map((income, index) => (
                   <Card
                     key={index}
                     category={income.category}
@@ -210,25 +226,15 @@ const IncomeComponent = () => {
                     onClickFunc={deleteIncome}
                   />
                 ))
-              )
-            ) : monthlyIncomes.length === 0 ? (
-              <h3>
-                Nenhum débito cadastrado, clique no botão com sinal de mais (+)
-                e comece a fazer o controle deste mês
-              </h3>
-            ) : (
-              monthlyIncomes.map((income, index) => (
-                <Card
-                  key={index}
-                  category={income.category}
-                  entry={income}
-                  onClickFunc={deleteIncome}
-                />
-              ))
-            )}
-          </>
-        </div>
-      </IncomeContent>
+              )}
+            </>
+          </div>
+        </IncomeContent>
+      ) : monthlyIncomes.length === 0 ? (
+        <h3>Nenhum débito cadastrado neste orçamento.</h3>
+      ) : (
+        <PieChartComponent data={incomes} />
+      )}
     </IncomeContainer>
   );
 };

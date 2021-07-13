@@ -67,6 +67,7 @@ const BudgetComponent = () => {
       setDisableSum(false);
     }
     setElementBudget(budgets[thisDataNow.indexOf(monthIndex)]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [monthIndex, budgets]);
 
   useEffect(() => {

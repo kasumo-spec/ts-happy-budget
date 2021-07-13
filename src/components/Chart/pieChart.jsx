@@ -1,18 +1,24 @@
 import { useState } from "react";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
-import { useDebits } from "../../providers/debts";
+import {
+  PieChart,
+  Pie,
+  Sector,
+  Cell,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 import { ChartContainer } from "./styles";
 
 const colors = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
-  "#FF8042",
-  "#161658",
-  "#353535",
-  "#05c405",
-  "#bc65cb",
-  "#3432fb",
+  "#654a3e",
+  "#F0803C",
+  "#495383",
+  "#ff686b",
+  "#00c49a",
+  "#f5d329",
+  "#6c91c2",
+  "#A1867F",
+  "#057ef0",
 ];
 
 const RADIAN = Math.PI / 180;
@@ -92,11 +98,9 @@ const StructurePieChart = (props) => {
   );
 };
 
-export const PieChartComponent = () => {
+export const PieChartComponent = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const { debits, totalCategory } = useDebits();
-  console.log(debits);
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
   };
@@ -104,26 +108,28 @@ export const PieChartComponent = () => {
   return (
     <ChartContainer>
       <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={500} height={500}>
+        <PieChart>
           <Pie
             activeIndex={activeIndex}
             activeShape={StructurePieChart}
-            data={totalCategory}
+            data={data}
             cx="50%"
             cy="50%"
-            innerRadius={50}
+            innerRadius={35}
             outerRadius={80}
             dataKey="value"
             onMouseEnter={onPieEnter}
             isAnimationActive
           >
-            {totalCategory.map((_, index) => (
+            {data.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={colors[index % colors.length]}
+                name={_.category}
               />
             ))}
           </Pie>
+          <Legend />
         </PieChart>
       </ResponsiveContainer>
     </ChartContainer>
