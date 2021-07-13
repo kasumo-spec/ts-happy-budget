@@ -19,6 +19,12 @@ import {
 import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
 
+
+//todo: Correção pra mobile +
+//      Implementação dos 3 maiores pro mobile +
+//      Corrigir o layout do botão de deletar +
+//      Tentar solucionar as cores no Gráfico +
+
 const BudgetComponent = () => {
   const months = [
     "Janeiro",
@@ -34,6 +40,18 @@ const BudgetComponent = () => {
     "Novembro",
     "Dezembro",
   ];
+  const translateCategory = {
+    market: "Mercado",
+    food: "Comida",
+    health: "Saúde",
+    pet: "Pet",
+    home: "Casa",
+    hobby: "Hobby",
+    transport: "Transporte",
+    study: "Estudos",
+    others: "Outros",
+    total: "Total"
+  }
   const { budgets } = useBudget();
   const [value] = useState();
   const [elementBudget, setElementBudget] = useState();
@@ -86,19 +104,23 @@ const BudgetComponent = () => {
         let dataCreated = [];
         for (let [key, value] of Object.entries(result[0].data)) {
           dataCreated.push({
-            name: key,
+            name: translateCategory[key],
             Orçado: value,
             Utilizado: 300,
             "Recebimento Previsto": result[0].prediction,
+            "Recebimento Realizado": 100
           });
         }
         let total = 0;
+        let recebidos = 0;
         for (let i = 0; i < dataCreated.length; i++) {
           total += dataCreated[i].Utilizado;
+          recebidos += dataCreated[i]["Recebimento Realizado"]
         }
         dataCreated.push({
-          name: "total",
+          name: translateCategory.total,
           "Recebimento Previsto": result[0].prediction,
+          "Recebimento Realizado": recebidos,
           Utilizado: total,
         });
         setData(dataCreated);
@@ -151,6 +173,11 @@ const BudgetComponent = () => {
                 type="monotone"
                 dataKey="Recebimento Previsto"
                 stroke="#ff7300"
+              />
+              <Line
+                type="monotone"
+                dataKey="Recebimento Realizado"
+                stroke="green"
               />
               <Bar dataKey="Utilizado" barSize={20} fill="#413ea0" />
               <Area
