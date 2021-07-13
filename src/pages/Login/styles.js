@@ -23,6 +23,8 @@ export const ContainerForm = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 2;
   h1 {
     font-size: 3em;
     font-weight: 700;
@@ -108,7 +110,7 @@ export const ContainerSVG = styled.div`
   inset: 0;
   width: 100vw;
   height: 100vh;
-
+  z-index: 1;
   svg {
     transition: all 300ms;
   }
