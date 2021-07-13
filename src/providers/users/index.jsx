@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import api from "../../services";
-import { useNotifications } from "../notifications";
+import { NotificationsContext } from "../notifications"
 
 export const UserContext = createContext([]);
 
