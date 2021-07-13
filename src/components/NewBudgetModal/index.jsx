@@ -27,11 +27,11 @@ import study from "../../assets/categorys/study.png";
 import others from "../../assets/categorys/otherIncome.png";
 
 import { maskMoney } from "../../utils/maskMoney";
-import {useBudget} from "../../providers/budget";
+import { useBudget } from "../../providers/budget";
 
 const NewExpenseModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const {createBudget} = useBudget()
+  const { createBudget } = useBudget();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -46,19 +46,19 @@ const NewExpenseModal = () => {
   const { handleSubmit, register } = useForm();
 
   const submitForm = (data) => {
-    let formatedObject = {}
+    let formatedObject = {};
     let predictionFormated = parseFloat(
-        data.prediction.replaceAll(".","").replace(",",".")
-    )
-    for (let [key,value] of Object.entries(data)) {
-      if (key !== "prediction"){
+      data.prediction.replaceAll(".", "").replace(",", ".")
+    );
+    for (let [key, value] of Object.entries(data)) {
+      if (key !== "prediction") {
         formatedObject[key] = parseFloat(
-            value.replaceAll(".","").replace(",",".")
-        )
+          value.replaceAll(".", "").replace(",", ".")
+        );
       }
     }
-    createBudget(formatedObject,predictionFormated)
-    setIsModalVisible(false)
+    createBudget(formatedObject, predictionFormated);
+    setIsModalVisible(false);
   };
 
   return (
@@ -85,7 +85,7 @@ const NewExpenseModal = () => {
               className="input"
               type="text"
               onChange={(e) => maskMoney(e.target, e)}
-              placeholder="Quanto você planeja gastar no mês ?"
+              placeholder="Qual sua renda média mensal ?"
               required
             />
           </InputModal>

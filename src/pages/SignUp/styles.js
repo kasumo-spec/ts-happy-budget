@@ -92,9 +92,9 @@ export const ContainerSVG = styled.div`
   inset: 0;
   width: 100vw;
   height: 100vh;
-
   svg {
     transition: all 300ms;
+    object-fit: cover;
   }
 
   .top {
