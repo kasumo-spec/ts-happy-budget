@@ -12,7 +12,6 @@ const lottieOptions = {
 };
 
 const Budget = () => {
-
   return (
     <>
       <Container>

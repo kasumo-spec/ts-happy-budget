@@ -12,20 +12,18 @@ export const Container = styled.div`
 `;
 
 export const LottieWrap = styled.div`
-  display: flex !important;
   width: 100%;
   justify-content: flex-end !important;
 
+  display: none;
+
   div {
-    width: 120px !important;
-    height: 180px !important;
-    margin: 0 !important;
-    position: relative;
     bottom: 45px;
     opacity: 0.7 !important;
   }
 
   @media screen and (min-width: 720px) {
+    display: flex;
     div {
       width: 200px !important;
       height: 180px !important;
@@ -52,22 +50,18 @@ export const LottieWrap = styled.div`
 `;
 
 export const Header = styled.header`
+  margin-top: 103px;
   h2 {
     font-weight: 700;
     color: var(--white);
     font-size: 35px;
-    margin-top: 80px;
-  }
-
-  @media screen and (min-width: 375px) {
-    h2 {
-      margin-top: 120px;
-    }
+    margin-bottom: 42px;
   }
 
   @media screen and (min-height: 736px) and (max-width: 719px) {
+    margin-top: 0px;
     h2 {
-      margin-top: 40px;
+      margin-top: 0px;
     }
   }
 
@@ -100,7 +94,9 @@ export const Header = styled.header`
   }
 
   @media screen and (min-width: 1400px) {
+    margin-top: 0px;
     h2 {
+      margin-top: 0px;
       position: relative;
       top: 20px;
     }
@@ -116,18 +112,14 @@ export const Header = styled.header`
 
 export const Page = styled.div`
   width: 90%;
-  min-height: 250px;
+  min-height: 340px;
 
   position: relative;
   margin-bottom: 30px;
-  bottom: 80px;
+  bottom: 40px;
   background-color: var(--white);
   border-radius: 5px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-
-  @media screen and (min-width: 360px) {
-    min-height: 300px;
-  }
 
   @media screen and (min-width: 720px) {
     width: 55%;
