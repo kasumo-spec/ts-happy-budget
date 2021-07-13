@@ -8,10 +8,6 @@ import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
 import ChartBudget from "../BudgetChartComponent";
 
-
-//todo: Corrigir o layout do botão de deletar +
-//      Tentar solucionar as cores no Gráfico +
-
 const BudgetComponent = () => {
   const months = [
     "Janeiro",
@@ -151,7 +147,7 @@ const BudgetComponent = () => {
           value={value}
           onChange={handleChange}
           showLabels
-          style={elementBudget ? { width: "90%" } : { width: "100%" }}
+          style={elementBudget ? { width: "95.5%" } : { width: "100%" }}
         >
           <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
           <BottomNavigationAction
