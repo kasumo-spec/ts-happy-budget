@@ -10,8 +10,6 @@ import ChartBudget from "../BudgetChartComponent";
 import {useIncome} from "../../providers/income";
 import {useDebits} from "../../providers/debts";
 
-// todo: Contabilização dos incomes e debits para mostrar
-
 const BudgetComponent = () => {
   const months = [
     "Janeiro",
