@@ -18,10 +18,10 @@ import {
 } from "recharts";
 import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
+import ChartBudget from "../BudgetChartComponent";
 
 
-//todo: Correção pra mobile +
-//      Corrigir o layout do botão de deletar +
+//todo: Corrigir o layout do botão de deletar +
 //      Tentar solucionar as cores no Gráfico +
 
 const BudgetComponent = () => {
@@ -165,42 +165,10 @@ const BudgetComponent = () => {
       </ButtonsDiv>
       <ChartDiv>
         {elementBudget ? (
-          <ResponsiveContainer>
-            <ComposedChart
-              width={500}
-              height={300}
-              data={data}
-              margin={{
-                top: 20,
-                right: 80,
-                bottom: 20,
-                left: 20,
-              }}
-            >
-              <XAxis dataKey={"name"} />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <CartesianGrid stroke="#f5f5f5" />
-              <Line
-                type="monotone"
-                dataKey="Recebimento Previsto"
-                stroke="#ff7300"
-              />
-              <Line
-                type="monotone"
-                dataKey="Recebimento Realizado"
-                stroke="green"
-              />
-              <Bar dataKey="Utilizado" barSize={20} fill="#413ea0" />
-              <Area
-                dataKey="Orçado"
-                type="monotone"
-                fill="#8884d8"
-                stroke="#8884d8"
-              />
-            </ComposedChart>
-          </ResponsiveContainer>
+            <>
+              <ChartBudget className={"web"} data={data} />
+              <ChartBudget className={"mobile"} data={mobileData} />
+            </>
         ) : month === "7" ? (
           <InfosDiv>
             Não há orçamentos para este mês! Crie agora clicando no botão BOTÃO
