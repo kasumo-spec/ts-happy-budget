@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Modal } from "antd";
-import { ButtonType } from "../Button/styles";
 import { useBudget } from "../../providers/budget";
+import {ButtonDeleteModal} from "./styles";
+import {FaRegTrashAlt} from "react-icons/fa";
 
 const BudgetDeleteModal = ({ budgetId }) => {
   const { deleteBudget, budgets } = useBudget();
@@ -38,9 +39,9 @@ const BudgetDeleteModal = ({ budgetId }) => {
 
   return (
     <>
-      <ButtonType color={"red"} onClick={showModal}>
-        Deletar Orçamento
-      </ButtonType>
+      <ButtonDeleteModal onClick={() => showModal}>
+          <FaRegTrashAlt />
+      </ButtonDeleteModal>
       <Modal
         title="Deletar Orçamento"
         visible={visible}
