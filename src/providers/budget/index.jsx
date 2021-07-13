@@ -25,7 +25,7 @@ export const BudgetProvider = ({ children }) => {
         })
         .then((res) => {
           const idBudget = res.data[0].id;
-          setBudgetsId(idBudget);
+          setIdBudget(idBudget);
           setBudgets(res.data);
           res.data.forEach((budget) => {
             if (budget.name === reqMonth) {
@@ -82,8 +82,7 @@ export const BudgetProvider = ({ children }) => {
         budgetCreateSuccess,
         budgetDeleteSuccess,
         createBudget,
-        deleteBudget,
-        budgetsId,
+        deleteBudget
       }}
     >
       {children}
