@@ -32,7 +32,13 @@ export const IncomeProvider = ({ children }) => {
           setIncomes(res.data);
         });
     }
-  }, [incomeCreateSuccess, incomeEditSuccess, incomeDeleteSuccess]);
+  }, [
+    incomeCreateSuccess,
+    incomeEditSuccess,
+    incomeDeleteSuccess,
+    token,
+    userId,
+  ]);
 
   const createIncome = (data) => {
     api
