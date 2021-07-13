@@ -4,25 +4,9 @@ import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { ChartDiv, ButtonsDiv, InfosDiv } from "./styes";
-import {
-  ComposedChart,
-  Line,
-  Area,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
 import ChartBudget from "../BudgetChartComponent";
-
-
-//todo: Corrigir o layout do botão de deletar +
-//      Tentar solucionar as cores no Gráfico +
 
 const BudgetComponent = () => {
   const months = [
@@ -50,6 +34,18 @@ const BudgetComponent = () => {
     study: "Estudos",
     others: "Outros",
     total: "Total"
+  }
+  const chartColors = {
+    food: "#F0803C",
+    market: "#A1867F",
+    health: "#ff686b",
+    pet: "#6c91c2",
+    home: "#654a3e",
+    hobby: "#f5d329",
+    study: "#00c49a",
+    transport: "#495383",
+    others: "#057ef0",
+    total: "#3cb1b9"
   }
   const { budgets } = useBudget();
   const [value] = useState();
@@ -105,6 +101,7 @@ const BudgetComponent = () => {
         for (let [key, value] of Object.entries(result[0].data)) {
           dataCreated.push({
             name: translateCategory[key],
+            color: chartColors[key],
             Orçado: value,
             Utilizado: 300,
             "Recebimento Previsto": result[0].prediction,
@@ -118,21 +115,21 @@ const BudgetComponent = () => {
           max3Mobile.push(sortMobile[i])
         }
         let total = 0;
-        let recebidos = 0;
         for (let i = 0; i < dataCreated.length; i++) {
           total += dataCreated[i].Utilizado;
-          recebidos += dataCreated[i]["Recebimento Realizado"]
         }
         dataCreated.push({
           name: translateCategory.total,
+          color: chartColors.total,
           "Recebimento Previsto": result[0].prediction,
-          "Recebimento Realizado": recebidos,
+          "Recebimento Realizado": 100,
           Utilizado: total,
         });
         max3Mobile.push({
           name: translateCategory.total,
+          color: chartColors.total,
           "Recebimento Previsto": result[0].prediction,
-          "Recebimento Realizado": recebidos,
+          "Recebimento Realizado": 100,
           Utilizado: total,
         });
         setData(dataCreated);
@@ -150,7 +147,7 @@ const BudgetComponent = () => {
           value={value}
           onChange={handleChange}
           showLabels
-          style={elementBudget ? { width: "90%" } : { width: "100%" }}
+          style={elementBudget ? { width: "95.5%" } : { width: "100%" }}
         >
           <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
           <BottomNavigationAction
