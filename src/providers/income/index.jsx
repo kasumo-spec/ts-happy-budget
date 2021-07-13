@@ -7,7 +7,7 @@ import { NotificationsContext } from "../notifications"
 export const IncomeContext = createContext([]);
 
 export const IncomeProvider = ({ children }) => {
-  const { token } = useUser();
+  const { token, userId } = useUser();
   const [incomeCreateSuccess, setIncomeCreateSuccess] = useState(Boolean);
   const [incomeEditSuccess, setIncomeEditSuccess] = useState(Boolean);
   const [incomeDeleteSuccess, setIncomeDeleteSuccess] = useState(Boolean);
@@ -18,20 +18,13 @@ export const IncomeProvider = ({ children }) => {
   useEffect(() => {
     if (token !== "") {
       api
-        .get("income", {
+        .get(`income/?userId=${userId}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              "@HappyBudget:token"
-            )}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          let decoderId = jwtDecode(localStorage.getItem("@HappyBudget:token"));
-          let userForEffect = parseInt(decoderId.sub);
-          let userIncomes = res.data.filter(
-            (item) => item.userId === userForEffect
-          );
-          setIncomes(userIncomes);
+           setIncomes(res.data);
         });
     }
   }, [incomeCreateSuccess, incomeEditSuccess, incomeDeleteSuccess]);
@@ -40,7 +33,7 @@ export const IncomeProvider = ({ children }) => {
     api
       .post(
         "income",
-        { ...data, reqDay },
+        data,
         {
           headers: {
             Authorization: `Bearer ${token}`,

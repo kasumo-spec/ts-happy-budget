@@ -20,71 +20,105 @@ import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
 
 
+//todo: Correção pra mobile +
+//      Implementação dos 3 maiores pro mobile +
+//      Corrigir o layout do botão de deletar +
+//      Tentar solucionar as cores no Gráfico +
+
+
 const BudgetComponent = () => {
-    const month = ["Janeiro de 2021", "Fevereiro de 2021", "Março de 2021", "Abril de 2021", "Maio de 2021",
-        "Junho de 2021", "Julho de 2021", "Agosto de 2021", "Setembro de 2021", "Outubro de 2021",
-        "Novembro de 2021", "Dezembro de 2021"]
+    const months = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro",
+    ]
     const { budgets } = useBudget()
-    const [monthIndex, setMonthIndex] = useState(7)
-    const [disableMinus, setDisableMinus] = useState(true)
-    const [disableSum, setDisableSum] = useState(true)
     const [value] = useState()
-    const thisDataNow = [...new Set(budgets.map((budget) => {
-        return parseInt(budget.name[0])
-    }))]
-    const [elementBudget, setElementBudget] = useState(budgets[thisDataNow.indexOf(monthIndex)])
+    const [elementBudget, setElementBudget] = useState()
     const [data, setData] = useState()
 
+    const [month, setMonth] = useState(
+        new Date().toLocaleString("en-US", {
+            month: "numeric",
+        })
+    );
+
+    const [year, setYear] = useState(
+        new Date().toLocaleString("en-US", {
+            year: "numeric",
+        })
+    );
+
+
     const handleChange = (event, value) => {
-        setMonthIndex(monthIndex + value)
+        if (value < 0) {
+            if (parseInt(month) === 1) {
+                setYear(parseInt(year) + value);
+                setMonth("12");
+            } else {
+                const newMonth = parseInt(month) + value;
+                setMonth(newMonth.toString());
+            }
+        } else {
+            if (parseInt(month) === 12) {
+                setYear(parseInt(year) + value);
+                setMonth("1");
+            } else {
+                const newMonth = parseInt(month) + value;
+                setMonth(newMonth.toString());
+            }
+        }
     }
 
     useEffect(() => {
-        if (monthIndex === 1) {
-            setDisableMinus(true)
-        } else {
-            setDisableMinus(false)
-        }
-        if (monthIndex === 12) {
-            setDisableSum(true)
-        } else {
-            setDisableSum(false)
-        }
-        setElementBudget(budgets[thisDataNow.indexOf(monthIndex)])
-    }, [monthIndex, budgets])
-
-    useEffect(() => {
-        if (budgets.length !== 0) {
-            if (elementBudget === undefined){
-                return null
+        let result = []
+        budgets.find((budget) => {
+            if (budget.name === `${month}/${year}`) {
+                result.push(budget)
             }
-            let dataCreated = []
-            for (let [key, value] of Object.entries(elementBudget.data)) {
+            setElementBudget(result[0])
+        })
+        if (budgets.length !== 0) {
+            if (result[0] === undefined){
+                return null
+            } else {
+                let dataCreated = []
+                for (let [key, value] of Object.entries(result[0].data)) {
+                    dataCreated.push(
+                        {
+                            "name": key,
+                            "Orçado": value,
+                            "Utilizado": 300,
+                            "Recebimento Previsto": result[0].prediction
+                        }
+                    )
+                }
+                let total = 0
+                for (let i = 0; i < dataCreated.length; i++){
+                    total += dataCreated[i].Utilizado
+                }
                 dataCreated.push(
                     {
-                        "name": key,
-                        "Orçado": value,
-                        "Utilizado": 300,
-                        "Orçamento Previsto": elementBudget.prediction
+                        "name": "total",
+                        "Recebimento Previsto": result[0].prediction,
+                        "Utilizado": total
                     }
                 )
+                setData(dataCreated)
             }
-            let total = 0
-            for (let i = 0; i < dataCreated.length; i++){
-                total += dataCreated[i].Utilizado
-            }
-            dataCreated.push(
-                {
-                    "name": "total",
-                    "Orçamento Previsto": elementBudget.prediction,
-                    "Utilizado": total
-                }
-            )
-            setData(dataCreated)
         } else {
             return null
         }
-    }, [elementBudget, budgets])
+    }, [month,budgets])
 
 
     return (
@@ -95,9 +129,9 @@ const BudgetComponent = () => {
                 onChange={handleChange}
                 showLabels
                 style={elementBudget ? {width: '90%'} : {width: '100%'}} >
-                <BottomNavigationAction value={-1} disabled={disableMinus} icon={<ChevronLeftIcon />} />
-                <BottomNavigationAction disabled={true} label={month[monthIndex - 1]} />
-                <BottomNavigationAction value={1} disabled={disableSum} icon={<ChevronRightIcon />} />
+                <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
+                <BottomNavigationAction disabled={true} label={`${months[month - 1]} de ${year}`} />
+                <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
             </BottomNavigation>
             {elementBudget && <BudgetDeleteModal budgetId={elementBudget.id} flexGrow={1} />}
         </ButtonsDiv>
@@ -118,12 +152,12 @@ const BudgetComponent = () => {
                     <Tooltip />
                     <Legend />
                     <CartesianGrid stroke="#f5f5f5" />
-                    <Line type="monotone" dataKey="Orçamento Previsto" stroke="#ff7300" />
+                    <Line type="monotone" dataKey="Recebimento Previsto" stroke="#ff7300" />
                     <Bar dataKey="Utilizado" barSize={20} fill="#413ea0" />
                     <Area dataKey="Orçado" type="monotone" fill="#8884d8" stroke="#8884d8" />
                 </ComposedChart>
             </ResponsiveContainer> :
-                monthIndex === 7 ?
+                month === "7" ?
                     <InfosDiv>
                         Não há orçamentos para este mês! Crie agora clicando
                         no botão BOTÃO LINDAMENTE ESTILIZADO!
