@@ -34,6 +34,8 @@ export const IncomeContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    overflow: auto;
+    margin-bottom: 20px;
     h2 {
       font-size: 20px;
       font-weight: bold;
