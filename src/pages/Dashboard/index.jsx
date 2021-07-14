@@ -16,11 +16,11 @@ import Lottie from "react-lottie";
 
 import NewIncomeModal from "../../components/NewIncomeModal";
 import NewExpenseModal from "../../components/NewExpenseModal";
-import { ComposedChartComponent } from "../../components/Chart/areaChart";
-import { useBudget } from "../../providers/budget";
 import NewBudgetModal from "../../components/NewBudgetModal";
 
 import { useHistory } from "react-router-dom";
+import { useDebits } from "../../providers/debts";
+import { useIncome } from "../../providers/income";
 const lottieOptions = {
   loop: true,
   autoplay: false,
@@ -30,8 +30,9 @@ const lottieOptions = {
 };
 
 const Dashboard = () => {
-  const { budgetsId } = useBudget();
   const history = useHistory();
+  const { totalDebits } = useDebits();
+  const { totalIncomes } = useIncome();
 
   const redirectToTips = () => {
     history.push("/tips");
@@ -46,7 +47,9 @@ const Dashboard = () => {
           <ImageContainer>
             <div className="status">
               <h3>Total</h3>
-              <h3>100.000,00R$</h3>
+              <h3>
+                {totalIncomes.total ? totalIncomes.total.toFixed(2) : "0,00"} R$
+              </h3>
               <NewIncomeModal />
             </div>
             <div className="wrapLottie">
@@ -59,7 +62,9 @@ const Dashboard = () => {
           <ImageContainer>
             <div className="status">
               <h3>Total</h3>
-              <h3>100.000,00R$</h3>
+              <h3>
+                {totalDebits.total ? totalDebits.total.toFixed(2) : "0,00"} R$
+              </h3>
               <NewExpenseModal />
             </div>
             <div className="wrapLottie expense">

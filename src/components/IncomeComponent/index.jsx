@@ -16,6 +16,7 @@ import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { PieChartComponent } from "../Chart/pieChart";
+import { Link } from "react-router-dom";
 
 const IncomeComponent = () => {
   const months = [
@@ -42,6 +43,8 @@ const IncomeComponent = () => {
     { category: "investment", value: 0 },
     { category: "others", value: 0 },
   ]);
+
+  const [hasBudget, setHasBudget] = useState(false);
 
   const { incomes, deleteIncome } = useIncome();
   const { budgets } = useBudget();
@@ -80,8 +83,10 @@ const IncomeComponent = () => {
 
   useEffect(() => {
     setMonthlyIncomes([]);
+    setHasBudget(false);
     budgets.forEach((budget) => {
       if (budget.name === `${month}/${year}`) {
+        setHasBudget(true);
         let result = [];
         result = incomes.filter((income) => {
           return income.budgetId === budget.id;
@@ -168,8 +173,11 @@ const IncomeComponent = () => {
           />
           <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
         </BottomNavigation>
-
-        <NewIncomeModal />
+        {hasBudget ? (
+          <NewIncomeModal />
+        ) : (
+          <Link to="/budgets">Adicionar Orçamento</Link>
+        )}
       </header>
       {active ? (
         <IncomeContent>
@@ -213,16 +221,33 @@ const IncomeComponent = () => {
 
           <div className="statement">
             <h2>Extrato de Receitas</h2>
-            <>
-              {categorySelected ? (
-                filteredIncomes.length === 0 ? (
+            {hasBudget ? (
+              <>
+                {categorySelected ? (
+                  filteredIncomes.length === 0 ? (
+                    <h3>
+                      Não consta nenhuma receita cadastrado nesta categoria,
+                      clique em outra categoria ou selecione a mesma categoria
+                      para trazer todas as receitas cadastradas
+                    </h3>
+                  ) : (
+                    filteredIncomes.map((income, index) => (
+                      <Card
+                        key={index}
+                        category={income.category}
+                        entry={income}
+                        onClickFunc={deleteIncome}
+                      />
+                    ))
+                  )
+                ) : monthlyIncomes.length === 0 ? (
                   <h3>
-                    Não consta nenhuma receita cadastrado nesta categoria,
-                    clique em outra categoria ou selecione a mesma categoria
-                    para trazer todas as receitas cadastradas
+                    Nenhuma receita cadastrada para esse período, clique no
+                    botão "Adicionar" acima e faça o primeiro registro deste
+                    mês.
                   </h3>
                 ) : (
-                  filteredIncomes.map((income, index) => (
+                  monthlyIncomes.map((income, index) => (
                     <Card
                       key={index}
                       category={income.category}
@@ -230,23 +255,15 @@ const IncomeComponent = () => {
                       onClickFunc={deleteIncome}
                     />
                   ))
-                )
-              ) : monthlyIncomes.length === 0 ? (
-                <h3>
-                  Nenhuma receita cadastrada, clique no botão com sinal de mais
-                  (+) e comece a fazer o controle deste mês
-                </h3>
-              ) : (
-                monthlyIncomes.map((income, index) => (
-                  <Card
-                    key={index}
-                    category={income.category}
-                    entry={income}
-                    onClickFunc={deleteIncome}
-                  />
-                ))
-              )}
-            </>
+                )}
+              </>
+            ) : (
+              <h3>
+                Antes de registrar as receitas é necessário criar um orçamento
+                para esse período. E para isso clique no "Adicionar Orçamento" e
+                selecione o período desejado"
+              </h3>
+            )}
           </div>
         </IncomeContent>
       ) : monthlyIncomes.length === 0 ? (

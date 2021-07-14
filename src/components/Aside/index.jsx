@@ -18,13 +18,18 @@ import {
 import { useUser } from "../../providers/users";
 
 import Button from "../Button";
+import { useDebits } from "../../providers/debts";
+import { useIncome } from "../../providers/income";
 
 const Aside = () => {
   const history = useHistory();
-  const { userName, setToken } = useUser();
+  const { userName, setToken, setUserId, setUserName } = useUser();
   const { pathname } = useLocation();
   const [topIndicator, setTopIndicator] = useState(0);
   const [leftIndicator, setLeftIndicator] = useState(0);
+
+  const { totalDebits } = useDebits();
+  const { totalIncomes } = useIncome();
 
   const indicator = useRef(0);
   const navLinks = useRef([]);
@@ -53,6 +58,8 @@ const Aside = () => {
   const logOff = () => {
     localStorage.clear();
     setToken("");
+    setUserId(0);
+    setUserName("");
     history.push("/");
   };
 
@@ -62,7 +69,7 @@ const Aside = () => {
         <h2>Bem vindo!!!</h2>
         <h2>{userName}</h2>
         <Budget>
-          <p>Saldo: 1.000.000,00R$</p>
+          <p>Saldo: {(totalIncomes.total - totalDebits.total).toFixed(2)} R$</p>
         </Budget>
       </Profile>
       <div>

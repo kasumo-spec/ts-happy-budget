@@ -21,6 +21,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { useBudget } from "../../providers/budget";
 import { PieChartComponent } from "../Chart/pieChart";
+import { Link } from "react-router-dom";
 
 const ExpenseComponent = () => {
   const months = [
@@ -53,6 +54,8 @@ const ExpenseComponent = () => {
     { category: "market", value: 0 },
     { category: "others", value: 0 },
   ]);
+
+  const [hasBudget, setHasBudget] = useState(false);
 
   const { debits, deleteDebit } = useDebits();
   const { budgets } = useBudget();
@@ -91,8 +94,10 @@ const ExpenseComponent = () => {
 
   useEffect(() => {
     setMonthlyDebts([]);
+    setHasBudget(false);
     budgets.forEach((budget) => {
       if (budget.name === `${month}/${year}`) {
+        setHasBudget(true);
         let result = [];
         result = debits.filter((debit) => {
           return debit.budgetId === budget.id;
@@ -172,8 +177,11 @@ const ExpenseComponent = () => {
           />
           <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
         </BottomNavigation>
-
-        <NewExpenseModal />
+        {hasBudget ? (
+          <NewExpenseModal />
+        ) : (
+          <Link to="/budgets">Adicionar Orçamento</Link>
+        )}
       </header>
 
       {active ? (
@@ -260,16 +268,33 @@ const ExpenseComponent = () => {
 
           <div className="statement">
             <h2>Extrato de despesas</h2>
-            <>
-              {categorySelected ? (
-                filteredDebits.length === 0 ? (
+            {hasBudget ? (
+              <>
+                {categorySelected ? (
+                  filteredDebits.length === 0 ? (
+                    <h3>
+                      Não consta nenhum débito cadastrado nesta categoria,
+                      clique em outra categoria ou selecione novamente esta
+                      categoria para trazer todos os débitos
+                    </h3>
+                  ) : (
+                    filteredDebits.map((debit, index) => (
+                      <Card
+                        key={index}
+                        category={debit.category}
+                        entry={debit}
+                        onClickFunc={deleteDebit}
+                      />
+                    ))
+                  )
+                ) : monthlyDebts.length === 0 ? (
                   <h3>
-                    Não consta nenhum débito cadastrado nesta categoria, clique
-                    em outra categoria ou selecione novamente esta categoria
-                    para trazer todos os débitos
+                    Nenhuma despesa cadastrada para esse período, clique no
+                    botão "Adicionar" acima para e faça o primeiro registro
+                    deste mês.
                   </h3>
                 ) : (
-                  filteredDebits.map((debit, index) => (
+                  monthlyDebts.map((debit, index) => (
                     <Card
                       key={index}
                       category={debit.category}
@@ -277,23 +302,15 @@ const ExpenseComponent = () => {
                       onClickFunc={deleteDebit}
                     />
                   ))
-                )
-              ) : monthlyDebts.length === 0 ? (
-                <h3>
-                  Nenhum débito cadastrado, clique no botão com sinal de mais
-                  (+) e comece a fazer o controle deste mês
-                </h3>
-              ) : (
-                monthlyDebts.map((debit, index) => (
-                  <Card
-                    key={index}
-                    category={debit.category}
-                    entry={debit}
-                    onClickFunc={deleteDebit}
-                  />
-                ))
-              )}
-            </>
+                )}
+              </>
+            ) : (
+              <h3>
+                Antes de registrar as receitas é necessário criar um orçamento
+                para esse período. E para isso clique no "Adicionar Orçamento" e
+                selecione o período desejado"
+              </h3>
+            )}
           </div>
         </ExpenseContent>
       ) : monthlyDebts.length === 0 ? (
