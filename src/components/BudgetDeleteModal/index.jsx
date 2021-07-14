@@ -39,7 +39,7 @@ const BudgetDeleteModal = ({ budgetId }) => {
 
   return (
     <>
-      <ButtonDeleteModal onClick={() => showModal}>
+      <ButtonDeleteModal onClick={showModal}>
           <FaRegTrashAlt />
       </ButtonDeleteModal>
       <Modal
