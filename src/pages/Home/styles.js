@@ -8,7 +8,7 @@ export const Container = styled.main`
   justify-content: center;
   position: relative;
   overflow-x: hidden;
-  background-color: #a1867f;
+  background-color: #8eaf9d;
 `;
 
 export const ContainerSVG = styled.div`
@@ -31,7 +31,6 @@ export const ContainerSVG = styled.div`
   }
 
   @media screen and (min-width: 700px) {
-    height: 100vh;
     svg {
       width: 75vmin;
     }
@@ -226,7 +225,10 @@ export const TipsContainer = styled.section`
 
   @media screen and (min-width: 700px) {
     flex-direction: row-reverse;
-    height: 80vh;
+    height: 83vh;
+    margin-top: 30px;
+    z-index: 2;
+    bottom: 140px;
   }
 `;
 
@@ -370,6 +372,7 @@ export const ExpenseContainer = styled.section`
   @media screen and (min-width: 700px) {
     flex-direction: row;
     height: 80vh;
+    bottom: 140px;
   }
 `;
 
@@ -386,12 +389,13 @@ export const BudgetContainer = styled.section`
   @media screen and (min-width: 700px) {
     flex-direction: row-reverse;
     height: 80vh;
+    bottom: 140px;
   }
 `;
 
 export const DevelopersContainer = styled.section`
-  background-color: #a1867f;
-  height: 340vh;
+  background-color: #8eaf9d;
+  height: 320vh;
   width: 100%;
   position: relative;
   bottom: 110px;
@@ -400,11 +404,36 @@ export const DevelopersContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media screen and (min-width: 360px) {
+    height: 280vh;
+  }
+
+  @media screen and (min-width: 424px) {
+    height: 160vh;
+  }
+
+  @media screen and (min-width: 629px) {
+    height: 120vh;
+  }
+
+  @media screen and (min-width: 629px) {
+    height: 100vh;
+  }
+
+  @media screen and (min-height: 500px) and (max-height: 800px) and (min-width: 1000px) {
+    height: 160vh;
+  }
+
+  @media screen and (min-width: 1200px) {
+    height: 80vh;
+  }
 `;
 
 export const DevelopersText = styled.div`
   text-align: center;
   margin-top: 40px;
+
   h2 {
     font-size: 30px;
     width: 280px;
@@ -413,20 +442,61 @@ export const DevelopersText = styled.div`
 
   h3 {
     font-size: 20px;
-
+    margin-bottom: 20px;
     width: 280px;
   }
+
+  @media screen and (min-width: 629px) {
+    margin: 0;
+    h2 {
+      font-size: 45px;
+      width: 520px;
+      font-weight: 800;
+      text-align: center;
+      margin: 10px 36px 20px 36px;
+    }
+
+    h3 {
+      margin: 0 49px 49px 49px;
+      font-size: 24px;
+
+      width: 500px;
+    }
+  }
+
+  @media screen and (min-width: 929px) {
+    margin: 0;
+    h2 {
+      font-size: 45px;
+      width: 520px;
+      font-weight: 800;
+      text-align: center;
+      margin: 10px 34px 20px 34px;
+    }
+
+    h3 {
+      margin: 0 49px 49px 49px;
+      font-size: 24px;
+
+      width: 500px;
+    }
+  }
+
   @media screen and (min-width: 1200px) {
     h2 {
       font-size: 50px;
-      padding: 10px 30px;
+      padding: 0;
       width: 800px;
+      position: relative;
+      left: 20px;
+      margin: 0;
     }
 
     h3 {
       font-size: 30px;
-      padding: 10px 30px;
-      width: 800px;
+      padding: 0;
+      margin: 20px 0;
+      width: 850px;
       font-weight: 500;
     }
   }
@@ -489,6 +559,7 @@ export const LinksContaner = styled.div`
 
   div {
     display: flex;
+    justify-content: center;
   }
   h2 {
     margin-top: 20px;

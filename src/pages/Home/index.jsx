@@ -22,7 +22,12 @@ import homeTips from "../../assets/lotties/homeTips.json";
 import homeExpense from "../../assets/lotties/homeExpense.json";
 import homeBudget from "../../assets/lotties/homeBudget.json";
 
+import allef from "../../assets/developers/allef.jpeg";
 import leomar from "../../assets/developers/leomar.jpeg";
+import humberto from "../../assets/developers/humberto.jpeg";
+import diogo from "../../assets/developers/diogo.jpeg";
+import paulo from "../../assets/developers/paulo.jpeg";
+import daniel from "../../assets/developers/daniel.jpeg";
 
 import { VscGithubAlt } from "react-icons/vsc";
 import { FiGitlab } from "react-icons/fi";
@@ -125,93 +130,108 @@ const Home = () => {
           <h2>Criadores do happy budget</h2>
           <h3>
             Somos desenvolvedores apaixonados por transformar o mundo em um
-            lugar melhor utilizando div’s, for’s e afins
+            lugar melhor utilizando div’s, for’s e loop's infinitos
           </h3>
         </DevelopersText>
         <DeveloperWrap>
           <Developer>
             <ImgContainer>
-              <DeveloperImg src={leomar} alt="leomar" />
+              <DeveloperImg src={allef} alt="allef" />
             </ImgContainer>
             <LinksContaner>
-              <h2>Leomar Romanzini</h2>
-              <a href="https://www.globo.com/">
-                <VscGithubAlt />
-              </a>
-              <a href="https://www.globo.com/">
-                <FiGitlab />
-              </a>
-              <a href="https://www.globo.com/">
-                <FaLinkedinIn />
-              </a>
+              <div>
+                <h2>Allef Moraes</h2>
+              </div>
+              <div>
+                <a
+                  href="https://github.com/leomarromazini"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <VscGithubAlt />
+                </a>
+                <a
+                  href="https://gitlab.com/leomarromanzini"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FiGitlab />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/allef-moraes/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaLinkedinIn />
+                </a>
+              </div>
             </LinksContaner>
           </Developer>
           <Developer>
             <ImgContainer>
-              <DeveloperImg src={leomar} alt="leomar" />
+              <DeveloperImg src={daniel} alt="daniel" />
             </ImgContainer>
             <LinksContaner>
-              <h2>Leomar Romanzini</h2>
-              <a href="https://www.globo.com/">
-                <VscGithubAlt />
-              </a>
-              <a href="https://www.globo.com/">
-                <FiGitlab />
-              </a>
-              <a href="https://www.globo.com/">
-                <FaLinkedinIn />
-              </a>
+              <div>
+                <h2>Daniel Ribeiro</h2>
+              </div>
+              <div>
+                <a
+                  href="https://github.com/rbrcbm"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <VscGithubAlt />
+                </a>
+                <a
+                  href="https://gitlab.com/danielrcamboim
+                  "
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FiGitlab />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/danielrcamboim/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaLinkedinIn />
+                </a>
+              </div>
             </LinksContaner>
           </Developer>
           <Developer>
             <ImgContainer>
-              <DeveloperImg src={leomar} alt="leomar" />
+              <DeveloperImg src={diogo} alt="diogo" />
             </ImgContainer>
             <LinksContaner>
-              <h2>Leomar Romanzini</h2>
-              <a href="https://www.globo.com/">
-                <VscGithubAlt />
-              </a>
-              <a href="https://www.globo.com/">
-                <FiGitlab />
-              </a>
-              <a href="https://www.globo.com/">
-                <FaLinkedinIn />
-              </a>
-            </LinksContaner>
-          </Developer>
-          <Developer>
-            <ImgContainer>
-              <DeveloperImg src={leomar} alt="leomar" />
-            </ImgContainer>
-            <LinksContaner>
-              <h2>Leomar Romanzini</h2>
-              <a href="https://www.globo.com/">
-                <VscGithubAlt />
-              </a>
-              <a href="https://www.globo.com/">
-                <FiGitlab />
-              </a>
-              <a href="https://www.globo.com/">
-                <FaLinkedinIn />
-              </a>
-            </LinksContaner>
-          </Developer>
-          <Developer>
-            <ImgContainer>
-              <DeveloperImg src={leomar} alt="leomar" />
-            </ImgContainer>
-            <LinksContaner>
-              <h2>Leomar Romanzini</h2>
-              <a href="https://www.globo.com/">
-                <VscGithubAlt />
-              </a>
-              <a href="https://www.globo.com/">
-                <FiGitlab />
-              </a>
-              <a href="https://www.globo.com/">
-                <FaLinkedinIn />
-              </a>
+              <div>
+                <h2>Diogo Santos</h2>
+              </div>
+              <div>
+                <a
+                  href="https://github.com/DgSantos017"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <VscGithubAlt />
+                </a>
+                <a
+                  href="https://gitlab.com/diogo__.js"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FiGitlab />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/diogo-santos01/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaLinkedinIn />
+                </a>
+              </div>
             </LinksContaner>
           </Developer>
           <Developer>
@@ -223,13 +243,91 @@ const Home = () => {
                 <h2>Leomar Romanzini</h2>
               </div>
               <div>
-                <a href="https://www.globo.com/">
+                <a
+                  href="https://github.com/leomarromazini"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <VscGithubAlt />
                 </a>
-                <a href="https://www.globo.com/">
+                <a
+                  href="https://gitlab.com/leomarromanzini"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <FiGitlab />
                 </a>
-                <a href="https://www.globo.com/">
+                <a
+                  href="https://www.linkedin.com/in/leomarromanzini/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaLinkedinIn />
+                </a>
+              </div>
+            </LinksContaner>
+          </Developer>
+          <Developer>
+            <ImgContainer>
+              <DeveloperImg src={humberto} alt="humberto" />
+            </ImgContainer>
+            <LinksContaner>
+              <div>
+                <h2>Matheus Humberto</h2>
+              </div>
+              <div>
+                <a
+                  href="https://github.com/HumbertoSilv"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <VscGithubAlt />
+                </a>
+                <a
+                  href="https://gitlab.com/Humberto16"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FiGitlab />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/humberto-silv/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaLinkedinIn />
+                </a>
+              </div>
+            </LinksContaner>
+          </Developer>
+          <Developer>
+            <ImgContainer>
+              <DeveloperImg src={paulo} alt="paulo" />
+            </ImgContainer>
+            <LinksContaner>
+              <div>
+                <h2>Paulo Mello</h2>
+              </div>
+              <div>
+                <a
+                  href="https://github.com/paulomellodev"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <VscGithubAlt />
+                </a>
+                <a
+                  href="https://gitlab.com/pauloraphaelmello"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FiGitlab />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/pauloraphaelmello/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <FaLinkedinIn />
                 </a>
               </div>
