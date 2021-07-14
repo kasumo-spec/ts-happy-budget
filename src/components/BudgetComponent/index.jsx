@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { ChartDiv, ButtonsDiv, InfosDiv } from "./styes";
+import { ChartDiv, ButtonsDiv, InfosDiv, SpanCustom } from "./styes";
 import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
 import ChartBudget from "../BudgetChartComponent";
@@ -172,13 +172,12 @@ const BudgetComponent = () => {
           </>
         ) : month === "7" ? (
           <InfosDiv>
-            Não há orçamentos para este mês! Crie agora clicando no botão BOTÃO
-            LINDAMENTE ESTILIZADO!
+            <SpanCustom>Não há orçamentos para este mês! Crie agora clicando no botão abaixo.</SpanCustom>
             <NewBudgetModal />
           </InfosDiv>
         ) : (
           <InfosDiv>
-            Não é permitido criação de orçamento fora do mês corrente!
+            <SpanCustom>Não é permitido criação de orçamento fora do mês corrente!</SpanCustom>
           </InfosDiv>
         )}
       </ChartDiv>
