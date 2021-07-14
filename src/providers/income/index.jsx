@@ -72,17 +72,17 @@ export const IncomeProvider = ({ children }) => {
   ]);
 
   const createIncome = (data) => {
+    console.log(incomeCreateSuccess)
     api
       .post("income", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => {
-        if (res.status === 201) {
-          setIncomeCreateSuccess(true);
-          newIncomeSuccess();
-        }
+      .then((_) => {
+        if(incomeCreateSuccess === true) {setIncomeCreateSuccess(false);}
+        else {setIncomeCreateSuccess(true)}
+        newIncomeSuccess();
       })
       .catch((_) => {
         setIncomeCreateSuccess(false);
@@ -111,7 +111,8 @@ export const IncomeProvider = ({ children }) => {
         },
       })
       .then((_) => {
-        setIncomeDeleteSuccess(true);
+        if(incomeDeleteSuccess === true) {setIncomeDeleteSuccess(false);}
+        else {setIncomeDeleteSuccess(true)}
         deleteIncomeSuccess();
       })
       .catch((_) => {

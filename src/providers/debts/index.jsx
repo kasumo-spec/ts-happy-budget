@@ -72,20 +72,28 @@ export const DebitProvider = ({ children }) => {
           })
         });
     }
-  }, [debitCreateSuccess, debitEditSuccess, debitDeleteSuccess, token, userId, idBudget]);
+  }, [
+    debitCreateSuccess,
+    debitEditSuccess,
+    debitDeleteSuccess,
+    token,
+    userId,
+    idBudget
+  ]);
 
   const createDebit = (data) => {
+    console.log("Data Abaixo")
+    console.log(data)
     api
       .post("debit", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => {
-        if (res.status === 201) {
-          setDebitCreateSuccess(true);
-          newDebitSuccess();
-        }
+      .then((_) => {
+        if (debitCreateSuccess === false) {setDebitCreateSuccess(true);}
+        else {setDebitCreateSuccess(false)}
+        newDebitSuccess();
       })
       .catch((_) => {
         setDebitCreateSuccess(false);
@@ -114,7 +122,8 @@ export const DebitProvider = ({ children }) => {
         },
       })
       .then((_) => {
-        setDebitDeleteSuccess(true);
+        if (debitDeleteSuccess === false) {setDebitDeleteSuccess(true);}
+        else {setDebitDeleteSuccess(false)}
         deleteDebitSuccess();
       })
       .catch((_) => {

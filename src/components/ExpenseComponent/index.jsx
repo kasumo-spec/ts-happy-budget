@@ -90,6 +90,22 @@ const ExpenseComponent = () => {
   };
 
   useEffect(() => {
+    setMonthlyDebts([]);
+    budgets.forEach((budget) => {
+      if (budget.name === `${month}/${year}`) {
+        let result = [];
+        result = debits.filter((debit) => {
+          return debit.budgetId === budget.id;
+        });
+        return setMonthlyDebts(result);
+      }
+    });
+    if (categorySelected !== "") {
+      const debitsSelected = monthlyDebts.filter(
+        (debit) => debit.category === categorySelected
+      );
+      setFilteredDebits(debitsSelected);
+    }
     if (monthlyDebts.length > 0) {
       for (let i = 0; i < totalPerCategories.length; i++) {
         const partial = totalPerCategories[i];
@@ -105,21 +121,7 @@ const ExpenseComponent = () => {
       setTotalPerCategories([...totalPerCategories]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [monthlyDebts]);
-
-  useEffect(() => {
-    setMonthlyDebts([]);
-    budgets.forEach((budget) => {
-      if (budget.name === `${month}/${year}`) {
-        let result = [];
-        result = debits.filter((debit) => {
-          return debit.budgetId === budget.id;
-        });
-        return setMonthlyDebts(result);
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debits, month]);
+  }, [debits, month, categorySelected]);
 
   const handleCategorySelected = (event) => {
     const value = event.target.alt;
@@ -130,16 +132,6 @@ const ExpenseComponent = () => {
       setCategorySelected(value);
     }
   };
-
-  useEffect(() => {
-    if (categorySelected !== "") {
-      const debitsSelected = monthlyDebts.filter(
-        (debit) => debit.category === categorySelected
-      );
-      setFilteredDebits(debitsSelected);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categorySelected]);
 
   const handleActiveComponent = (element) => {
     if (element === "chart" && active === true) {
