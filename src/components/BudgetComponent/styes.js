@@ -1,3 +1,4 @@
+import { Typography } from "antd";
 import styled from "styled-components";
 
 export const ChartDiv = styled.div `
@@ -5,9 +6,11 @@ export const ChartDiv = styled.div `
     height: 300px !important;
     .web {
       display: none;
+      overflow: auto;
     }
     .mobile {
       display: block;
+      overflow: auto;
     }
   @media screen and (min-width: 600px){
     .web {
@@ -30,3 +33,7 @@ export const InfosDiv = styled(ButtonsDiv) `
     width: 100%;
 `
 
+export const SpanCustom = styled(Typography) ` 
+    margin-bottom: 5px;
+    text-align: center;
+`

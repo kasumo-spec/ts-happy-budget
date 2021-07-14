@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { ChartDiv, ButtonsDiv, InfosDiv } from "./styes";
+import { ChartDiv, ButtonsDiv, InfosDiv, SpanCustom } from "./styes";
 import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
 import ChartBudget from "../BudgetChartComponent";
+import { useIncome } from "../../providers/income";
+import { useDebits } from "../../providers/debts";
 
 const BudgetComponent = () => {
   const months = [
@@ -28,13 +30,13 @@ const BudgetComponent = () => {
     food: "Comida",
     health: "Saúde",
     pet: "Pet",
-    home: "Casa",
+    home: "Moradia",
     hobby: "Hobby",
     transport: "Transporte",
     study: "Estudos",
     others: "Outros",
-    total: "Total"
-  }
+    total: "Total",
+  };
   const chartColors = {
     food: "#F0803C",
     market: "#A1867F",
@@ -45,13 +47,15 @@ const BudgetComponent = () => {
     study: "#00c49a",
     transport: "#495383",
     others: "#057ef0",
-    total: "#3cb1b9"
-  }
+    total: "#3cb1b9",
+  };
   const { budgets } = useBudget();
+  const { totalIncomes } = useIncome();
+  const { totalDebits } = useDebits();
   const [value] = useState();
   const [elementBudget, setElementBudget] = useState();
   const [data, setData] = useState();
-  const [mobileData, setMobileData] = useState()
+  const [mobileData, setMobileData] = useState();
 
   const [month, setMonth] = useState(
     new Date().toLocaleString("en-US", {
@@ -103,16 +107,16 @@ const BudgetComponent = () => {
             name: translateCategory[key],
             color: chartColors[key],
             Orçado: value,
-            Utilizado: 300,
+            Utilizado: totalDebits[key],
             "Recebimento Previsto": result[0].prediction,
-            "Recebimento Realizado": 100
+            "Recebimento Realizado": totalIncomes.total,
           });
         }
-        let sortMobile = dataCreated
-        let max3Mobile = []
-        sortMobile.sort((a,b) => a.Orçado > b.Orçado)
+        let sortMobile = dataCreated;
+        let max3Mobile = [];
+        sortMobile.sort((a, b) => a.Orçado > b.Orçado);
         for (let i = 0; i < 3; i++) {
-          max3Mobile.push(sortMobile[i])
+          max3Mobile.push(sortMobile[i]);
         }
         let total = 0;
         for (let i = 0; i < dataCreated.length; i++) {
@@ -122,18 +126,18 @@ const BudgetComponent = () => {
           name: translateCategory.total,
           color: chartColors.total,
           "Recebimento Previsto": result[0].prediction,
-          "Recebimento Realizado": 100,
+          "Recebimento Realizado": totalIncomes.total,
           Utilizado: total,
         });
         max3Mobile.push({
           name: translateCategory.total,
           color: chartColors.total,
           "Recebimento Previsto": result[0].prediction,
-          "Recebimento Realizado": 100,
+          "Recebimento Realizado": totalIncomes.total,
           Utilizado: total,
         });
         setData(dataCreated);
-        setMobileData(max3Mobile)
+        setMobileData(max3Mobile);
       }
     } else {
       return null;
@@ -162,19 +166,18 @@ const BudgetComponent = () => {
       </ButtonsDiv>
       <ChartDiv>
         {elementBudget ? (
-            <>
-              <ChartBudget className={"web"} data={data} />
-              <ChartBudget className={"mobile"} data={mobileData} />
-            </>
+          <>
+            <ChartBudget className={"web"} data={data} />
+            <ChartBudget className={"mobile"} data={mobileData} />
+          </>
         ) : month === "7" ? (
           <InfosDiv>
-            Não há orçamentos para este mês! Crie agora clicando no botão BOTÃO
-            LINDAMENTE ESTILIZADO!
+            <SpanCustom>Não há orçamentos para este mês! Crie agora clicando no botão abaixo.</SpanCustom>
             <NewBudgetModal />
           </InfosDiv>
         ) : (
           <InfosDiv>
-            Não é permitido criação de orçamento fora do mês corrente!
+            <SpanCustom>Não é permitido criação de orçamento fora do mês corrente!</SpanCustom>
           </InfosDiv>
         )}
       </ChartDiv>

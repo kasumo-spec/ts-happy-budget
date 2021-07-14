@@ -9,21 +9,24 @@ import {
 } from "recharts";
 import { ChartContainer } from "./styles";
 
-const colors = [
-  "#654a3e",
-  "#F0803C",
-  "#495383",
-  "#ff686b",
-  "#00c49a",
-  "#f5d329",
-  "#6c91c2",
-  "#A1867F",
-  "#057ef0",
-];
-
-const RADIAN = Math.PI / 180;
+const translateCategory = {
+  salary: "Salário",
+  investment: "Investimento",
+  gift: "Presente",
+  market: "Mercado",
+  food: "Comida",
+  health: "Saúde",
+  pet: "Pet",
+  home: "Casa",
+  hobby: "Hobby",
+  transport: "Transporte",
+  study: "Estudos",
+  others: "Outros",
+  total: "Total",
+};
 
 const StructurePieChart = (props) => {
+  const RADIAN = Math.PI / 180;
   const {
     cx,
     cy,
@@ -50,7 +53,7 @@ const StructurePieChart = (props) => {
   return (
     <g>
       <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-        {payload.category}
+        {translateCategory[payload.category]}
       </text>
       <Sector
         cx={cx}
@@ -124,8 +127,8 @@ export const PieChartComponent = ({ data }) => {
             {data.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={colors[index % colors.length]}
-                name={_.category}
+                fill={`var(--${_.category})`}
+                name={translateCategory[_.category]}
               />
             ))}
           </Pie>

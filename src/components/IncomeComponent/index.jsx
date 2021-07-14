@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-
 import { GoGraph } from "react-icons/go";
 import { BsLayoutTextWindow } from "react-icons/bs";
-
 import Card from "../CardStatement";
 import CategoryButton from "../CategoryButton";
 import NewIncomeModal from "../NewIncomeModal";
 import { useIncome } from "../../providers/income";
-
 import {
   ButtonSetComponent,
   CategoryFilters,
@@ -35,10 +32,16 @@ const IncomeComponent = () => {
     "Novembro",
     "Dezembro",
   ];
-
   const [active, setActive] = useState(true);
   const [categorySelected, setCategorySelected] = useState("");
   const [filteredIncomes, setFilteredIncomes] = useState([]);
+  const [monthlyIncomes, setMonthlyIncomes] = useState([]);
+  const [totalPerCategories, setTotalPerCategories] = useState([
+    { category: "salary", value: 0 },
+    { category: "gift", value: 0 },
+    { category: "investment", value: 0 },
+    { category: "others", value: 0 },
+  ]);
 
   const { incomes, deleteIncome } = useIncome();
   const { budgets } = useBudget();
@@ -53,8 +56,6 @@ const IncomeComponent = () => {
       year: "numeric",
     })
   );
-
-  const [monthlyIncomes, setMonthlyIncomes] = useState([]);
 
   const handleChange = (_, value) => {
     setCategorySelected("");
@@ -91,16 +92,6 @@ const IncomeComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [budgets, incomes, month]);
 
-  const handleCategorySelected = (event) => {
-    const value = event.target.alt;
-    if (value === categorySelected) {
-      setCategorySelected("");
-      setFilteredIncomes([]);
-    } else {
-      setCategorySelected(value);
-    }
-  };
-
   useEffect(() => {
     if (categorySelected !== "") {
       const incomesSelected = monthlyIncomes.filter(
@@ -110,6 +101,34 @@ const IncomeComponent = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categorySelected]);
+
+  useEffect(() => {
+    if (monthlyIncomes.length > 0 && active === false) {
+      for (let i = 0; i < totalPerCategories.length; i++) {
+        const partial = totalPerCategories[i];
+        partial.value = 0;
+
+        for (let j = 0; j < monthlyIncomes.length; j++) {
+          const partialDebts = monthlyIncomes[j];
+          if (partial.category === partialDebts.category) {
+            partial.value += partialDebts.value;
+          }
+        }
+      }
+      setTotalPerCategories([...totalPerCategories]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [incomes, month, active]);
+
+  const handleCategorySelected = (event) => {
+    const value = event.target.alt;
+    if (value === categorySelected) {
+      setCategorySelected("");
+      setFilteredIncomes([]);
+    } else {
+      setCategorySelected(value);
+    }
+  };
 
   const handleActiveComponent = (element) => {
     if (element === "chart" && active === true) {
@@ -214,7 +233,7 @@ const IncomeComponent = () => {
                 )
               ) : monthlyIncomes.length === 0 ? (
                 <h3>
-                  Nenhum débito cadastrado, clique no botão com sinal de mais
+                  Nenhuma receita cadastrada, clique no botão com sinal de mais
                   (+) e comece a fazer o controle deste mês
                 </h3>
               ) : (
@@ -231,9 +250,9 @@ const IncomeComponent = () => {
           </div>
         </IncomeContent>
       ) : monthlyIncomes.length === 0 ? (
-        <h3>Nenhum débito cadastrado neste orçamento.</h3>
+        <h3>Nenhuma receita cadastrado neste orçamento.</h3>
       ) : (
-        <PieChartComponent data={incomes} />
+        <PieChartComponent data={totalPerCategories} />
       )}
     </IncomeContainer>
   );

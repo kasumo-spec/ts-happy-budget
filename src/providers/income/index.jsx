@@ -2,16 +2,25 @@ import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
 import { NotificationsContext } from "../notifications";
+import {useBudget} from "../budget";
 
 export const IncomeContext = createContext([]);
 
 export const IncomeProvider = ({ children }) => {
   const { token, userId } = useUser();
+  const { idBudget } = useBudget()
   const [incomeCreateSuccess, setIncomeCreateSuccess] = useState(Boolean);
   const [incomeEditSuccess, setIncomeEditSuccess] = useState(Boolean);
   const [incomeDeleteSuccess, setIncomeDeleteSuccess] = useState(Boolean);
   const [incomes, setIncomes] = useState([]);
-  const reqDay = new Date().toLocaleString("en-US", { day: "numeric" });
+  const [totalIncomes, setTotalIncomes] = useState({})
+  const categoryTest = {
+      salary: 0,
+      gift: 1,
+      investment: 2,
+      others: 3,
+      total: 4
+  }
 
   const {
     newIncomeSuccess,
@@ -30,6 +39,27 @@ export const IncomeProvider = ({ children }) => {
         })
         .then((res) => {
           setIncomes(res.data);
+          let rebuildIncome = [[],[],[],[],[]]
+          res.data.forEach((income) => {
+              if (income.budgetId === idBudget) {
+                rebuildIncome[categoryTest[`${income.category}`]].push({
+                  category: income.category,
+                  value: income.value
+                })
+              }
+          })
+          for (let i = 0; i < 4; i++){
+              rebuildIncome[i] = rebuildIncome[i].reduce((a,b) => a + b.value, 0)
+              rebuildIncome[4].push(rebuildIncome[i])
+          }
+          rebuildIncome[4] = rebuildIncome[4].reduce((a,b) => a + b, 0)
+          setTotalIncomes({
+            salary: rebuildIncome[0],
+            gift: rebuildIncome[1],
+            investment: rebuildIncome[2],
+            others: rebuildIncome[3],
+            total: rebuildIncome[4]
+          })
         });
     }
   }, [
@@ -38,20 +68,21 @@ export const IncomeProvider = ({ children }) => {
     incomeDeleteSuccess,
     token,
     userId,
+    idBudget
   ]);
 
   const createIncome = (data) => {
+    console.log(incomeCreateSuccess)
     api
-      .post("income", { ...data, reqDay }, {
+      .post("income", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => {
-        if (res.status === 201) {
-          setIncomeCreateSuccess(true);
-          newIncomeSuccess();
-        }
+      .then((_) => {
+        if(incomeCreateSuccess === true) {setIncomeCreateSuccess(false);}
+        else {setIncomeCreateSuccess(true)}
+        newIncomeSuccess();
       })
       .catch((_) => {
         setIncomeCreateSuccess(false);
@@ -80,7 +111,8 @@ export const IncomeProvider = ({ children }) => {
         },
       })
       .then((_) => {
-        setIncomeDeleteSuccess(true);
+        if(incomeDeleteSuccess === true) {setIncomeDeleteSuccess(false);}
+        else {setIncomeDeleteSuccess(true)}
         deleteIncomeSuccess();
       })
       .catch((_) => {
@@ -96,6 +128,7 @@ export const IncomeProvider = ({ children }) => {
         editIncome,
         deleteIncome,
         incomes,
+        totalIncomes,
         incomeCreateSuccess,
         incomeEditSuccess,
         incomeDeleteSuccess,
