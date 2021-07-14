@@ -4,6 +4,7 @@ import Lottie from "react-lottie";
 import IncomeComponent from "../../components/IncomeComponent";
 const lottieOptions = {
   loop: true,
+  width: 300,
   autoplay: false,
   rendererSettings: {
     preserveAspectRatio: "xMidYMid slice",

@@ -26,7 +26,7 @@ const lottieOptions = {
 const Login = () => {
   const history = useHistory();
 
-  const { loginUser, token } = useUser();
+  const { loginUser } = useUser();
 
   const schema = yup.object().shape({
     email: yup.string().email("e-mail inválido.").required("Digite um e-mail."),
