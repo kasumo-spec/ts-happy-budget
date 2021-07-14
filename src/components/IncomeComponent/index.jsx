@@ -35,8 +35,17 @@ const IncomeComponent = () => {
   const [active, setActive] = useState(true);
   const [categorySelected, setCategorySelected] = useState("");
   const [filteredIncomes, setFilteredIncomes] = useState([]);
+  const [monthlyIncomes, setMonthlyIncomes] = useState([]);
+  const [totalPerCategories, setTotalPerCategories] = useState([
+    { category: "salary", value: 0 },
+    { category: "gift", value: 0 },
+    { category: "investment", value: 0 },
+    { category: "others", value: 0 },
+  ]);
+
   const { incomes, deleteIncome } = useIncome();
   const { budgets } = useBudget();
+
   const [month, setMonth] = useState(
     new Date().toLocaleString("en-US", {
       month: "numeric",
@@ -47,7 +56,6 @@ const IncomeComponent = () => {
       year: "numeric",
     })
   );
-  const [monthlyIncomes, setMonthlyIncomes] = useState([]);
 
   const handleChange = (_, value) => {
     setCategorySelected("");
@@ -84,16 +92,6 @@ const IncomeComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [budgets, incomes, month]);
 
-  const handleCategorySelected = (event) => {
-    const value = event.target.alt;
-    if (value === categorySelected) {
-      setCategorySelected("");
-      setFilteredIncomes([]);
-    } else {
-      setCategorySelected(value);
-    }
-  };
-
   useEffect(() => {
     if (categorySelected !== "") {
       const incomesSelected = monthlyIncomes.filter(
@@ -103,6 +101,34 @@ const IncomeComponent = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categorySelected]);
+
+  useEffect(() => {
+    if (monthlyIncomes.length > 0 && active === false) {
+      for (let i = 0; i < totalPerCategories.length; i++) {
+        const partial = totalPerCategories[i];
+        partial.value = 0;
+
+        for (let j = 0; j < monthlyIncomes.length; j++) {
+          const partialDebts = monthlyIncomes[j];
+          if (partial.category === partialDebts.category) {
+            partial.value += partialDebts.value;
+          }
+        }
+      }
+      setTotalPerCategories([...totalPerCategories]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [incomes, month, active]);
+
+  const handleCategorySelected = (event) => {
+    const value = event.target.alt;
+    if (value === categorySelected) {
+      setCategorySelected("");
+      setFilteredIncomes([]);
+    } else {
+      setCategorySelected(value);
+    }
+  };
 
   const handleActiveComponent = (element) => {
     if (element === "chart" && active === true) {
@@ -226,7 +252,7 @@ const IncomeComponent = () => {
       ) : monthlyIncomes.length === 0 ? (
         <h3>Nenhuma receita cadastrado neste orçamento.</h3>
       ) : (
-        <PieChartComponent data={incomes} />
+        <PieChartComponent data={totalPerCategories} />
       )}
     </IncomeContainer>
   );
