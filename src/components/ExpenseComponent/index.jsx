@@ -106,7 +106,7 @@ const ExpenseComponent = () => {
       );
       setFilteredDebits(debitsSelected);
     }
-    if (monthlyDebts.length > 0) {
+    if (monthlyDebts.length > 0 && active === false) {
       for (let i = 0; i < totalPerCategories.length; i++) {
         const partial = totalPerCategories[i];
         partial.value = 0;
@@ -121,7 +121,7 @@ const ExpenseComponent = () => {
       setTotalPerCategories([...totalPerCategories]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debits, month, categorySelected]);
+  }, [debits, month, categorySelected, active]);
 
   const handleCategorySelected = (event) => {
     const value = event.target.alt;

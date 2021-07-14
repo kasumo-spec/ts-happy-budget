@@ -179,7 +179,7 @@ const NewExpenseModal = () => {
               />
               <CardCategory color="var(--pet)">
                 <CardWrap>
-                  <CustomText color="var(--pet)">Outros</CustomText>
+                  <CustomText color="var(--pet)">Pets</CustomText>
                   <img src={pet} alt="pet" />
                 </CardWrap>
               </CardCategory>
