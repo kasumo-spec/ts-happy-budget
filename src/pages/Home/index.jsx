@@ -37,7 +37,7 @@ import Lottie from "react-lottie";
 const lottieOptions = {
   loop: true,
 
-  autoplay: false,
+  autoplay: true,
   rendererSettings: {
     preserveAspectRatio: "xMidYMid slice",
   },
@@ -144,14 +144,14 @@ const Home = () => {
               </div>
               <div>
                 <a
-                  href="https://github.com/leomarromazini"
+                  href="https://github.com/kasumo-spec"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <VscGithubAlt />
                 </a>
                 <a
-                  href="https://gitlab.com/leomarromanzini"
+                  href="https://gitlab.com/allef-moraes"
                   target="_blank"
                   rel="noreferrer"
                 >

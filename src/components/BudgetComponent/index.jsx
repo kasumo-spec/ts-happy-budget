@@ -10,6 +10,8 @@ import ChartBudget from "../BudgetChartComponent";
 import { useIncome } from "../../providers/income";
 import { useDebits } from "../../providers/debts";
 
+import notFound from "../../assets/png/notFound.png";
+
 const BudgetComponent = () => {
   const months = [
     "Janeiro",
@@ -172,12 +174,16 @@ const BudgetComponent = () => {
           </>
         ) : month === "7" ? (
           <InfosDiv>
-            <SpanCustom>Não há orçamentos para este mês! Crie agora clicando no botão abaixo.</SpanCustom>
+            <SpanCustom>
+              Não há orçamentos para este mês! Crie agora clicando no botão
+              abaixo.
+            </SpanCustom>
             <NewBudgetModal />
           </InfosDiv>
         ) : (
           <InfosDiv>
-            <SpanCustom>Não é permitido criação de orçamento fora do mês corrente!</SpanCustom>
+            <img alt="not allowed" src={notFound}></img>
+            <SpanCustom>Nenhum registro encontrado</SpanCustom>
           </InfosDiv>
         )}
       </ChartDiv>

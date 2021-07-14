@@ -18,6 +18,8 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { PieChartComponent } from "../Chart/pieChart";
 import { Link } from "react-router-dom";
 
+import noData from "../../assets/png/noDataChart.png";
+
 const IncomeComponent = () => {
   const months = [
     "Janeiro",
@@ -225,11 +227,14 @@ const IncomeComponent = () => {
               <>
                 {categorySelected ? (
                   filteredIncomes.length === 0 ? (
-                    <h3>
-                      Não consta nenhuma receita cadastrado nesta categoria,
-                      clique em outra categoria ou selecione a mesma categoria
-                      para trazer todas as receitas cadastradas
-                    </h3>
+                    <>
+                      <h3>
+                        Não consta nenhuma receita cadastrado nesta categoria,
+                        clique em outra categoria ou selecione a mesma categoria
+                        para trazer todas as receitas cadastradas
+                      </h3>
+                      <img src={noData} alt="noData"></img>
+                    </>
                   ) : (
                     filteredIncomes.map((income, index) => (
                       <Card
@@ -258,11 +263,18 @@ const IncomeComponent = () => {
                 )}
               </>
             ) : (
-              <h3>
-                Antes de registrar as receitas é necessário criar um orçamento
-                para esse período. E para isso clique no "Adicionar Orçamento" e
-                selecione o período desejado"
-              </h3>
+              <>
+                <h3>
+                  Antes de registrar as receitas é necessário criar um orçamento
+                  para esse período. E para isso clique no "Adicionar Orçamento"
+                  e selecione o período desejado"
+                </h3>
+                <img
+                  src={noData}
+                  alt="noData"
+                  style={{ width: 300, margin: "0 auto" }}
+                ></img>
+              </>
             )}
           </div>
         </IncomeContent>
