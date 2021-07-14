@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import api from "../../services";
-import { NotificationsContext } from "../notifications"
+import { NotificationsContext } from "../notifications";
 
 export const UserContext = createContext([]);
 
@@ -49,13 +49,12 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem("@HappyBudget:token", res.data.accessToken);
         setToken(res.data.accessToken);
         setLoginSuccess(true);
-        login()
+        login();
       })
       .catch((_) => {
-        setLoginSuccess(false)
-        loginError()
+        setLoginSuccess(false);
+        loginError();
       });
-
   };
 
   return (
@@ -69,6 +68,8 @@ export const UserProvider = ({ children }) => {
         userName,
         userId,
         setToken,
+        setUserId,
+        setUserName,
       }}
     >
       {children}

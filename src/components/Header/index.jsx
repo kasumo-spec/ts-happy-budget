@@ -4,14 +4,14 @@ import { useHistory, useLocation } from "react-router";
 import Button from "../Button";
 import { Link } from "react-router-dom";
 import { useUser } from "../../providers/users";
-import { NotificationsContext } from "../../providers/notifications"
+import { NotificationsContext } from "../../providers/notifications";
 import { useContext } from "react";
 
 const Header = () => {
   const { pathname } = useLocation();
   const history = useHistory();
-  const { token, setToken } = useUser();
-  const { logoutSuccess } = useContext(NotificationsContext)
+  const { token, setToken, setUserId, setUserName } = useUser();
+  const { logoutSuccess } = useContext(NotificationsContext);
 
   const handleLocation = (location) => {
     if (location === "login") {
@@ -24,7 +24,9 @@ const Header = () => {
   const logOff = () => {
     localStorage.clear();
     setToken("");
-    logoutSuccess()
+    setUserId(0);
+    setUserName("");
+    logoutSuccess();
     history.push("/");
   };
 
