@@ -28,6 +28,9 @@ const Aside = () => {
   const [topIndicator, setTopIndicator] = useState(0);
   const [leftIndicator, setLeftIndicator] = useState(0);
 
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+
   const { totalDebits } = useDebits();
   const { totalIncomes } = useIncome();
 
@@ -63,13 +66,22 @@ const Aside = () => {
     history.push("/");
   };
 
+  useEffect(()=>{
+    if(totalIncomes.total !== undefined) {
+      setIncome(totalIncomes.total);
+    }
+    if(totalDebits.total !== undefined){
+      setExpense(totalDebits.total)
+    }
+  },[totalDebits, totalIncomes ])
+  
   return (
     <AsideContainer>
       <Profile>
         <h2>Bem vindo!!!</h2>
         <h2>{userName}</h2>
         <Budget>
-          <p>Saldo: {(totalIncomes.total - totalDebits.total).toFixed(2)} R$</p>
+          <p>Saldo: {(income - expense).toFixed(2)} R$</p>
         </Budget>
       </Profile>
       <div>

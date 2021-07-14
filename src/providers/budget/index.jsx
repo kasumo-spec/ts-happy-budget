@@ -82,7 +82,8 @@ export const BudgetProvider = ({ children }) => {
         budgetCreateSuccess,
         budgetDeleteSuccess,
         createBudget,
-        deleteBudget
+        deleteBudget,
+        reqMonth
       }}
     >
       {children}
