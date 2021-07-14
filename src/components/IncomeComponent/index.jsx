@@ -207,7 +207,7 @@ const IncomeComponent = () => {
                 )
               ) : monthlyIncomes.length === 0 ? (
                 <h3>
-                  Nenhum débito cadastrado, clique no botão com sinal de mais
+                  Nenhuma receita cadastrada, clique no botão com sinal de mais
                   (+) e comece a fazer o controle deste mês
                 </h3>
               ) : (
@@ -224,7 +224,7 @@ const IncomeComponent = () => {
           </div>
         </IncomeContent>
       ) : monthlyIncomes.length === 0 ? (
-        <h3>Nenhum débito cadastrado neste orçamento.</h3>
+        <h3>Nenhuma receita cadastrado neste orçamento.</h3>
       ) : (
         <PieChartComponent data={incomes} />
       )}
