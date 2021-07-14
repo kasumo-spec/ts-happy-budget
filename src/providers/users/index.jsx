@@ -9,10 +9,9 @@ export const UserProvider = ({ children }) => {
   const [userId, setUserId] = useState(0);
   const [userName, setUserName] = useState("");
   const [token, setToken] = useState("");
-  const [createSuccess, setCreateSucess] = useState(Boolean);
-  const [loginSuccess, setLoginSuccess] = useState(Boolean);
-  const { registerSuccess, login, loginError } =
-    useContext(NotificationsContext);
+  const [createSuccess, setCreateSucess] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const { registerSuccess, login, loginError } = useContext(NotificationsContext)
 
   useEffect(() => {
     let storagedToken = localStorage.getItem("@HappyBudget:token") || "";
