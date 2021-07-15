@@ -45,6 +45,7 @@ export const BudgetProvider = ({ children }) => {
           setIdBudget();
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, budgetCreateSuccess, budgetDeleteSuccess]);
 
   const createBudget = (data, prediction) => {

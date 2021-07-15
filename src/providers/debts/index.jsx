@@ -84,8 +84,10 @@ export const DebitProvider = ({ children }) => {
         .catch(() => {
           setDebits([]);
           setLoading(false);
+          setTotalDebits({});
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     debitCreateSuccess,
     debitEditSuccess,

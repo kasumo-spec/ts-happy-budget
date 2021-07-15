@@ -99,8 +99,9 @@ const BudgetComponent = () => {
       if (budget.name === `${month}/${year}`) {
         result.push(budget);
       }
-      setElementBudget(result[0]);
+      return false;
     });
+    setElementBudget(result[0]);
     if (budgets.length !== 0) {
       if (result[0] === undefined) {
         return null;
@@ -146,6 +147,7 @@ const BudgetComponent = () => {
     } else {
       return null;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [month, budgets]);
 
   return (
