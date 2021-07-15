@@ -71,7 +71,7 @@ export const ContainerSVG = styled.div`
     }
 
     .bottom {
-      right: -185px;
+      right: -197px;
       bottom: 20px;
     }
   }
@@ -134,6 +134,8 @@ export const MainContainer = styled.section`
     max-width: 1600px;
     .mainImg {
       max-width: 800px;
+      position: relative;
+      left: 180px;
     }
   }
 `;
@@ -199,7 +201,7 @@ export const MainText = styled.section`
 
     position: relative;
     bottom: 100px;
-    left: 50px;
+    left: 150px;
     h2 {
       font-size: 52px;
       padding: 10px 30px;
