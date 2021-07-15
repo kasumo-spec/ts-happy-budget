@@ -2,14 +2,14 @@ import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
 import { NotificationsContext } from "../notifications";
-import {useBudget} from "../budget";
+import { useBudget } from "../budget";
 import jwtDecode from "jwt-decode";
 
 export const DebitContext = createContext([]);
 
 export const DebitProvider = ({ children }) => {
   const { token, userId, setToken } = useUser();
-  const { idBudget } = useBudget()
+  const { idBudget } = useBudget();
   const [debitCreateSuccess, setDebitCreateSuccess] = useState(Boolean);
   const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean);
   const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean);
@@ -25,8 +25,8 @@ export const DebitProvider = ({ children }) => {
     transport: 6,
     study: 7,
     others: 8,
-    total: 9
-  }
+    total: 9,
+  };
 
   const {
     newDebitSuccess,
@@ -36,12 +36,12 @@ export const DebitProvider = ({ children }) => {
   } = useContext(NotificationsContext);
 
   useEffect(() => {
-    if (token !== "") {
+    if (token !== "" && userId !== 0) {
       let decoderId = jwtDecode(token);
-      let dateNow = new Date()
-      if (decoderId.exp < Math.floor(dateNow.getTime()/1000)){
-        localStorage.clear()
-        return setToken("")
+      let dateNow = new Date();
+      if (decoderId.exp < Math.floor(dateNow.getTime() / 1000)) {
+        localStorage.clear();
+        return setToken("");
       }
       api
         .get(`debit/?userId=${userId}`, {
@@ -51,20 +51,20 @@ export const DebitProvider = ({ children }) => {
         })
         .then((res) => {
           setDebits(res.data);
-          let rebuildDebit = [[],[],[],[],[],[],[],[],[],[]]
+          let rebuildDebit = [[], [], [], [], [], [], [], [], [], []];
           res.data.forEach((debit) => {
             if (debit.budgetId === idBudget) {
               rebuildDebit[categoryTest[`${debit.category}`]].push({
                 category: debit.category,
-                value: debit.value
-              })
+                value: debit.value,
+              });
             }
-          })
-          for (let i = 0; i < 9; i++){
-            rebuildDebit[i] = rebuildDebit[i].reduce((a,b) => a + b.value, 0)
-            rebuildDebit[9].push(rebuildDebit[i])
+          });
+          for (let i = 0; i < 9; i++) {
+            rebuildDebit[i] = rebuildDebit[i].reduce((a, b) => a + b.value, 0);
+            rebuildDebit[9].push(rebuildDebit[i]);
           }
-          rebuildDebit[9] = rebuildDebit[9].reduce((a,b) => a + b, 0)
+          rebuildDebit[9] = rebuildDebit[9].reduce((a, b) => a + b, 0);
           setTotalDebits({
             market: rebuildDebit[0],
             food: rebuildDebit[1],
@@ -75,8 +75,11 @@ export const DebitProvider = ({ children }) => {
             transport: rebuildDebit[6],
             study: rebuildDebit[7],
             others: rebuildDebit[8],
-            total: rebuildDebit[9]
-          })
+            total: rebuildDebit[9],
+          });
+        })
+        .catch((res) => {
+          setDebits([]);
         });
     }
   }, [
@@ -85,7 +88,7 @@ export const DebitProvider = ({ children }) => {
     debitDeleteSuccess,
     token,
     userId,
-    idBudget
+    idBudget,
   ]);
 
   const createDebit = (data) => {
@@ -96,8 +99,11 @@ export const DebitProvider = ({ children }) => {
         },
       })
       .then((_) => {
-        if (debitCreateSuccess === false) {setDebitCreateSuccess(true);}
-        else {setDebitCreateSuccess(false)}
+        if (debitCreateSuccess === false) {
+          setDebitCreateSuccess(true);
+        } else {
+          setDebitCreateSuccess(false);
+        }
         newDebitSuccess();
       })
       .catch((_) => {
@@ -127,8 +133,11 @@ export const DebitProvider = ({ children }) => {
         },
       })
       .then((_) => {
-        if (debitDeleteSuccess === false) {setDebitDeleteSuccess(true);}
-        else {setDebitDeleteSuccess(false)}
+        if (debitDeleteSuccess === false) {
+          setDebitDeleteSuccess(true);
+        } else {
+          setDebitDeleteSuccess(false);
+        }
         deleteDebitSuccess();
       })
       .catch((_) => {
