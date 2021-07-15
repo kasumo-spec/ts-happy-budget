@@ -76,8 +76,10 @@ export const IncomeProvider = ({ children }) => {
         .catch(() => {
           setLoading(false);
           setIncomes([]);
+          setTotalIncomes({});
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     incomeCreateSuccess,
     incomeEditSuccess,

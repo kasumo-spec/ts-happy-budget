@@ -66,15 +66,19 @@ const Aside = () => {
     history.push("/");
   };
 
-  useEffect(()=>{
-    if(totalIncomes.total !== undefined) {
+  useEffect(() => {
+    if (totalIncomes.total !== undefined) {
       setIncome(totalIncomes.total);
+    } else {
+      setIncome(0);
     }
-    if(totalDebits.total !== undefined){
-      setExpense(totalDebits.total)
+    if (totalDebits.total !== undefined) {
+      setExpense(totalDebits.total);
+    } else {
+      setExpense(0);
     }
-  },[totalDebits, totalIncomes ])
-  
+  }, [totalDebits, totalIncomes]);
+
   return (
     <AsideContainer>
       <Profile>

@@ -55,7 +55,6 @@ const Dashboard = () => {
   const redirectToTips = (path) => {
     history.push(path);
   };
-  console.log(loading);
   return (
     <>
       {loading ? (

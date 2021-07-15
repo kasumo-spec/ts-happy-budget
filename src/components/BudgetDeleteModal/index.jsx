@@ -7,7 +7,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import Button from "../Button";
 
 const BudgetDeleteModal = ({ budgetId }) => {
-  const { deleteBudget, budgets } = useBudget();
+  const { deleteBudget } = useBudget();
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState();
