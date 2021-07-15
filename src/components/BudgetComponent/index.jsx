@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { ChartDiv, ButtonsDiv, InfosDiv, SpanCustom } from "./styes";
+import { ChartDiv, ButtonsDiv, InfosDiv, SpanCustom, NoData } from "./styes";
 import BudgetDeleteModal from "../BudgetDeleteModal";
 import NewBudgetModal from "../../components/NewBudgetModal";
 import ChartBudget from "../BudgetChartComponent";
 import { useIncome } from "../../providers/income";
 import { useDebits } from "../../providers/debts";
+
+import notFound from "../../assets/png/notFound.png";
+import startNow from "../../assets/png/start.png";
 
 const BudgetComponent = () => {
   const months = [
@@ -151,7 +154,11 @@ const BudgetComponent = () => {
           value={value}
           onChange={handleChange}
           showLabels
-          style={elementBudget ? { width: "95.5%" } : { width: "100%" }}
+          style={
+            elementBudget
+              ? { width: "95.5%", borderRadius: 5 }
+              : { width: "100%", borderRadius: 5 }
+          }
         >
           <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
           <BottomNavigationAction
@@ -172,13 +179,17 @@ const BudgetComponent = () => {
           </>
         ) : month === "7" ? (
           <InfosDiv>
-            <SpanCustom>Não há orçamentos para este mês! Crie agora clicando no botão abaixo.</SpanCustom>
+            <img src={startNow} alt="start"></img>
+            <SpanCustom className="textNoBudget">
+              Orçamento não encontrado! Começe um clicando no botão abaixo
+            </SpanCustom>
             <NewBudgetModal />
           </InfosDiv>
         ) : (
-          <InfosDiv>
-            <SpanCustom>Não é permitido criação de orçamento fora do mês corrente!</SpanCustom>
-          </InfosDiv>
+          <NoData>
+            <img alt="not allowed" src={notFound}></img>
+            <SpanCustom>Nenhum registro encontrado</SpanCustom>
+          </NoData>
         )}
       </ChartDiv>
     </>

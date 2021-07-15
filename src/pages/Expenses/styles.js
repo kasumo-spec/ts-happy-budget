@@ -119,7 +119,7 @@ export const Page = styled.div`
   bottom: 40px;
   background-color: var(--white);
   border-radius: 5px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.8);
 
   @media screen and (min-width: 720px) {
     width: 55%;
@@ -129,6 +129,10 @@ export const Page = styled.div`
     margin-bottom: 0px;
     max-width: 900px;
     min-height: 350px;
+  }
+
+  @media screen and (min-width: 800px) and (min-height: 830px) {
+    min-height: 500px;
   }
 
   @media screen and (min-width: 1400px) {

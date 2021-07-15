@@ -40,7 +40,7 @@ export const HeaderContainer = styled.header`
     display: flex;
 
     img {
-      width: 300px;
+      width: 250px;
       height: 77px;
       margin-left: 20px;
     }

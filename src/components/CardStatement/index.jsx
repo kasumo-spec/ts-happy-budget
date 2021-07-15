@@ -16,7 +16,6 @@ import others from "../../assets/categorys/otherDebt.png";
 import { FaRegTrashAlt } from "react-icons/fa";
 
 const Card = ({ entry, onClickFunc }) => {
-
   const { id, category, name, value, reqDay } = entry;
 
   const categorys = [
@@ -53,10 +52,9 @@ const Card = ({ entry, onClickFunc }) => {
 
   return (
     <CardContainer category={category}>
-      <img src={image} alt={category} />
+      <img src={image} alt={category} className="test" />
       <p>{name}</p>
       <span>
-        R${" "}
         {value.toLocaleString("pt-br", {
           style: "currency",
           currency: "BRL",

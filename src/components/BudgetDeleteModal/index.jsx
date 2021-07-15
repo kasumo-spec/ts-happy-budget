@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Modal } from "antd";
 import { useBudget } from "../../providers/budget";
-import {ButtonDeleteModal} from "./styles";
-import {FaRegTrashAlt} from "react-icons/fa";
+import { ButtonDeleteModal } from "./styles";
+import { GrTrash } from "react-icons/gr";
 
 const BudgetDeleteModal = ({ budgetId }) => {
   const { deleteBudget, budgets } = useBudget();
@@ -11,9 +11,7 @@ const BudgetDeleteModal = ({ budgetId }) => {
   const [modalText, setModalText] = useState();
 
   const showModal = () => {
-    setModalText(
-      `Tem certeza que quer deletar o Orçamento Atual? ID: ${budgetId}`
-    );
+    setModalText(`Tem certeza que quer deletar o seu Orçamento Atual?`);
     setVisible(true);
   };
 
@@ -40,7 +38,7 @@ const BudgetDeleteModal = ({ budgetId }) => {
   return (
     <>
       <ButtonDeleteModal onClick={showModal}>
-          <FaRegTrashAlt />
+        <GrTrash />
       </ButtonDeleteModal>
       <Modal
         title="Deletar Orçamento"
