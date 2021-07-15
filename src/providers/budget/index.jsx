@@ -42,7 +42,7 @@ export const BudgetProvider = ({ children }) => {
         })
         .catch(() => {
           setBudgets([]);
-          setIdBudget(0);
+          setIdBudget();
         });
     }
   }, [userId, budgetCreateSuccess, budgetDeleteSuccess]);
@@ -61,8 +61,17 @@ export const BudgetProvider = ({ children }) => {
         },
       })
       .then((res) => {
-        if (res.status === 201) {
+        if (budgetCreateSuccess === false) {
           setBudgetCreateSuccess(true);
+        } else {
+          setBudgetCreateSuccess(false);
+        }
+      })
+      .catch((_) => {
+        if (budgetCreateSuccess === false) {
+          setBudgetCreateSuccess(true);
+        } else {
+          setBudgetCreateSuccess(false);
         }
       });
   };
@@ -75,12 +84,18 @@ export const BudgetProvider = ({ children }) => {
         },
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (budgetDeleteSuccess === false) {
           setBudgetDeleteSuccess(true);
+        } else {
+          setBudgetDeleteSuccess(false);
         }
       })
       .catch((_) => {
-        setBudgetDeleteSuccess(false);
+        if (budgetDeleteSuccess === false) {
+          setBudgetDeleteSuccess(true);
+        } else {
+          setBudgetDeleteSuccess(false);
+        }
       });
   };
 
