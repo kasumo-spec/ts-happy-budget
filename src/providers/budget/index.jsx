@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services";
 import { useUser } from "../users";
+import jwtDecode from "jwt-decode";
 
 export const BudgetContext = createContext([]);
 
 export const BudgetProvider = ({ children }) => {
-  const { userId, token } = useUser();
+  const { userId, token, setToken } = useUser();
   const reqMonth = new Date().toLocaleString("en-US", {
     month: "numeric",
     year: "numeric",
@@ -17,6 +18,12 @@ export const BudgetProvider = ({ children }) => {
 
   useEffect(() => {
     if (token !== "") {
+      let decoderId = jwtDecode(token);
+      let dateNow = new Date()
+      if (decoderId.exp < Math.floor(dateNow.getTime()/1000)){
+        localStorage.clear()
+        return setToken("")
+      }
       api
         .get(`budget/?userId=${userId}`, {
           headers: {
