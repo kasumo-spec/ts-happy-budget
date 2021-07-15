@@ -26,6 +26,7 @@ import { Link } from "react-router-dom";
 import noBudget from "../../assets/png/noBudget.png";
 import notFound from "../../assets/png/notFound.png";
 import noExpense from "../../assets/png/noExpense.png";
+import noExpenseGraph from "../../assets/png/noExpenseGraph.png";
 
 const ExpenseComponent = () => {
   const months = [
@@ -323,12 +324,16 @@ const ExpenseComponent = () => {
               <>
                 <img alt="not allowed" src={notFound}></img>
                 <h3>Nenhum registro encontrado</h3>
+                <h3>Reitas e depesas só podem ser criadas no mês atual</h3>
               </>
             )}
           </div>
         </ExpenseContent>
       ) : monthlyDebts.length === 0 ? (
-        <h3>Nenhum débito cadastrado neste orçamento.</h3>
+        <>
+          <img src={noExpenseGraph} alt="no expense found"></img>
+          <h3>Nenhum débito cadastrado neste orçamento.</h3>
+        </>
       ) : (
         <PieChartComponent data={totalPerCategories} />
       )}
