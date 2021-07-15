@@ -11,20 +11,15 @@ export const ExpenseContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 50px;
+  }
+  header .months {
+    display: none;
+  }
 
-    div.buttonContent {
+  @media screen and (min-width: 560px) {
+    header .months {
+      display: block;
     }
-
-    /* > button {
-      height: 30px;
-      width: 30px;
-      font-size: 30px;
-      padding: 0;
-      font-weight: bold;
-      border-radius: 50%;
-      background-color: #eb6f68;
-      border: 1px solide red;
-    } */
   }
 `;
 
@@ -44,18 +39,35 @@ export const ExpenseContent = styled.div`
   height: calc(100% - 50px);
   display: flex;
   flex-direction: column;
+
   div.statement {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     overflow: auto;
     margin-bottom: 20px;
+
     h2 {
       font-size: 20px;
       font-weight: bold;
       padding: 20px 0 10px;
     }
+
+    h3 {
+      font-weight: 500;
+      max-width: 500px;
+      align-self: center;
+    }
+
+    img {
+      height: 70%;
+      width: 70%;
+      align-self: center;
+      max-height: 300px;
+      max-width: 300px;
+    }
   }
+
   @media (min-width: 1100px) {
     flex-direction: row;
     width: 95%;
@@ -77,7 +89,7 @@ export const CategoryFilters = styled.div`
     flex-wrap: wrap;
     justify-content: center;
     button {
-      border-radius: 50%;
+      border-radius: 5px;
       margin: 0 5px;
       padding: 5px;
       img {

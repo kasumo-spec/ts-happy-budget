@@ -16,6 +16,7 @@ import {
   Item,
   RadioButton,
   CardWrap,
+  SecondaryButton,
 } from "./styles";
 
 import market from "../../assets/categorys/market.png";
@@ -33,7 +34,7 @@ import { useUser } from "../../providers/users";
 import { useBudget } from "../../providers/budget";
 import { useDebits } from "../../providers/debts";
 
-const NewExpenseModal = () => {
+const NewExpenseModal = ({ secondary }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [select, setSelect] = useState("");
   const { userId } = useUser();
@@ -81,7 +82,11 @@ const NewExpenseModal = () => {
 
   return (
     <>
-      <Button onClick={showModal}>Adicionar</Button>
+      {secondary ? (
+        <SecondaryButton onClick={showModal} />
+      ) : (
+        <Button onClick={showModal}>Adicionar</Button>
+      )}
 
       <CustomModal
         visible={isModalVisible}

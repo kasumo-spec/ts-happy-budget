@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Modal } from "antd";
-
+import { TiPlus } from "react-icons/ti";
 export const CustomModal = styled(Modal)`
   h3 {
     font-weight: bold;
@@ -252,5 +252,20 @@ export const ButtonWrap = styled.div`
     font-size: 20px;
 
     padding: 4px 30px;
+  }
+`;
+
+export const SecondaryButton = styled(TiPlus)`
+  color: var(--violet);
+  width: 40px;
+  height: 40px;
+  padding: 7px;
+  fill: white;
+  background-color: var(--health);
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.85);
   }
 `;

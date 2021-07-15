@@ -23,6 +23,10 @@ import { useBudget } from "../../providers/budget";
 import { PieChartComponent } from "../Chart/pieChart";
 import { Link } from "react-router-dom";
 
+import noBudget from "../../assets/png/noBudget.png";
+import notFound from "../../assets/png/notFound.png";
+import noExpense from "../../assets/png/noExpense.png";
+
 const ExpenseComponent = () => {
   const months = [
     "Janeiro",
@@ -146,7 +150,7 @@ const ExpenseComponent = () => {
       setActive(true);
     }
   };
-
+  console.log(month);
   return (
     <ExpenseContainer>
       <header>
@@ -164,23 +168,24 @@ const ExpenseComponent = () => {
             <BsLayoutTextWindow />
           </ButtonSetComponent>
         </div>
-
-        <BottomNavigation
-          style={{ height: "50px", background: "transparent" }}
-          onChange={handleChange}
-          showLabels
-        >
-          <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
-          <BottomNavigationAction
-            disabled={true}
-            label={`${months[month - 1]} de ${year}`}
-          />
-          <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
-        </BottomNavigation>
+        <div className="months">
+          <BottomNavigation
+            style={{ height: "50px", background: "transparent" }}
+            onChange={handleChange}
+            showLabels
+          >
+            <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
+            <BottomNavigationAction
+              disabled={true}
+              label={`${months[month - 1]} de ${year}`}
+            />
+            <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
+          </BottomNavigation>
+        </div>
         {hasBudget ? (
-          <NewExpenseModal />
+          <NewExpenseModal secondary />
         ) : (
-          <Link to="/budgets">Adicionar Orçamento</Link>
+          <Link to="/budgets">Criar Orçamento</Link>
         )}
       </header>
 
@@ -273,9 +278,9 @@ const ExpenseComponent = () => {
                 {categorySelected ? (
                   filteredDebits.length === 0 ? (
                     <h3>
-                      Não consta nenhum débito cadastrado nesta categoria,
-                      clique em outra categoria ou selecione novamente esta
-                      categoria para trazer todos os débitos
+                      Nenhum débito cadastrado nesta categoria, clique em outra
+                      categoria ou selecione novamente esta categoria para
+                      trazer todos os débitos
                     </h3>
                   ) : (
                     filteredDebits.map((debit, index) => (
@@ -288,11 +293,13 @@ const ExpenseComponent = () => {
                     ))
                   )
                 ) : monthlyDebts.length === 0 ? (
-                  <h3>
-                    Nenhuma despesa cadastrada para esse período, clique no
-                    botão "Adicionar" acima para e faça o primeiro registro
-                    deste mês.
-                  </h3>
+                  <>
+                    <img src={noExpense} alt="no Expenses"></img>
+                    <h3>
+                      Nenhuma despesa cadastrada, clique no botão "Adicionar"
+                      acima para e faça o primeiro registro deste mês.
+                    </h3>
+                  </>
                 ) : (
                   monthlyDebts.map((debit, index) => (
                     <Card
@@ -304,12 +311,19 @@ const ExpenseComponent = () => {
                   ))
                 )}
               </>
+            ) : month === "7" ? (
+              <>
+                <img src={noBudget} alt="noBudget" />
+                <h3>
+                  Para cadastrar uma despesa é necessário ter criado o orçamento
+                  do mês. Para isso clique no Criar Orçamento
+                </h3>
+              </>
             ) : (
-              <h3>
-                Antes de registrar as receitas é necessário criar um orçamento
-                para esse período. E para isso clique no "Adicionar Orçamento" e
-                selecione o período desejado"
-              </h3>
+              <>
+                <img alt="not allowed" src={notFound}></img>
+                <h3>Nenhum registro encontrado</h3>
+              </>
             )}
           </div>
         </ExpenseContent>

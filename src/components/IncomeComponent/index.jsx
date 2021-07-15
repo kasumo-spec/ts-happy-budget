@@ -18,7 +18,11 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { PieChartComponent } from "../Chart/pieChart";
 import { Link } from "react-router-dom";
 
-import noData from "../../assets/png/noDataChart.png";
+import noData from "../../assets/png/noBudget.png";
+
+import noBudget from "../../assets/png/noBudget.png";
+import notFound from "../../assets/png/notFound.png";
+import noIncome from "../../assets/png/noIncome.png";
 
 const IncomeComponent = () => {
   const months = [
@@ -176,7 +180,7 @@ const IncomeComponent = () => {
           <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
         </BottomNavigation>
         {hasBudget ? (
-          <NewIncomeModal />
+          <NewIncomeModal secondary />
         ) : (
           <Link to="/budgets">Adicionar Orçamento</Link>
         )}
@@ -228,12 +232,12 @@ const IncomeComponent = () => {
                 {categorySelected ? (
                   filteredIncomes.length === 0 ? (
                     <>
-                      <h3>
-                        Não consta nenhuma receita cadastrado nesta categoria,
-                        clique em outra categoria ou selecione a mesma categoria
-                        para trazer todas as receitas cadastradas
-                      </h3>
                       <img src={noData} alt="noData"></img>
+                      <h3>
+                        Nenhuma receita cadastrada nesta categoria, clique em
+                        outra categoria ou selecione a mesma categoria para
+                        trazer todas as receitas cadastradas
+                      </h3>
                     </>
                   ) : (
                     filteredIncomes.map((income, index) => (
@@ -246,11 +250,13 @@ const IncomeComponent = () => {
                     ))
                   )
                 ) : monthlyIncomes.length === 0 ? (
-                  <h3>
-                    Nenhuma receita cadastrada para esse período, clique no
-                    botão "Adicionar" acima e faça o primeiro registro deste
-                    mês.
-                  </h3>
+                  <>
+                    <img src={noIncome} alt="noIncome"></img>
+                    <h3>
+                      Nenhuma receita cadastrada, clique no botão "adicionar"
+                      acima e faça o primeiro registro deste mês.
+                    </h3>
+                  </>
                 ) : (
                   monthlyIncomes.map((income, index) => (
                     <Card
@@ -262,18 +268,18 @@ const IncomeComponent = () => {
                   ))
                 )}
               </>
+            ) : month === "7" ? (
+              <>
+                <img src={noBudget} alt="noBudget" />
+                <h3>
+                  Para cadastrar uma receita é necessário ter criado o orçamento
+                  do mês. Para isso clique no Criar Orçamento
+                </h3>
+              </>
             ) : (
               <>
-                <h3>
-                  Antes de registrar as receitas é necessário criar um orçamento
-                  para esse período. E para isso clique no "Adicionar Orçamento"
-                  e selecione o período desejado"
-                </h3>
-                <img
-                  src={noData}
-                  alt="noData"
-                  style={{ width: 300, margin: "0 auto" }}
-                ></img>
+                <img alt="not allowed" src={notFound}></img>
+                <h3>Nenhum registro encontrado</h3>
               </>
             )}
           </div>

@@ -36,12 +36,28 @@ export const IncomeContent = styled.div`
     align-items: stretch;
     overflow: auto;
     margin-bottom: 20px;
+
     h2 {
       font-size: 20px;
       font-weight: bold;
       padding: 20px 0 10px;
     }
+
+    h3 {
+      font-weight: 500;
+      max-width: 500px;
+      align-self: center;
+    }
+
+    img {
+      height: 70%;
+      width: 70%;
+      align-self: center;
+      max-height: 300px;
+      max-width: 300px;
+    }
   }
+
   @media (min-width: 1100px) {
     flex-direction: row;
     width: 95%;

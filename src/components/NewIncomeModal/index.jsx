@@ -16,6 +16,7 @@ import {
   Item,
   RadioButton,
   CardWrap,
+  SecondaryButton,
 } from "./styles";
 
 import money from "../../assets/categorys/money.png";
@@ -28,7 +29,7 @@ import { useUser } from "../../providers/users";
 import { useBudget } from "../../providers/budget";
 import { useIncome } from "../../providers/income";
 
-const NewIncomeModal = () => {
+const NewIncomeModal = ({ secondary }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [select, setSelect] = useState("");
   const { userId } = useUser();
@@ -76,7 +77,11 @@ const NewIncomeModal = () => {
 
   return (
     <>
-      <Button onClick={showModal}>Adicionar</Button>
+      {secondary ? (
+        <SecondaryButton onClick={showModal} />
+      ) : (
+        <Button onClick={showModal}>Adicionar</Button>
+      )}
 
       <CustomModal
         visible={isModalVisible}
