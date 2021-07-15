@@ -51,31 +51,6 @@ export const Profile = styled.div`
   }
 `;
 
-export const Budget = styled.div`
-  width: 98%;
-  height: 30px;
-  margin: 10px 5px;
-  border-radius: 5px;
-  background-color: var(--green);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  p {
-    font-weight: 700;
-    font-size: 11px;
-  }
-
-  @media screen and (min-width: 400px) {
-    width: 170px;
-    height: 40px;
-
-    p {
-      font-size: 16px;
-    }
-  }
-`;
-
 export const MenuWrapper = styled.nav`
   width: 100%;
   height: 60%;
