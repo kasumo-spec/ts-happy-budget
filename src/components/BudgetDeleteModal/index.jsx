@@ -46,8 +46,10 @@ const BudgetDeleteModal = ({ budgetId }) => {
           <p>{modalText}</p>
         </TextWrap>
         <ButtonWrap>
-          <Button whiteSchema>Cancelar</Button>
-          <Button>Excluir</Button>
+          <Button onClick={handleCancel} whiteSchema>
+            Cancelar
+          </Button>
+          <Button onClick={handleOk}>Excluir</Button>
         </ButtonWrap>
       </Modal>
     </>

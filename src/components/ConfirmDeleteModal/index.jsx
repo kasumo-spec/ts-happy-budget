@@ -51,8 +51,10 @@ const ConfirmDeleteModal = ({ debitId, type }) => {
           )}
         </TextWrap>
         <ButtonWrap>
-          <Button whiteSchema>Cancelar</Button>
-          <Button>Excluir</Button>
+          <Button onClick={handleCancel} whiteSchema>
+            Cancelar
+          </Button>
+          <Button onClick={() => handleOk(debitId)}>Excluir</Button>
         </ButtonWrap>
       </Modal>
     </>
