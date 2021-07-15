@@ -122,8 +122,9 @@ const NewExpenseModal = ({ secondary }) => {
           </InputModal>
           <p>Em qual categoria sua receita se encaixa?</p>
           <CardContainer>
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="market"
@@ -139,8 +140,9 @@ const NewExpenseModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="food"
@@ -156,8 +158,9 @@ const NewExpenseModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="health"
@@ -173,8 +176,9 @@ const NewExpenseModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="pet"
@@ -190,8 +194,9 @@ const NewExpenseModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="home"
@@ -207,8 +212,9 @@ const NewExpenseModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="hobby"
@@ -224,8 +230,9 @@ const NewExpenseModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="transport"
@@ -241,8 +248,9 @@ const NewExpenseModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="study"
@@ -258,8 +266,9 @@ const NewExpenseModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="others"

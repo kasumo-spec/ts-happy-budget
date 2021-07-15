@@ -19,10 +19,10 @@ export const BudgetProvider = ({ children }) => {
   useEffect(() => {
     if (token !== "") {
       let decoderId = jwtDecode(token);
-      let dateNow = new Date()
-      if (decoderId.exp < Math.floor(dateNow.getTime()/1000)){
-        localStorage.clear()
-        return setToken("")
+      let dateNow = new Date();
+      if (decoderId.exp < Math.floor(dateNow.getTime() / 1000)) {
+        localStorage.clear();
+        return setToken("");
       }
       api
         .get(`budget/?userId=${userId}`, {
@@ -39,6 +39,10 @@ export const BudgetProvider = ({ children }) => {
               setIdBudget(budget.id);
             }
           });
+        })
+        .catch(() => {
+          setBudgets([]);
+          setIdBudget(0);
         });
     }
   }, [userId, budgetCreateSuccess, budgetDeleteSuccess]);
@@ -90,7 +94,7 @@ export const BudgetProvider = ({ children }) => {
         budgetDeleteSuccess,
         createBudget,
         deleteBudget,
-        reqMonth
+        reqMonth,
       }}
     >
       {children}
