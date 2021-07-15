@@ -1,9 +1,11 @@
 import React, { useState, useCallback } from "react";
 import { Modal } from "antd";
 import { useDebits } from "../../providers/debts";
-import { ButtonDeleteModal } from "./styles";
-import { GrTrash } from "react-icons/gr";
+import { ButtonDeleteModal, ButtonWrap, TextWrap } from "./styles";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { useIncome } from "../../providers/income";
+
+import Button from "../Button";
 
 const ConfirmDeleteModal = ({ debitId, type }) => {
   const [visible, setVisible] = useState(false);
@@ -32,19 +34,28 @@ const ConfirmDeleteModal = ({ debitId, type }) => {
   return (
     <>
       <ButtonDeleteModal onClick={showModal}>
-        <GrTrash />
+        <FaRegTrashAlt />
       </ButtonDeleteModal>
       <Modal
-        title="Deletar Despesa"
+        title="Excluir registro"
         visible={visible}
         onOk={() => handleOk(debitId)}
         onCancel={handleCancel}
+        footer={null}
       >
-        {type === "debit" ? (
-          <p>Tem certeza que quer deletar esta despesa?</p>
-        ) : (
-          <p>Tem certeza que quer deletar esta receita?</p>
-        )}
+        <TextWrap>
+          {type === "debit" ? (
+            <p>Tem certeza que quer deletar esta despesa?</p>
+          ) : (
+            <p>Tem certeza que quer deletar esta receita?</p>
+          )}
+        </TextWrap>
+        <ButtonWrap>
+          <Button onClick={handleCancel} whiteSchema>
+            Cancelar
+          </Button>
+          <Button onClick={() => handleOk(debitId)}>Excluir</Button>
+        </ButtonWrap>
       </Modal>
     </>
   );

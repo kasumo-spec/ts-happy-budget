@@ -86,12 +86,15 @@ export const GlobalStyles = createGlobalStyle`
 
     ::-webkit-scrollbar-track {
       background-color: #F4F4F4;
+      border-radius: 0px 5px 5px 0px;
   }
   ::-webkit-scrollbar {
       width: 9px;
       background: #F4F4F4;
+      border-radius: 0px 5px 5px 0px;
   }
   ::-webkit-scrollbar-thumb {
       background: #dad7d7;
+      border-radius: 0px 5px 5px 0px;
   }
 `;

@@ -12,3 +12,24 @@ export const ButtonDeleteModal = styled.button`
     }
   }
 `;
+
+export const TextWrap = styled.div`
+  p {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+`;
+
+export const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    padding: 3px 10px;
+  }
+
+  button + button {
+    margin-left: 10px;
+  }
+`;

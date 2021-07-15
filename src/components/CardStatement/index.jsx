@@ -61,7 +61,7 @@ const Card = ({ entry, type }) => {
         })}
       </span>
       <span>{reqDay}</span>
-      <ConfirmDeleteModal type={type} debitId={id} />
+      <ConfirmDeleteModal type={type} debitId={id} category={category} />
     </CardContainer>
   );
 };
