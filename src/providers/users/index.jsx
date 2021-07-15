@@ -18,6 +18,11 @@ export const UserProvider = ({ children }) => {
     if (storagedToken !== "") {
       setToken(storagedToken);
       let decoderId = jwtDecode(storagedToken);
+      let dateNow = new Date()
+      if (decoderId.exp < Math.floor(dateNow.getTime()/1000)){
+        localStorage.clear()
+        return setToken("")
+      }
       let idFromToken = parseInt(decoderId.sub);
       setUserId(idFromToken);
       api
