@@ -3,11 +3,12 @@ import api from "../../services";
 import { useUser } from "../users";
 import { NotificationsContext } from "../notifications";
 import {useBudget} from "../budget";
+import jwtDecode from "jwt-decode";
 
 export const DebitContext = createContext([]);
 
 export const DebitProvider = ({ children }) => {
-  const { token, userId } = useUser();
+  const { token, userId, setToken } = useUser();
   const { idBudget } = useBudget()
   const [debitCreateSuccess, setDebitCreateSuccess] = useState(Boolean);
   const [debitEditSuccess, setDebitEditSuccess] = useState(Boolean);
@@ -36,6 +37,12 @@ export const DebitProvider = ({ children }) => {
 
   useEffect(() => {
     if (token !== "") {
+      let decoderId = jwtDecode(token);
+      let dateNow = new Date()
+      if (decoderId.exp < Math.floor(dateNow.getTime()/1000)){
+        localStorage.clear()
+        return setToken("")
+      }
       api
         .get(`debit/?userId=${userId}`, {
           headers: {
@@ -82,8 +89,6 @@ export const DebitProvider = ({ children }) => {
   ]);
 
   const createDebit = (data) => {
-    console.log("Data Abaixo")
-    console.log(data)
     api
       .post("debit", data, {
         headers: {

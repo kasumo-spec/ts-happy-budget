@@ -3,11 +3,12 @@ import api from "../../services";
 import { useUser } from "../users";
 import { NotificationsContext } from "../notifications";
 import {useBudget} from "../budget";
+import jwtDecode from "jwt-decode";
 
 export const IncomeContext = createContext([]);
 
 export const IncomeProvider = ({ children }) => {
-  const { token, userId } = useUser();
+  const { token, userId, setToken } = useUser();
   const { idBudget } = useBudget()
   const [incomeCreateSuccess, setIncomeCreateSuccess] = useState(Boolean);
   const [incomeEditSuccess, setIncomeEditSuccess] = useState(Boolean);
@@ -31,6 +32,12 @@ export const IncomeProvider = ({ children }) => {
 
   useEffect(() => {
     if (token !== "") {
+      let decoderId = jwtDecode(token);
+      let dateNow = new Date()
+      if (decoderId.exp < Math.floor(dateNow.getTime()/1000)){
+        localStorage.clear()
+        return setToken("")
+      }
       api
         .get(`income/?userId=${userId}`, {
           headers: {
@@ -72,7 +79,6 @@ export const IncomeProvider = ({ children }) => {
   ]);
 
   const createIncome = (data) => {
-    console.log(incomeCreateSuccess)
     api
       .post("income", data, {
         headers: {
