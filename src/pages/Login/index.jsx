@@ -45,8 +45,10 @@ const Login = () => {
 
   const handleForm = (data) => {
     loginUser(data);
-    reset();
-    history.push("/dashboard");
+    setTimeout(() => {
+      reset();
+      history.push("/dashboard");
+    }, 6000)
   };
 
   return (
