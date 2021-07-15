@@ -33,13 +33,13 @@ const TipsComponent = () => {
 
             {ShowButton &&
                 <BoxTips>
-                <TipsItems onClick={() => SelectTip(<TipsOne />)}>< NewsPaperIcon /> O que é educação financeira?</TipsItems>
+                <TipsItems onClick={() => SelectTip(<TipsOne />)} data-testid="tipsOne">< NewsPaperIcon /> O que é educação financeira?</TipsItems>
 
-                <TipsItems onClick={() => SelectTip(<TipsTwo />)}>< NewsPaperIcon /> Reserva de emergência.</TipsItems>
+                <TipsItems onClick={() => SelectTip(<TipsTwo />)} data-testid="tipsTwo">< NewsPaperIcon /> Reserva de emergência.</TipsItems>
                 
-                <TipsItems onClick={() => SelectTip(<TipsTree />)}>< NewsPaperIcon /> Programas de recompensa e seguros </TipsItems>
+                <TipsItems onClick={() => SelectTip(<TipsTree />)} data-testid="tipsTree">< NewsPaperIcon /> Programas de recompensa e seguros </TipsItems>
 
-                <TipsItems onClick={() => SelectTip(<TipsFour />)}>< NewsPaperIcon /> Aproveitar o 13º salário com sabedoria</TipsItems>
+                <TipsItems onClick={() => SelectTip(<TipsFour />)} data-testid="tipsFour">< NewsPaperIcon /> Aproveitar o 13º salário com sabedoria</TipsItems>
                 </BoxTips> 
             }	
 
