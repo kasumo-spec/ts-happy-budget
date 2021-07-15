@@ -15,6 +15,7 @@ export const DebitProvider = ({ children }) => {
   const [debitDeleteSuccess, setDebitDeleteSuccess] = useState(Boolean);
   const [debits, setDebits] = useState([]);
   const [totalDebits, setTotalDebits] = useState({});
+  const [loading, setLoading] = useState(true);
   const categoryTest = {
     market: 0,
     food: 1,
@@ -65,6 +66,7 @@ export const DebitProvider = ({ children }) => {
             rebuildDebit[9].push(rebuildDebit[i]);
           }
           rebuildDebit[9] = rebuildDebit[9].reduce((a, b) => a + b, 0);
+
           setTotalDebits({
             market: rebuildDebit[0],
             food: rebuildDebit[1],
@@ -77,9 +79,11 @@ export const DebitProvider = ({ children }) => {
             others: rebuildDebit[8],
             total: rebuildDebit[9],
           });
+          setLoading(false);
         })
         .catch((res) => {
           setDebits([]);
+          setLoading(false);
         });
     }
   }, [
@@ -157,6 +161,7 @@ export const DebitProvider = ({ children }) => {
         debitEditSuccess,
         debitDeleteSuccess,
         totalDebits,
+        loading,
       }}
     >
       {children}

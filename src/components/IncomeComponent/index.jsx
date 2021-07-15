@@ -17,7 +17,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { PieChartComponent } from "../Chart/pieChart";
 import { Link } from "react-router-dom";
-
+import Loading from "../../components/Loading";
 import noData from "../../assets/png/noBudget.png";
 
 import noBudget from "../../assets/png/noBudget.png";
@@ -53,7 +53,7 @@ const IncomeComponent = () => {
 
   const [hasBudget, setHasBudget] = useState(false);
 
-  const { incomes, deleteIncome } = useIncome();
+  const { incomes, deleteIncome, loading } = useIncome();
   const { budgets } = useBudget();
 
   const [month, setMonth] = useState(
@@ -152,149 +152,158 @@ const IncomeComponent = () => {
   };
 
   return (
-    <IncomeContainer>
-      <header>
-        <div className="buttonContent">
-          <ButtonSetComponent
-            active={!active}
-            onClick={() => handleActiveComponent("chart")}
-          >
-            <GoGraph />
-          </ButtonSetComponent>
-          <ButtonSetComponent
-            active={active}
-            onClick={() => handleActiveComponent("statement")}
-          >
-            <BsLayoutTextWindow />
-          </ButtonSetComponent>
-        </div>
-        <BottomNavigation
-          style={{ height: "50px", background: "transparent" }}
-          onChange={handleChange}
-          showLabels
-        >
-          <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
-          <BottomNavigationAction
-            disabled={true}
-            label={`${months[month - 1]} de ${year}`}
-          />
-          <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
-        </BottomNavigation>
-        {hasBudget ? (
-          <NewIncomeModal secondary />
-        ) : (
-          <Link to="/budgets">Adicionar Orçamento</Link>
-        )}
-      </header>
-      {active ? (
-        <IncomeContent>
-          <CategoryFilters>
-            <h4>Filtrar por categoria</h4>
-            <div>
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="salary"
-                selected={categorySelected === "salary"}
-                value="salary"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="gift"
-                selected={categorySelected === "gift"}
-                value="gift"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="investment"
-                selected={categorySelected === "investment"}
-                value="investment"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="others"
-                selected={categorySelected === "others"}
-                value="others"
-              />
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <IncomeContainer>
+          <header>
+            <div className="buttonContent">
+              <ButtonSetComponent
+                active={!active}
+                onClick={() => handleActiveComponent("chart")}
+              >
+                <GoGraph />
+              </ButtonSetComponent>
+              <ButtonSetComponent
+                active={active}
+                onClick={() => handleActiveComponent("statement")}
+              >
+                <BsLayoutTextWindow />
+              </ButtonSetComponent>
             </div>
-          </CategoryFilters>
-
-          <div className="statement">
-            <h2>Extrato de Receitas</h2>
+            <BottomNavigation
+              style={{ height: "50px", background: "transparent" }}
+              onChange={handleChange}
+              showLabels
+            >
+              <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
+              <BottomNavigationAction
+                disabled={true}
+                label={`${months[month - 1]} de ${year}`}
+              />
+              <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
+            </BottomNavigation>
             {hasBudget ? (
-              <>
-                {categorySelected ? (
-                  filteredIncomes.length === 0 ? (
-                    <>
-                      <img src={noData} alt="noData"></img>
-                      <h3>
-                        Nenhuma receita cadastrada nesta categoria, clique em
-                        outra categoria ou selecione a mesma categoria para
-                        trazer todas as receitas cadastradas
-                      </h3>
-                    </>
-                  ) : (
-                    filteredIncomes.map((income, index) => (
-                      <Card
-                        key={index}
-                        category={income.category}
-                        entry={income}
-                        onClickFunc={deleteIncome}
-                      />
-                    ))
-                  )
-                ) : monthlyIncomes.length === 0 ? (
+              <NewIncomeModal secondary />
+            ) : (
+              <Link to="/budgets">Criar Orçamento</Link>
+            )}
+          </header>
+          {active ? (
+            <IncomeContent>
+              <CategoryFilters>
+                <h4>Filtrar por categoria</h4>
+                <div>
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="salary"
+                    selected={categorySelected === "salary"}
+                    value="salary"
+                  />
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="gift"
+                    selected={categorySelected === "gift"}
+                    value="gift"
+                  />
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="investment"
+                    selected={categorySelected === "investment"}
+                    value="investment"
+                  />
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="others"
+                    selected={categorySelected === "others"}
+                    value="others"
+                  />
+                </div>
+              </CategoryFilters>
+
+              <div className="statement">
+                <h2>Extrato de Receitas</h2>
+                {hasBudget ? (
                   <>
-                    <img src={noIncome} alt="noIncome"></img>
+                    {categorySelected ? (
+                      filteredIncomes.length === 0 ? (
+                        <>
+                          <img src={noData} alt="noData"></img>
+                          <h3>
+                            Nenhuma receita cadastrada nesta categoria, clique
+                            em outra categoria ou selecione a mesma categoria
+                            para trazer todas as receitas cadastradas
+                          </h3>
+                        </>
+                      ) : (
+                        filteredIncomes.map((income, index) => (
+                          <Card
+                            key={index}
+                            category={income.category}
+                            entry={income}
+                            onClickFunc={deleteIncome}
+                          />
+                        ))
+                      )
+                    ) : monthlyIncomes.length === 0 ? (
+                      <>
+                        <img src={noIncome} alt="noIncome"></img>
+                        <h3>
+                          Nenhuma receita cadastrada, clique no botão
+                          "adicionar" acima e faça o primeiro registro deste
+                          mês.
+                        </h3>
+                      </>
+                    ) : (
+                      monthlyIncomes.map((income, index) => (
+                        <Card
+                          key={index}
+                          category={income.category}
+                          entry={income}
+                          onClickFunc={deleteIncome}
+                        />
+                      ))
+                    )}
+                  </>
+                ) : month === "7" ? (
+                  <>
+                    <img src={noBudget} alt="noBudget" />
                     <h3>
-                      Nenhuma receita cadastrada, clique no botão "adicionar"
-                      acima e faça o primeiro registro deste mês.
+                      Para cadastrar uma receita é necessário ter criado o
+                      orçamento do mês. Para isso clique no Criar Orçamento
                     </h3>
                   </>
                 ) : (
-                  monthlyIncomes.map((income, index) => (
-                    <Card
-                      key={index}
-                      category={income.category}
-                      entry={income}
-                      onClickFunc={deleteIncome}
-                    />
-                  ))
+                  <>
+                    <img alt="not allowed" src={notFound}></img>
+                    <h3>Nenhum registro encontrado</h3>
+                    <h3>
+                      Receitas e despesas só podem ser criadas no mês atual
+                    </h3>
+                  </>
                 )}
-              </>
-            ) : month === "7" ? (
-              <>
-                <img src={noBudget} alt="noBudget" />
-                <h3>
-                  Para cadastrar uma receita é necessário ter criado o orçamento
-                  do mês. Para isso clique no Criar Orçamento
-                </h3>
-              </>
-            ) : (
-              <>
-                <img alt="not allowed" src={notFound}></img>
-                <h3>Nenhum registro encontrado</h3>
-                <h3>Receitas e despesas só podem ser criadas no mês atual</h3>
-              </>
-            )}
-          </div>
-        </IncomeContent>
-      ) : monthlyIncomes.length === 0 ? (
-        <>
-          <img src={noExpenseGraph} alt="no Income"></img>
-          <h3>Nenhuma receita cadastrada neste orçamento.</h3>
-        </>
-      ) : (
-        <PieChartComponent data={totalPerCategories} />
+              </div>
+            </IncomeContent>
+          ) : monthlyIncomes.length === 0 ? (
+            <>
+              <img src={noExpenseGraph} alt="no Income"></img>
+              <h3>Nenhuma receita cadastrada neste orçamento.</h3>
+            </>
+          ) : (
+            <PieChartComponent data={totalPerCategories} />
+          )}
+        </IncomeContainer>
       )}
-    </IncomeContainer>
+    </>
   );
 };
 

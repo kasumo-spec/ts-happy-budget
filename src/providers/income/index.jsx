@@ -15,6 +15,7 @@ export const IncomeProvider = ({ children }) => {
   const [incomeDeleteSuccess, setIncomeDeleteSuccess] = useState(Boolean);
   const [incomes, setIncomes] = useState([]);
   const [totalIncomes, setTotalIncomes] = useState({});
+  const [loading, setLoading] = useState(true);
   const categoryTest = {
     salary: 0,
     gift: 1,
@@ -70,8 +71,10 @@ export const IncomeProvider = ({ children }) => {
             others: rebuildIncome[3],
             total: rebuildIncome[4],
           });
+          setLoading(false);
         })
         .catch(() => {
+          setLoading(false);
           setIncomes([]);
         });
     }
@@ -151,6 +154,7 @@ export const IncomeProvider = ({ children }) => {
         incomeCreateSuccess,
         incomeEditSuccess,
         incomeDeleteSuccess,
+        loading,
       }}
     >
       {children}
