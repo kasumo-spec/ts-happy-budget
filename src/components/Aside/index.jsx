@@ -9,7 +9,6 @@ import { NavLink, useHistory, useLocation } from "react-router-dom";
 
 import {
   AsideContainer,
-  Budget,
   ButtonLogoffWrapper,
   MenuWrapper,
   Profile,
@@ -20,6 +19,7 @@ import { useUser } from "../../providers/users";
 import Button from "../Button";
 import { useDebits } from "../../providers/debts";
 import { useIncome } from "../../providers/income";
+import Balance from "../Balance";
 
 const Aside = () => {
   const history = useHistory();
@@ -80,9 +80,7 @@ const Aside = () => {
       <Profile>
         <h2>Bem vindo!!!</h2>
         <h2>{userName}</h2>
-        <Budget>
-          <p>Saldo: {(income - expense).toFixed(2)} R$</p>
-        </Budget>
+        <Balance income={income} expense={expense} />
       </Profile>
       <div>
         <ButtonLogoffWrapper>
