@@ -117,8 +117,9 @@ const NewIncomeModal = ({ secondary }) => {
           </InputModal>
           <p>Em qual categoria sua receita se encaixa?</p>
           <CardContainer>
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="salary"
@@ -134,8 +135,9 @@ const NewIncomeModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="gift"
@@ -151,8 +153,9 @@ const NewIncomeModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="investment"
@@ -170,8 +173,9 @@ const NewIncomeModal = ({ secondary }) => {
               </CardCategory>
             </Item>
 
-            <Item onChange={(event) => handleSelectChange(event)}>
+            <Item>
               <RadioButton
+                onChange={(event) => handleSelectChange(event)}
                 type="radio"
                 name="radio"
                 value="others"

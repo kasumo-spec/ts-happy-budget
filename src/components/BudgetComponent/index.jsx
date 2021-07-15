@@ -94,6 +94,7 @@ const BudgetComponent = () => {
 
   useEffect(() => {
     let result = [];
+    setElementBudget();
     budgets.find((budget) => {
       if (budget.name === `${month}/${year}`) {
         result.push(budget);

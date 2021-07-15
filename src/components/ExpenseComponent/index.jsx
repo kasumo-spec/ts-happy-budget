@@ -27,7 +27,7 @@ import noBudget from "../../assets/png/noBudget.png";
 import notFound from "../../assets/png/notFound.png";
 import noExpense from "../../assets/png/noExpense.png";
 import noExpenseGraph from "../../assets/png/noExpenseGraph.png";
-
+import Loading from "../../components/Loading";
 const ExpenseComponent = () => {
   const months = [
     "Janeiro",
@@ -62,7 +62,7 @@ const ExpenseComponent = () => {
 
   const [hasBudget, setHasBudget] = useState(false);
 
-  const { debits } = useDebits();
+  const { debits, loading } = useDebits();
   const { budgets } = useBudget();
 
   const [month, setMonth] = useState(
@@ -153,191 +153,198 @@ const ExpenseComponent = () => {
   };
 
   return (
-    <ExpenseContainer>
-      <header>
-        <div className="buttonContent">
-          <ButtonSetComponent
-            active={!active}
-            onClick={() => handleActiveComponent("chart")}
-          >
-            <GoGraph />
-          </ButtonSetComponent>
-          <ButtonSetComponent
-            active={active}
-            onClick={() => handleActiveComponent("statement")}
-          >
-            <BsLayoutTextWindow />
-          </ButtonSetComponent>
-        </div>
-        <div className="months">
-          <BottomNavigation
-            style={{ height: "50px", background: "transparent" }}
-            onChange={handleChange}
-            showLabels
-          >
-            <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
-            <BottomNavigationAction
-              disabled={true}
-              label={`${months[month - 1]} de ${year}`}
-            />
-            <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
-          </BottomNavigation>
-        </div>
-        {hasBudget ? (
-          <NewExpenseModal secondary />
-        ) : (
-          <Link to="/budgets">Criar Orçamento</Link>
-        )}
-      </header>
-
-      {active ? (
-        <ExpenseContent>
-          <CategoryFilters>
-            <h4>Filtrar por categoria</h4>
-            <div>
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="market"
-                selected={categorySelected === "market"}
-                value="market"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="study"
-                selected={categorySelected === "study"}
-                value="study"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="transport"
-                selected={categorySelected === "transport"}
-                value="transport"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="pet"
-                selected={categorySelected === "pet"}
-                value="pet"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="health"
-                selected={categorySelected === "health"}
-                value="health"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="food"
-                selected={categorySelected === "food"}
-                value="food"
-              />
-
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="hobby"
-                selected={categorySelected === "hobby"}
-                value="hobby"
-              />
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="home"
-                selected={categorySelected === "home"}
-                value="home"
-              />
-
-              <CategoryButton
-                onClickFunc={(e) => {
-                  handleCategorySelected(e);
-                }}
-                category="others"
-                selected={categorySelected === "others"}
-                value="others"
-              />
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <ExpenseContainer>
+          <header>
+            <div className="buttonContent">
+              <ButtonSetComponent
+                active={!active}
+                onClick={() => handleActiveComponent("chart")}
+              >
+                <GoGraph />
+              </ButtonSetComponent>
+              <ButtonSetComponent
+                active={active}
+                onClick={() => handleActiveComponent("statement")}
+              >
+                <BsLayoutTextWindow />
+              </ButtonSetComponent>
             </div>
-          </CategoryFilters>
-
-          <div className="statement">
-            <h2>Extrato de despesas</h2>
+            <div className="months">
+              <BottomNavigation
+                style={{ height: "50px", background: "transparent" }}
+                onChange={handleChange}
+                showLabels
+              >
+                <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
+                <BottomNavigationAction
+                  disabled={true}
+                  label={`${months[month - 1]} de ${year}`}
+                />
+                <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
+              </BottomNavigation>
+            </div>
             {hasBudget ? (
-              <>
-                {categorySelected ? (
-                  filteredDebits.length === 0 ? (
-                    <h3>
-                      Nenhum débito cadastrado nesta categoria, clique em outra
-                      categoria ou selecione novamente esta categoria para
-                      trazer todos os débitos
-                    </h3>
-                  ) : (
-                    filteredDebits.map((debit, index) => (
-                      <Card
-                        key={index}
-                        category={debit.category}
-                        entry={debit}
-                        type="debit"
-                      />
-                    ))
-                  )
-                ) : monthlyDebts.length === 0 ? (
+              <NewExpenseModal secondary />
+            ) : (
+              <Link to="/budgets">Criar Orçamento</Link>
+            )}
+          </header>
+
+          {active ? (
+            <ExpenseContent>
+              <CategoryFilters>
+                <h4>Filtrar por categoria</h4>
+                <div>
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="market"
+                    selected={categorySelected === "market"}
+                    value="market"
+                  />
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="study"
+                    selected={categorySelected === "study"}
+                    value="study"
+                  />
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="transport"
+                    selected={categorySelected === "transport"}
+                    value="transport"
+                  />
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="pet"
+                    selected={categorySelected === "pet"}
+                    value="pet"
+                  />
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="health"
+                    selected={categorySelected === "health"}
+                    value="health"
+                  />
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="food"
+                    selected={categorySelected === "food"}
+                    value="food"
+                  />
+
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="hobby"
+                    selected={categorySelected === "hobby"}
+                    value="hobby"
+                  />
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="home"
+                    selected={categorySelected === "home"}
+                    value="home"
+                  />
+
+                  <CategoryButton
+                    onClickFunc={(e) => {
+                      handleCategorySelected(e);
+                    }}
+                    category="others"
+                    selected={categorySelected === "others"}
+                    value="others"
+                  />
+                </div>
+              </CategoryFilters>
+
+              <div className="statement">
+                <h2>Extrato de despesas</h2>
+                {hasBudget ? (
                   <>
-                    <img src={noExpense} alt="no Expenses"></img>
+                    {categorySelected ? (
+                      filteredDebits.length === 0 ? (
+                        <h3>
+                          Nenhum débito cadastrado nesta categoria, clique em
+                          outra categoria ou selecione novamente esta categoria
+                          para trazer todos os débitos
+                        </h3>
+                      ) : (
+                        filteredDebits.map((debit, index) => (
+                          <Card
+                            key={index}
+                            category={debit.category}
+                            entry={debit}
+                            type="debit"
+                          />
+                        ))
+                      )
+                    ) : monthlyDebts.length === 0 ? (
+                      <>
+                        <img src={noExpense} alt="no Expenses"></img>
+                        <h3>
+                          Nenhuma despesa cadastrada, clique no botão
+                          "Adicionar" acima para e faça o primeiro registro
+                          deste mês.
+                        </h3>
+                      </>
+                    ) : (
+                      monthlyDebts.map((debit, index) => (
+                        <Card
+                          key={index}
+                          category={debit.category}
+                          entry={debit}
+                          type="debit"
+                        />
+                      ))
+                    )}
+                  </>
+                ) : month === "7" ? (
+                  <>
+                    <img src={noBudget} alt="noBudget" />
                     <h3>
-                      Nenhuma despesa cadastrada, clique no botão "Adicionar"
-                      acima para e faça o primeiro registro deste mês.
+                      Para cadastrar uma despesa é necessário ter criado o
+                      orçamento do mês. Para isso clique no Criar Orçamento
                     </h3>
                   </>
                 ) : (
-                  monthlyDebts.map((debit, index) => (
-                    <Card
-                      key={index}
-                      category={debit.category}
-                      entry={debit}
-                      type="debit"
-                    />
-                  ))
+                  <>
+                    <img alt="not allowed" src={notFound}></img>
+                    <h3>Nenhum registro encontrado</h3>
+                    <h3>Reitas e depesas só podem ser criadas no mês atual</h3>
+                  </>
                 )}
-              </>
-            ) : month === "7" ? (
-              <>
-                <img src={noBudget} alt="noBudget" />
-                <h3>
-                  Para cadastrar uma despesa é necessário ter criado o orçamento
-                  do mês. Para isso clique no Criar Orçamento
-                </h3>
-              </>
-            ) : (
-              <>
-                <img alt="not allowed" src={notFound}></img>
-                <h3>Nenhum registro encontrado</h3>
-                <h3>Reitas e depesas só podem ser criadas no mês atual</h3>
-              </>
-            )}
-          </div>
-        </ExpenseContent>
-      ) : monthlyDebts.length === 0 ? (
-        <>
-          <img src={noExpenseGraph} alt="no expense found"></img>
-          <h3>Nenhum débito cadastrado neste orçamento.</h3>
-        </>
-      ) : (
-        <PieChartComponent data={totalPerCategories} />
+              </div>
+            </ExpenseContent>
+          ) : monthlyDebts.length === 0 ? (
+            <>
+              <img src={noExpenseGraph} alt="no expense found"></img>
+              <h3>Nenhum débito cadastrado neste orçamento.</h3>
+            </>
+          ) : (
+            <PieChartComponent data={totalPerCategories} />
+          )}
+        </ExpenseContainer>
       )}
-    </ExpenseContainer>
+    </>
   );
 };
 
