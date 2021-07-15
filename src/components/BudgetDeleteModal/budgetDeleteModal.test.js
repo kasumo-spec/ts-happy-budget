@@ -8,7 +8,7 @@ describe("Working good", () => {
 
         userEvent.click(screen.getByTestId("delete"))
 
-        const message = screen.getByText("Tem certeza que quer deletar o seu Orçamento Atual?")
+        const message = screen.getByText("Tem certeza que quer deletar o seu Orçamento ?")
 
         expect(message).toBeInTheDocument()
     })
