@@ -81,7 +81,7 @@ export const DebitProvider = ({ children }) => {
           });
           setLoading(false);
         })
-        .catch((res) => {
+        .catch(() => {
           setDebits([]);
           setLoading(false);
         });
