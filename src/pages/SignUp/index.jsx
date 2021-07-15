@@ -26,13 +26,17 @@ const SignUp = () => {
     email: yup.string().email("E-mail inválido").required("Insira um e-mail"),
     password: yup
       .string()
-      .min(6, "Mínimo de 6 dígitos")
+      .min(6, "Mínimo de 6 caracteres")
+
       .required("Insira uma senha"),
     passwordChecked: yup
       .string()
       .oneOf([yup.ref("password")], "Senhas diferentes")
       .required("Insira uma senha"),
-    name: yup.string().required("Insira um nome"),
+    name: yup
+      .string()
+      .required("Insira um nome")
+      .max(16, "Máximo de 16 caracteres"),
   });
 
   const {
