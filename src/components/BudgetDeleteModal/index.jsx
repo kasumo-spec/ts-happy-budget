@@ -37,7 +37,7 @@ const BudgetDeleteModal = ({ budgetId }) => {
 
   return (
     <>
-      <ButtonDeleteModal onClick={showModal}>
+      <ButtonDeleteModal onClick={showModal} data-testid="delete">
         <GrTrash />
       </ButtonDeleteModal>
       <Modal
