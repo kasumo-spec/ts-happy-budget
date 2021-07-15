@@ -19,10 +19,10 @@ export const BudgetProvider = ({ children }) => {
   useEffect(() => {
     if (token !== "") {
       let decoderId = jwtDecode(token);
-      let dateNow = new Date()
-      if (decoderId.exp < Math.floor(dateNow.getTime()/1000)){
-        localStorage.clear()
-        return setToken("")
+      let dateNow = new Date();
+      if (decoderId.exp < Math.floor(dateNow.getTime() / 1000)) {
+        localStorage.clear();
+        return setToken("");
       }
       api
         .get(`budget/?userId=${userId}`, {
@@ -39,6 +39,10 @@ export const BudgetProvider = ({ children }) => {
               setIdBudget(budget.id);
             }
           });
+        })
+        .catch(() => {
+          setBudgets([]);
+          setIdBudget();
         });
     }
   }, [userId, budgetCreateSuccess, budgetDeleteSuccess]);
@@ -57,8 +61,17 @@ export const BudgetProvider = ({ children }) => {
         },
       })
       .then((res) => {
-        if (res.status === 201) {
+        if (budgetCreateSuccess === false) {
           setBudgetCreateSuccess(true);
+        } else {
+          setBudgetCreateSuccess(false);
+        }
+      })
+      .catch((_) => {
+        if (budgetCreateSuccess === false) {
+          setBudgetCreateSuccess(true);
+        } else {
+          setBudgetCreateSuccess(false);
         }
       });
   };
@@ -71,12 +84,18 @@ export const BudgetProvider = ({ children }) => {
         },
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (budgetDeleteSuccess === false) {
           setBudgetDeleteSuccess(true);
+        } else {
+          setBudgetDeleteSuccess(false);
         }
       })
       .catch((_) => {
-        setBudgetDeleteSuccess(false);
+        if (budgetDeleteSuccess === false) {
+          setBudgetDeleteSuccess(true);
+        } else {
+          setBudgetDeleteSuccess(false);
+        }
       });
   };
 
@@ -90,7 +109,7 @@ export const BudgetProvider = ({ children }) => {
         budgetDeleteSuccess,
         createBudget,
         deleteBudget,
-        reqMonth
+        reqMonth,
       }}
     >
       {children}

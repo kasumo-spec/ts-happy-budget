@@ -78,7 +78,7 @@ export const DebitProvider = ({ children }) => {
             total: rebuildDebit[9],
           });
         })
-        .catch((res) => {
+        .catch(() => {
           setDebits([]);
         });
     }
