@@ -23,6 +23,7 @@ import noData from "../../assets/png/noBudget.png";
 import noBudget from "../../assets/png/noBudget.png";
 import notFound from "../../assets/png/notFound.png";
 import noIncome from "../../assets/png/noIncome.png";
+import noExpenseGraph from "../../assets/png/noExpenseGraph.png";
 
 const IncomeComponent = () => {
   const months = [
@@ -280,12 +281,16 @@ const IncomeComponent = () => {
               <>
                 <img alt="not allowed" src={notFound}></img>
                 <h3>Nenhum registro encontrado</h3>
+                <h3>Receitas e despesas só podem ser criadas no mês atual</h3>
               </>
             )}
           </div>
         </IncomeContent>
       ) : monthlyIncomes.length === 0 ? (
-        <h3>Nenhuma receita cadastrado neste orçamento.</h3>
+        <>
+          <img src={noExpenseGraph} alt="no Income"></img>
+          <h3>Nenhuma receita cadastrada neste orçamento.</h3>
+        </>
       ) : (
         <PieChartComponent data={totalPerCategories} />
       )}
