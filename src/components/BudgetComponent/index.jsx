@@ -157,8 +157,16 @@ const BudgetComponent = () => {
           showLabels
           style={
             elementBudget
-              ? { width: "95.5%", borderRadius: 5 }
-              : { width: "100%", borderRadius: 5 }
+              ? {
+                  width: "95.5%",
+                  borderRadius: 5,
+                  backgroundColor: "var(--white)",
+                }
+              : {
+                  width: "100%",
+                  borderRadius: 5,
+                  backgroundColor: "var(--white)",
+                }
           }
         >
           <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />

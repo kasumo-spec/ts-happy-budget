@@ -12,6 +12,16 @@ export const IncomeContainer = styled.div`
     align-items: center;
     height: 50px;
   }
+
+  header .months {
+    display: none;
+  }
+
+  @media screen and (min-width: 500px) {
+    header .months {
+      display: block;
+    }
+  }
 `;
 
 export const ButtonSetComponent = styled.button`

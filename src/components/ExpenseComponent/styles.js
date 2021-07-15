@@ -16,7 +16,7 @@ export const ExpenseContainer = styled.div`
     display: none;
   }
 
-  @media screen and (min-width: 560px) {
+  @media screen and (min-width: 500px) {
     header .months {
       display: block;
     }

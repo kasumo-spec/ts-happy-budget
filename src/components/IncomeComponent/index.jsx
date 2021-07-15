@@ -172,18 +172,20 @@ const IncomeComponent = () => {
                 <BsLayoutTextWindow />
               </ButtonSetComponent>
             </div>
-            <BottomNavigation
-              style={{ height: "50px", background: "transparent" }}
-              onChange={handleChange}
-              showLabels
-            >
-              <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
-              <BottomNavigationAction
-                disabled={true}
-                label={`${months[month - 1]} de ${year}`}
-              />
-              <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
-            </BottomNavigation>
+            <div className="months">
+              <BottomNavigation
+                style={{ height: "50px", background: "transparent" }}
+                onChange={handleChange}
+                showLabels
+              >
+                <BottomNavigationAction value={-1} icon={<ChevronLeftIcon />} />
+                <BottomNavigationAction
+                  disabled={true}
+                  label={`${months[month - 1]} de ${year}`}
+                />
+                <BottomNavigationAction value={1} icon={<ChevronRightIcon />} />
+              </BottomNavigation>
+            </div>
             {hasBudget ? (
               <NewIncomeModal secondary />
             ) : (

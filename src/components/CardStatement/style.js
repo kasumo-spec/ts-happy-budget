@@ -70,6 +70,7 @@ export const CardContainer = styled.div`
     span,
     button svg {
       color: ${(props) => `var(--${props.category})`};
+      fill: ${(props) => `var(--${props.category})`};
     }
   }
 

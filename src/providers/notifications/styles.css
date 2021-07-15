@@ -1,7 +1,9 @@
 .success {
-    border: 3px solid rgb(44, 148, 34);
+  border: 3px solid rgb(44, 148, 34);
+  border-radius: 5px;
 }
 
 .error {
-    border: 3px solid rgb(226, 24, 17);
+  border: 3px solid rgb(226, 24, 17);
+  border-radius: 5px;
 }
