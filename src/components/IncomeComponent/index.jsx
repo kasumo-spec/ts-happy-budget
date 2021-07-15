@@ -53,7 +53,7 @@ const IncomeComponent = () => {
 
   const [hasBudget, setHasBudget] = useState(false);
 
-  const { incomes, deleteIncome } = useIncome();
+  const { incomes } = useIncome();
   const { budgets } = useBudget();
 
   const [month, setMonth] = useState(
@@ -112,7 +112,7 @@ const IncomeComponent = () => {
       setFilteredIncomes(incomesSelected);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categorySelected]);
+  }, [categorySelected, monthlyIncomes]);
 
   useEffect(() => {
     if (monthlyIncomes.length > 0 && active === false) {
@@ -130,7 +130,7 @@ const IncomeComponent = () => {
       setTotalPerCategories([...totalPerCategories]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [incomes, month, active]);
+  }, [incomes, month, active, budgets]);
 
   const handleCategorySelected = (event) => {
     const value = event.target.alt;
@@ -246,7 +246,7 @@ const IncomeComponent = () => {
                         key={index}
                         category={income.category}
                         entry={income}
-                        onClickFunc={deleteIncome}
+                        type="income"
                       />
                     ))
                   )
@@ -264,7 +264,7 @@ const IncomeComponent = () => {
                       key={index}
                       category={income.category}
                       entry={income}
-                      onClickFunc={deleteIncome}
+                      type="income"
                     />
                   ))
                 )}

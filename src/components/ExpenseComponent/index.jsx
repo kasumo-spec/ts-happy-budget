@@ -62,7 +62,7 @@ const ExpenseComponent = () => {
 
   const [hasBudget, setHasBudget] = useState(false);
 
-  const { debits, deleteDebit } = useDebits();
+  const { debits } = useDebits();
   const { budgets } = useBudget();
 
   const [month, setMonth] = useState(
@@ -151,7 +151,7 @@ const ExpenseComponent = () => {
       setActive(true);
     }
   };
-  console.log(month);
+
   return (
     <ExpenseContainer>
       <header>
@@ -289,7 +289,7 @@ const ExpenseComponent = () => {
                         key={index}
                         category={debit.category}
                         entry={debit}
-                        onClickFunc={deleteDebit}
+                        type="debit"
                       />
                     ))
                   )
@@ -307,7 +307,7 @@ const ExpenseComponent = () => {
                       key={index}
                       category={debit.category}
                       entry={debit}
-                      onClickFunc={deleteDebit}
+                      type="debit"
                     />
                   ))
                 )}
