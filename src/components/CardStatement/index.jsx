@@ -13,9 +13,9 @@ import study from "../../assets/categorys/study.png";
 import transport from "../../assets/categorys/transport.png";
 import others from "../../assets/categorys/otherDebt.png";
 
-import { FaRegTrashAlt } from "react-icons/fa";
+import ConfirmDeleteModal from "../ConfirmDeleteModal";
 
-const Card = ({ entry, onClickFunc }) => {
+const Card = ({ entry, type }) => {
   const { id, category, name, value, reqDay } = entry;
 
   const categorys = [
@@ -48,7 +48,7 @@ const Card = ({ entry, onClickFunc }) => {
     others,
   ];
 
-  let image = icons[categorys.indexOf(category.toLowerCase())];
+  const image = icons[categorys.indexOf(category.toLowerCase())];
 
   return (
     <CardContainer category={category}>
@@ -61,9 +61,7 @@ const Card = ({ entry, onClickFunc }) => {
         })}
       </span>
       <span>{reqDay}</span>
-      <button onClick={() => onClickFunc(id)}>
-        <FaRegTrashAlt />
-      </button>
+      <ConfirmDeleteModal type={type} debitId={id} />
     </CardContainer>
   );
 };
