@@ -106,7 +106,7 @@ export const Page = styled.div`
   bottom: 40px;
   background-color: var(--white);
   border-radius: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.8);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.77), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
 
   @media screen and (min-width: 720px) {
     width: 55%;

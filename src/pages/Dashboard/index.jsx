@@ -124,7 +124,7 @@ const Dashboard = () => {
                   situação financeira.
                 </p>
                 <Button onClick={() => redirectToTips("/budgets")}>
-                  Ir para Orçamento
+                  Orçamento
                 </Button>
               </div>
             ) : (

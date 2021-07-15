@@ -114,7 +114,7 @@ export const Page = styled.div`
   bottom: 80px;
   background-color: var(--white);
   border-radius: 5px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.77), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
 
   overflow-y: scroll;
   height: 250px;

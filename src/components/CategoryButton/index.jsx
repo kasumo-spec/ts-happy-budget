@@ -54,6 +54,7 @@ const CategoryButton = ({
 
   return (
     <CategoryButtons
+      style={{ borderRadius: 5 }}
       type="button"
       category={category}
       onClick={onClickFunc}

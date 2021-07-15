@@ -256,9 +256,8 @@ export const ButtonWrap = styled.div`
 `;
 
 export const SecondaryButton = styled(TiPlus)`
-  color: var(--violet);
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   padding: 7px;
   fill: white;
   background-color: var(--health);

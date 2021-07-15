@@ -188,7 +188,11 @@ const BudgetComponent = () => {
         ) : (
           <NoData>
             <img alt="not allowed" src={notFound}></img>
+
             <SpanCustom>Nenhum registro encontrado</SpanCustom>
+            <SpanCustom>
+              Orçamentos só podem ser criados no mês atual
+            </SpanCustom>
           </NoData>
         )}
       </ChartDiv>
